@@ -236,20 +236,19 @@ But with higher number of hypotheses ET becomes less computational tractable.
 
 ![](https://i.imgur.com/SrKJ9nJ.png)
 
-- Smoothing (m < 0): The change of a process entity shall be reconstructed
-after a series of measurements has been performed. For each instant
-of interest, several measurements from previous, actual, and following
-instants are used in order to estimate the value of the process variable.While the measurements have to be recorded in real time, the smoothing
-algorithm can be performed offline.
+Smoothing (m < 0): 
+- The change of a process entity shall be reconstructed after a series of measurements has been performed. 
+- For each instant of interest, several measurements from previous, actual, and following instants are used in order to estimate the value of the process variable.
+- While the measurements have to be recorded in real time, the smoothing algorithm can be performed offline.
 
-- Filtering (m = 0): The actual state of a process entity shall be estimated
-by using an actual measurement and information gained from previous
-measurements. Usually, filtering is performed in real time.
+Filtering (m = 0)
+- The actual state of a process entity shall be estimated by using an actual measurement and information gained from previous measurements. 
+- Usually, filtering is performed in real time.
 
-- Prediction (m > 0): The actual state of a process entity shall be estimated
-by using a history of previous measurements. The prediction problem
-requires an adequate system model in order to produce a meaningful es-
-timation. Typically, prediction is performed in real time.
+Prediction (m > 0)
+- The actual state of a process entity shall be estimated by using a history of previous measurements. 
+- The prediction problem requires an adequate system model in order to produce a meaningful estimation. 
+- Typically, prediction is performed in real time.
 
 
 
