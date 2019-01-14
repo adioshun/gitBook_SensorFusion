@@ -16,9 +16,9 @@
   * [TutleBot2017](paper/tutlebot2017.md)
   * [MV3D2017\(70%\)](paper/mv3d2017.md)
   * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
-* [Implementation](implementation.md)
+* [Implementation \(미분류\)](implementation.md)
   * [MV3D](implementation/mv3d.md)
-* [Post](post.md)
+* [Post \(미분류\)](post.md)
   * [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
   * [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
 
