@@ -340,17 +340,17 @@ Data fusion techniques combine data from multiple sensors and related informatio
 - A sensor : a device which provides information of the environment in any form of raw data.
 
 - Feature extraction : the process of extracting meaningful information from the raw data of a sensor
-- e.g. points that represent corners in a camera image.
+	- e.g. points that represent corners in a camera image.
 
 - State estimation : the current state based on the given input,
-- e.g. the position of a tracked vehicle
+	- e.g. the position of a tracked vehicle
 
 ###### [ 분류 ]
 
 - In [HL01] these are referenced as
-- Data Level Fusion,
-- Feature Level Fusion
-- Declaration Level Fusion.
+	- Data Level Fusion,
+	- Feature Level Fusion
+	- Declaration Level Fusion.
 
 #### A. Data Level Fusion
 
