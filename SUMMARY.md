@@ -10,7 +10,13 @@
   * [DeepSlideingShape2016\(70%\)](paper/deepslideingshape-2016.md)
   * [FuseNe2016\(50%\)](paper/fusene2016.md)
   * [HHA-Fusion2016\(30%\)](paper/hha-fusion2016.md)
-  * [Decision-Level-Fusion2017](paper/decision-level-fusion2017.md)
+  * [Decision-Level-Fusion2017\(50%\)](paper/decision-level-fusion2017.md)
+  * [VANET\_3D2017\(50%\)](paper/vanet3d2017.md)
+  * [Lidar\_Vision2014](paper/lidarvision2014.md)
+  * [TutleBot2017](paper/tutlebot2017.md)
+  * [MV3D2017\(70%\)](paper/mv3d2017.md)
+  * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
+* Implementation
 
 ## Early Fusion
 
