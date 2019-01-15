@@ -46,8 +46,6 @@ http://users.umiacs.umd.edu/~daniel/Site_2/Code.html
 
 # 구현물 
 
-https://github.com/mightymercado/PySigmoid
-
 https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_pose/py_pose.html
 
 
