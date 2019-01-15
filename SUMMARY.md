@@ -25,4 +25,5 @@
 ## Early Fusion
 
 * [Early Fusion](./01-Early-fusion/README.md)
+* [Radar](01-Early-fusion/radar.md)
 
