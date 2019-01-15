@@ -22,6 +22,7 @@
   * [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
   * [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
 * [Pose Estimation](pose-estimation.md)
+  * [3D Pose Estimation](pose-estimation/3d-pose-estimation.md)
   * [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
   * [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
 
