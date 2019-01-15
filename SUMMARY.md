@@ -22,8 +22,9 @@
   * [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
   * [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
 
-## Early Fusion
 
-* [Early Fusion](./01-Early-fusion/README.md)
-* [Radar](01-Early-fusion/radar.md)
+## Devices 
+
+* [Radar](radar.md)
+* [Lidar](lidar.md)
 
