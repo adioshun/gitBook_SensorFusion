@@ -51,3 +51,5 @@ https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/
 
 http://www.aforgenet.com/articles/posit/
 
+https://github.com/shervn/TDCV17-3DPoseEstimation
+
