@@ -53,3 +53,10 @@ http://www.aforgenet.com/articles/posit/
 
 https://github.com/shervn/TDCV17-3DPoseEstimation
 
+
+[Real-time object recognition and 6DOF pose estimation based on Linemod algorithm with ROS and PCL pointcloud](http://ros-developer.com/2017/05/12/real-time-object-recognition-and-6dof-pose-estimation-based-on-linemod-algorithm-with-ros-and-pcl-pointcloud/)
+
+[3D pose estimation ROS package using ArUco marker boards](https://github.com/gaya-/ar_sys)
+
+http://wiki.ros.org/ar_sys
+
