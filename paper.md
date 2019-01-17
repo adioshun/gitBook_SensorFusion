@@ -1,0 +1,1 @@
+[Real Time Lidar and Radar High-Level Fusion for Obstacle Detection and Tracking with evaluation on a ground truth](https://arxiv.org/pdf/1807.11264.pdf): 2018
