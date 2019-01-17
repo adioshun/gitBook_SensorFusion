@@ -15,3 +15,7 @@ The aim of the thesis can be summarized with the following questions:
 - How can the algorithm detect if an object has left the field of view of all the vehicles and decide when to terminate the tracking of that object?
 - Which algorithms can be utilized when performing fusion of already filtered data?
 - Which motion models are most suitable for modeling a vehicle for tracking purposes?
+
+
+## 1.2 Related Work
+
