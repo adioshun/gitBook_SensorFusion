@@ -16,6 +16,7 @@
   * [TutleBot2017](paper/tutlebot2017.md)
   * [MV3D2017\(70%\)](paper/mv3d2017.md)
   * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
+  * [Asynchronous\_Data\_fusion](paper/asynchronousdata-fusion.md)
 * [Implementation \(미분류\)](implementation.md)
   * [MV3D](implementation/mv3d.md)
 * [Post \(미분류\)](post.md)
