@@ -1,4 +1,9 @@
+![](https://www.mathsisfun.com/images/coordinates-triangle.gif)
+
 https://stackoverflow.com/questions/20924085/python-conversion-between-coordinates
+
+https://www.mathsisfun.com/polar-cartesian-coordinates.html
+
 
 ```python
 
@@ -9,8 +14,8 @@ def rect(r, theta):
 
     returns tuple; (float, float); (x,y)
     """
-    x = r * math.cos(math.radians(theta))
-    y = r * math.sin(math.radians(theta))
+    x = r * math.cos(theta) #math.cos(math.radians(theta))
+    y = r * math.sin(theta) #math.sin(math.radians(theta))
     return x,y
 
 def polar(x, y):
@@ -26,3 +31,6 @@ def polar(x, y):
     return r, theta
 
 ```
+
+
+[Converting Cartesian Coordinates to Polar](https://brilliant.org/wiki/convert-cartesian-coordinates-to-polar/)
