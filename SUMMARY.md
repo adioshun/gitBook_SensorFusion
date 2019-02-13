@@ -30,6 +30,7 @@
 
 # edx
 
+* Sensor Fusion and Non-linear Filtering for Automotive Systems
 
 ## Devices
 
