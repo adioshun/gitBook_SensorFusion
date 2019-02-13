@@ -30,15 +30,14 @@
 
 ## edx
 
-* edx-1-Introduction and Primer in statistics
+* [edx-1-Introduction and Primer in statistics](edx-1-introduction-and-primer-in-statistics.md)
+  * [1-Course introduction](edx-1-introduction-and-primer-in-statistics/1-course-introduction.md)
 * edx-2-Bayesian statistics 
 * edx-3-State space models and optimal filters 
 * edx-4-The Kalman filter and its properties
 * edx-5-Motion and measurements models
 * edx-6-Non-linear filtering
 * edx-7-Particle filter
-## Devices
-
 * [Radar](radar.md)
 * [Lidar](lidar.md)
 
