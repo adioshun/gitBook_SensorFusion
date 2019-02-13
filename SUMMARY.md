@@ -28,11 +28,15 @@
   * [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
 * [convert\_coord](convertcoord.md)
 
----
-## edx 
+## edx
 
-* edx-week1
-
+* edx-1-Introduction and Primer in statistics
+* edx-2-Bayesian statistics 
+* edx-3-State space models and optimal filters 
+* edx-4-The Kalman filter and its properties
+* edx-5-Motion and measurements models
+* edx-6-Non-linear filtering
+* edx-7-Particle filter
 ## Devices
 
 * [Radar](radar.md)
