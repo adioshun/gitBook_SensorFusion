@@ -28,9 +28,10 @@
   * [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
 * [convert\_coord](convertcoord.md)
 
-# edx
+---
+## edx 
 
-* Sensor Fusion and Non-linear Filtering for Automotive Systems
+* edx-w1-part1-intro
 
 ## Devices
 
