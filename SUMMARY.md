@@ -31,7 +31,7 @@
 ---
 ## edx 
 
-* edx-w1-part1-intro
+* edx-week1
 
 ## Devices
 
