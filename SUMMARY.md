@@ -30,12 +30,13 @@
 
 ## edx
 
-* EDX-Chapter1
-* EDX-Chapter2
-* EDX-Chapter3
-* EDX-Chapter4
-* EDX-Chapter5
-* EDX-Chapter6
+* [EDX-Chapter1](edx/edx-chapter1.md)
+* [EDX-Chapter2](edx/edx-chapter2.md)
+* [EDX-Chapter3](edx/edx-chapter3.md)
+* [EDX-Chapter4](edx/edx-chapter4.md)
+* [EDX-Chapter5](edx/edx-chapter5.md)
+* [EDX-Chapter6](edx/edx-chapter6.md)
+* EDX-Chapter7
 
 ## Devices
 
