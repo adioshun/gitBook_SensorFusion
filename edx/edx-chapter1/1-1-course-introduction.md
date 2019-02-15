@@ -21,3 +21,7 @@ CAMERA
 radar
 - 장점 : good at measuring the distance to an object, Doppler shift(=relative radial velocity)
 - 단점 : not good at measuring the angle to an object.
+
+
+### 1.1.2 Demonstrations
+
