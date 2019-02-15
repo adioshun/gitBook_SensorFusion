@@ -1,0 +1,316 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,550
+So now we have seen some examples of methods
+
+2
+00:00:02,550 --> 00:00:04,930
+that you will learn in this course.
+
+3
+00:00:04,930 --> 00:00:07,860
+Let's go into a bit more detail about what you will actually
+
+4
+00:00:07,860 --> 00:00:10,950
+learn and how the course is structured.
+
+5
+00:00:10,950 --> 00:00:14,040
+So the course is divided into seven sections.
+
+6
+00:00:14,040 --> 00:00:16,650
+In this first section that you're watching right now,
+
+7
+00:00:16,650 --> 00:00:18,660
+we will give you a course introduction
+
+8
+00:00:18,660 --> 00:00:20,940
+and a primer in statistics.
+
+9
+00:00:20,940 --> 00:00:24,120
+We will use mathematical statistics extensively
+
+10
+00:00:24,120 --> 00:00:27,510
+throughout this course, and we, therefore, offer this refresher
+
+11
+00:00:27,510 --> 00:00:31,020
+in some of the more important concepts that you will need.
+
+12
+00:00:31,020 --> 00:00:34,500
+However, we hope that these concepts are not new to you.
+
+13
+00:00:34,500 --> 00:00:37,710
+The second section will focus on the specific statistical
+
+14
+00:00:37,710 --> 00:00:40,890
+framework that all our filters are based on,
+
+15
+00:00:40,890 --> 00:00:42,930
+and that is Bayesian statistics.
+
+16
+00:00:42,930 --> 00:00:44,580
+You will learn the basic concepts
+
+17
+00:00:44,580 --> 00:00:47,010
+of Bayesian statistics, which includes
+
+18
+00:00:47,010 --> 00:00:51,420
+the most important rule of them all, which is Bayes' rule.
+
+19
+00:00:51,420 --> 00:00:53,670
+You will also learn about the common building blocks
+
+20
+00:00:53,670 --> 00:00:55,980
+that makes up a Bayesian model and how
+
+21
+00:00:55,980 --> 00:01:00,000
+to make optimal decisions using this Bayesian framework.
+
+22
+00:01:00,000 --> 00:01:01,840
+When you've completed this section,
+
+23
+00:01:01,840 --> 00:01:04,590
+you will be able to explain the fundamental principles
+
+24
+00:01:04,590 --> 00:01:06,360
+in Bayesian estimation.
+
+25
+00:01:06,360 --> 00:01:10,230
+In the third section, we will introduce state space models
+
+26
+00:01:10,230 --> 00:01:14,400
+and show how we can design optimal filters based on these.
+
+27
+00:01:14,400 --> 00:01:16,800
+And after this section, you will understand
+
+28
+00:01:16,800 --> 00:01:18,840
+the fundamental assumptions that are made
+
+29
+00:01:18,840 --> 00:01:21,330
+and be able to derive expressions
+
+30
+00:01:21,330 --> 00:01:24,930
+for an optimal filter based on these assumptions.
+
+31
+00:01:24,930 --> 00:01:28,050
+Now it's finally time that we learn our first filter,
+
+32
+00:01:28,050 --> 00:01:30,050
+and that is the Kalman filter.
+
+33
+00:01:30,050 --> 00:01:32,700
+Some of you might have come across this filter before
+
+34
+00:01:32,700 --> 00:01:34,350
+in previous courses.
+
+35
+00:01:34,350 --> 00:01:36,030
+In this course, we will, however,
+
+36
+00:01:36,030 --> 00:01:38,400
+start from scratch with a focus that you
+
+37
+00:01:38,400 --> 00:01:41,100
+should be able to describe the essential properties
+
+38
+00:01:41,100 --> 00:01:43,440
+of the Kalman filter and be able to apply it
+
+39
+00:01:43,440 --> 00:01:45,690
+on linear state space models.
+
+40
+00:01:45,690 --> 00:01:48,360
+As we alluded in our example in the beginning,
+
+41
+00:01:48,360 --> 00:01:52,260
+our state space models consist of two basic models, one motion
+
+42
+00:01:52,260 --> 00:01:54,690
+model and one measurement model.
+
+43
+00:01:54,690 --> 00:01:58,260
+In this section, we will present the most commonly used motion
+
+44
+00:01:58,260 --> 00:02:01,330
+and measurement models for automotive applications
+
+45
+00:02:01,330 --> 00:02:03,900
+and show how we can derive time discrete motion
+
+46
+00:02:03,900 --> 00:02:07,600
+models from time continuous dynamic models.
+
+47
+00:02:07,600 --> 00:02:10,740
+After this section, you'll be able to summarize and compare
+
+48
+00:02:10,740 --> 00:02:13,830
+the most typical motion models in automotive systems
+
+49
+00:02:13,830 --> 00:02:17,910
+in order to know when to use them in practical problems.
+
+50
+00:02:17,910 --> 00:02:20,640
+You will also be able to describe and model commonly
+
+51
+00:02:20,640 --> 00:02:23,160
+used sensor measurements.
+
+52
+00:02:23,160 --> 00:02:26,220
+Now in section four, you learned about the Kalman filter,
+
+53
+00:02:26,220 --> 00:02:30,120
+which we can use if our state space models are linear.
+
+54
+00:02:30,120 --> 00:02:32,400
+If we have nonlinear models, however, we
+
+55
+00:02:32,400 --> 00:02:34,060
+need to do something else.
+
+56
+00:02:34,060 --> 00:02:37,020
+So in this section, we will look at an important family
+
+57
+00:02:37,020 --> 00:02:38,970
+of nonlinear filters, and that is
+
+58
+00:02:38,970 --> 00:02:41,140
+the nonlinear Gaussian filters.
+
+59
+00:02:41,140 --> 00:02:43,740
+Here, you will get to implement the key nonlinear
+
+60
+00:02:43,740 --> 00:02:47,490
+Gaussian filters, both the extended Kalman filter, as well
+
+61
+00:02:47,490 --> 00:02:49,650
+as the unscented Kalman filter.
+
+62
+00:02:49,650 --> 00:02:53,700
+You will also analyze how they behave in different scenarios.
+
+63
+00:02:53,700 --> 00:02:56,700
+Lastly, we will present the particle filters,
+
+64
+00:02:56,700 --> 00:02:58,590
+which is also a nonlinear filter but,
+
+65
+00:02:58,590 --> 00:03:00,870
+in contrast to all the previous methods,
+
+66
+00:03:00,870 --> 00:03:03,780
+the particle filter do not try to describe the results using
+
+67
+00:03:03,780 --> 00:03:05,880
+a Gaussian distribution, but rather
+
+68
+00:03:05,880 --> 00:03:08,910
+as a set of weighted particles as we saw in the self
+
+69
+00:03:08,910 --> 00:03:10,380
+localization problem.
+
+70
+00:03:10,380 --> 00:03:12,450
+You will get to implement also these filters
+
+71
+00:03:12,450 --> 00:03:16,390
+and try them out on illustrative examples.
+
+72
+00:03:16,390 --> 00:03:18,310
+After completing all these sections,
+
+73
+00:03:18,310 --> 00:03:22,000
+you will be able to solve a variety of important real world
+
+74
+00:03:22,000 --> 00:03:25,570
+filtering problems by employing and adapting the methods
+
+75
+00:03:25,570 --> 00:03:29,180
+that you have learned to a variety of applications.
+
+76
+00:03:29,180 --> 00:03:32,000
+So once again, welcome to this course.
+
+77
+00:03:32,000 --> 00:03:34,440
+I hope you will enjoy it.
+
+78
+00:03:34,440 --> 00:03:40,147
+
+

@@ -1,0 +1,263 @@
+
+In this course, we're very interested in how
+the distribution of two or more random variables
+depend on each other.
+We do this by mainly considering the so-called conditional
+and joint distributions.
+Additionally, we are also interested in knowing
+the so-called marginal distribution, which
+is the isolated distribution of a single random variable, where
+we have removed the influence of all the other variables.
+All of these are central in their understanding
+of our nonlinear filtering methods.
+In this lecture, we will define these distributions
+and look at how they are related to each other.
+We will also look at an illustrative toy
+example, including all of these distributions.
+We start by looking at conditional distributions,
+which are indispensable components in sensor fusion,
+filtering, and Bayesian estimation, in general.
+And we define them like this--
+let x and z be two random variables, with the joint pdf p
+of x comma z, so p of x and z.
+Now the conditional density function,
+which you read as the probability density of z
+given x is defined through the so-called product rule, which
+states that the joint probability of x and z
+can be written as a product of these two densities--
+so the conditional density of z given
+x times the marginal distribution of x.
+This implies that for possible values
+of x, that is, values of x which has non-zero probability
+density, we can write the conditional density of z
+given x as the ratio between the joint probability of x and z
+divided by the marginal of x.
+So we normalize the joint distribution of x and z
+with a probability of x to get the conditional density of z
+given x.
+Now, typically, we view this here as a function of z,
+and that x is just some known constant value.
+In our case, this is usually the value of some measurement
+that we have already observed.
+To make this a bit more obvious, we
+could rewrite this expression as p of z
+where x is equal to some x prime--
+so x prime is just some constant value.
+Then we get p of x prime and z divided by p of x prime.
+Now, as x prime is just some constant, then p
+of x prime is also some constant.
+And p of x prime comma z now only
+depend really on z, as x is some constant.
+So we can view this as a parameter in this function
+here.
+So, in principle, we take a joint probability density
+of p of x prime and z, and then normalize it
+with this constant of the probability density of x prime.
+Now, as we're typically interested in this
+as a function of z, in many cases, it's beneficial for us
+to view this as proportional to the joint density.
+
+So the conclusion here is that the conditional density of z
+given x is proportional to the joint density where we have
+fixed one of the dimensions-- x, in this case--
+and then view it as a function of z.
+And the interpretation here is that p of z
+given x describes the distribution of z given
+that x is known.
+So we don't have any uncertainty about x anymore-- x
+is equal to x prime, in this case.
+We know this.
+Let's look at the toy example to hopefully make
+things a bit more clear.
+In this toy example, Sara decides every day
+how many pieces of candy she can have for an after-lunch snack.
+Now to make things a bit more interesting,
+she decides how many candies she gets
+at random using the intricate scheme involving both tossing
+a coin and rolling dice.
+So with 40% probability, she tosses a coin
+where if it end up at heads, means that she
+will get 1 piece of candy.
+And if it gets tails, it means that she
+will get 0 pieces of candy.
+However, with 60% probability, she
+throws a dice, and whatever the number on the dice is,
+that will be how many candies she will get that day.
+Now, if we let z denote the number of candies
+that she eats, what is, then, the conditional probability
+that she eats i candies, given that Sara tosses a coin
+or that she throws a dice.
+Well, let's look at the conditional probability here.
+So we condition on that Sara tosses a coin,
+so we have no uncertainty regarding which method
+that she uses to determine how many candies that she gets.
+Now if we know that she tosses a coin,
+we also know that with 50% probability,
+she will get one piece of candy, and with 50% probability,
+she will get zero pieces of candy.
+With this information, we can describe
+this conditional density--
+or conditional probability-- like this.
+We'll have 0.5 probability that she will get 1 or 0 candies.
+
+And then 0% probability that she will get
+any other number of candies.
+
+Similarly, if we know that she throws a dice,
+the only uncertainty that we have left
+is regarding the face value of the dice.
+If she rolls a 1, she gets 1 candy.
+If she rolls a 2, she gets 2 pieces, and so on.
+And as she has a fair dice, she has equal probability
+of getting 1, 2, 3, 4, 5, or 6 pieces of candy.
+And the probability of this is 1 over 6.
+We can just express this conditional probability
+like this.
+So 1 over 6 probability, if i is equal to 1, 2, and so forth, up
+to 6, and 0 probability otherwise.
+
+The next thing that we will look at
+is marginal distributions, which we
+get by using the law of total probability.
+Now there are many important results
+in nonlinear filtering that is obtained
+from the law of total probability.
+So I highly recommend that you get
+yourself familiarized with it.
+Now the law of total probability order sum rule
+is defined like this.
+Let's say that we, again, have two random variables-- so x
+and z-- which has some joint distribution, like this
+in the discrete case, or like this in the continuous case.
+So if x takes values in sum set, Sx, the law
+of total probability states that the marginal distribution of z,
+which we write like this in the discrete case,
+and like this in the continuous case,
+can be found from the joint distribution
+by summing over all the possible values of x
+in the discrete case, or integrating
+over all the possible values of x in the continuous case.
+We can interpret this as we are marginalizing out
+the influence of x by summing or integrating
+over all possible values of x.
+So what is left is the marginal probability distribution
+that now only depends on z, in this case.
+So we're marginalizing out x from these joint distributions.
+Now there's also a common and equivalent way
+of expressing the law of total probability, and that,
+by splitting these joint probabilities using the product
+rule into these two factors, like this.
+So these two are equivalent forms of the same law.
+So let's return to the candy example
+and try to find a marginal distribution of how
+many candies that Sara gets, without caring
+about how she actually got him.
+So to calculate these marginal pmf how many candies Sara gets,
+we used the law of total probability
+to sum over all possible ways that Sara chooses
+how many candies that she gets, either by tossing a coin
+or throwing a dice, and then summing
+over this joint distribution of z and x.
+Note that this is just a joint distribution of z and x.
+
+Additionally, remember that she tosses
+a coin with 40% probability, and that she throws
+a dice with 60% probability.
+Now I would encourage you to post a video here and try
+to calculate this marginal distribution on your own.
+As a hint, I would suggest that you first
+calculate the joint probability of z
+and x by filling out this table here,
+and using this expression here for the joint probability.
+Additional things that I would like
+for you to consider while doing this
+is, how can we go from the joint distribution
+to the marginal distribution by using this table here?
+And can we also find the conditional distributions
+in this table?
+If you pause now and try to answer these questions
+on your own, I will go through the answers with you
+when you get back.
+
+So now I hope that you've been able to solve this.
+Now what I would do is that I would start by calculating
+this joint probability here.
+And we know that we can express this joint probability using
+the product through like this.
+So if we look at this cell here, we
+have the probability that she tosses a coin
+and gets 0 pieces of candy.
+Now the probability of getting no candies, if we condition on
+that she tosses a coin is 0.5.
+And the probability that she tosses a coin
+from the first place is 40%, or 0.4.
+So here we have 0.5 times 0.4, which is 0.2.
+Now the probability that she tosses a coin
+and gets 1 piece of candy is the same, so we also have 0.2 here.
+However, she cannot get more than 1 piece of candy if she
+tosses a coin, so all of these probabilities here are 0.
+Similarly, if we look at the probability of throwing a dice
+and getting a certain number of candies,
+she has equal probability of getting 1, 2, 3, 4, or 5,
+or 6 pieces of candy, which is 1 over 6
+for this conditional probability here, where we condition on
+that she is throwing a dice.
+And the probability of throwing a dice is 0.6.
+So all of these values here are 1 over 6 times
+0.6, which is 0.1.
+And there is 0 probability of throwing the dice
+and getting 0 pieces of candies--
+that should be 0 here.
+So how do we go from the joint probability
+here to the marginal probability of z?
+Well, our aim is to get the probability of just z,
+and by using the law of total probability,
+we sum out the dependency on x by fixing z and summing
+over all possible values of x.
+And if we look at this table here,
+we do this by looking at one of the columns
+here and then summing over the rows.
+So we get the marginal probability of z
+by summing over the rows for each column.
+
+And while we're at it, we might as well
+verify that this holds true for the marginal distribution of p
+of x, which we get for each row by summing over the columns,
+instead, in this table.
+
+Now we see we get 0.4 for tossing
+a coin, which seems reasonable.
+And we get 0.6 for throwing the dice, which
+also seems reasonable.
+This is what we expected from the beginning.
+Now we're also promised that we could
+find these conditional distributions in this table
+here.
+So this conditional distribution here-- the distribution
+of pieces of candy that Sara gets,
+given that we condition on the method that Sara uses.
+And, as I mentioned before, we typically
+view this as a function of z for a fixed value
+on x, which is known.
+Now if we look at this table here, for a fixed value of x,
+let's say that Sara tosses a coin,
+we can see that this row here is proportional
+to the marginal distribution of pieces of candy that Sara gets,
+given that she tosses a coin.
+
+And we can also see that the proportionality constant
+that we need to divide by in order for this
+to be a proper density is 0.4, which is the probability
+that Sara tosses a coin.
+Similarly, this row here is then the conditional probability
+of z given that Sara throws a dice.
+
+And, again, the proportionality of the constant
+we get by summing over all of these
+is 0.6, which is the marginal distribution
+that Sara throws a dice.
+Now we can also get the marginal distribution
+of x given that she gets a certain piece of candy,
+which we then find on the columns here.
+So this, for example, is then proportional to the probability
+of x, given that she gets 5 pieces of candy.

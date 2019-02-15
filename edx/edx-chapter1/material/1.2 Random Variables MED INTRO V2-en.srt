@@ -1,0 +1,468 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,610
+The theory, methods, and algorithms
+
+2
+00:00:02,610 --> 00:00:05,580
+used to do sensor fusion and nonlinear filtering
+
+3
+00:00:05,580 --> 00:00:08,400
+relies heavily on mathematical statistics.
+
+4
+00:00:08,400 --> 00:00:10,740
+In order to follow this course, we therefore
+
+5
+00:00:10,740 --> 00:00:12,840
+recommend that you have a good understanding
+
+6
+00:00:12,840 --> 00:00:15,840
+of some basic statistical concepts.
+
+7
+00:00:15,840 --> 00:00:19,340
+To help you out, we have put together this set of lectures
+
+8
+00:00:19,340 --> 00:00:23,250
+where we'll go through the most important concepts on a fairly
+
+9
+00:00:23,250 --> 00:00:24,420
+high level.
+
+10
+00:00:24,420 --> 00:00:26,790
+Our hope is that what we present here
+
+11
+00:00:26,790 --> 00:00:29,700
+is not new to you, but rather a refresher on things
+
+12
+00:00:29,700 --> 00:00:31,680
+that you already know.
+
+13
+00:00:31,680 --> 00:00:34,590
+However, if you feel that some of these concepts that we
+
+14
+00:00:34,590 --> 00:00:37,350
+present here are unfamiliar to you,
+
+15
+00:00:37,350 --> 00:00:39,840
+we would highly recommend that you take some time
+
+16
+00:00:39,840 --> 00:00:41,490
+and read up on these.
+
+17
+00:00:41,490 --> 00:00:43,530
+In this first lecture, we're going
+
+18
+00:00:43,530 --> 00:00:46,630
+to discuss random variables.
+
+19
+00:00:46,630 --> 00:00:48,670
+When we do nonlinear filtering, we
+
+20
+00:00:48,670 --> 00:00:50,680
+need them to describe the quantity
+
+21
+00:00:50,680 --> 00:00:53,150
+that we're interested in, for example,
+
+22
+00:00:53,150 --> 00:00:55,420
+the position of a vehicle.
+
+23
+00:00:55,420 --> 00:00:59,020
+We also need random variables to describe the observations
+
+24
+00:00:59,020 --> 00:01:00,790
+that we want to filter.
+
+25
+00:01:00,790 --> 00:01:02,990
+To describe our random variables,
+
+26
+00:01:02,990 --> 00:01:05,950
+we'd use the so-called probability mass function
+
+27
+00:01:05,950 --> 00:01:08,530
+for discrete-valued random variables
+
+28
+00:01:08,530 --> 00:01:11,650
+and a so-called probability density function
+
+29
+00:01:11,650 --> 00:01:14,750
+for continuous valued random variables.
+
+30
+00:01:14,750 --> 00:01:17,440
+Let's start by looking at discrete-valued random
+
+31
+00:01:17,440 --> 00:01:20,440
+variables, for which we describe their properties using
+
+32
+00:01:20,440 --> 00:01:24,860
+a Probability Mass Function, or pmf for short.
+
+33
+00:01:24,860 --> 00:01:26,860
+Now, the probability mass function
+
+34
+00:01:26,860 --> 00:01:30,040
+of a discrete-valued random variable is, in this course,
+
+35
+00:01:30,040 --> 00:01:34,360
+denoted as Pr of z, or just P of z.
+
+36
+00:01:34,360 --> 00:01:38,170
+But we will mostly be using this notation in this course.
+
+37
+00:01:38,170 --> 00:01:40,240
+Note also that we are using braces here
+
+38
+00:01:40,240 --> 00:01:43,450
+to indicate that z is a discrete-valued random
+
+39
+00:01:43,450 --> 00:01:44,320
+variable.
+
+40
+00:01:44,320 --> 00:01:46,420
+Now, our probability mass function
+
+41
+00:01:46,420 --> 00:01:48,490
+need to have the following properties in order
+
+42
+00:01:48,490 --> 00:01:51,100
+to be proper probability mass functions.
+
+43
+00:01:51,100 --> 00:01:55,570
+First, the probability that our discrete-valued random variable
+
+44
+00:01:55,570 --> 00:01:58,000
+z is equal to some integral value
+
+45
+00:01:58,000 --> 00:02:00,220
+i, which is written like this, needs
+
+46
+00:02:00,220 --> 00:02:02,710
+to be greater than or equal to 0.
+
+47
+00:02:02,710 --> 00:02:04,480
+Now, one way to view this value here
+
+48
+00:02:04,480 --> 00:02:07,630
+is if we collect many values of z,
+
+49
+00:02:07,630 --> 00:02:10,240
+the fraction of these that are equal to i
+
+50
+00:02:10,240 --> 00:02:12,070
+is given by this number here.
+
+51
+00:02:12,070 --> 00:02:14,740
+And this needs to hold for all values of i.
+
+52
+00:02:14,740 --> 00:02:17,860
+The second property of our probability mass function
+
+53
+00:02:17,860 --> 00:02:20,980
+is that if we sum over all values of z,
+
+54
+00:02:20,980 --> 00:02:22,780
+this sum needs to be 1.
+
+55
+00:02:22,780 --> 00:02:27,580
+That is, the probability that z takes any value needs to be 1.
+
+56
+00:02:27,580 --> 00:02:30,970
+We can also note that as a consequence of these two,
+
+57
+00:02:30,970 --> 00:02:34,750
+we cannot have a probability mass for a value i that is
+
+58
+00:02:34,750 --> 00:02:40,130
+greater than 1, which seems to be reasonable, right?
+
+59
+00:02:40,130 --> 00:02:44,410
+Now if we look at this use in the example of a fair dice,
+
+60
+00:02:44,410 --> 00:02:46,940
+the probability mass function for the face value
+
+61
+00:02:46,940 --> 00:02:49,040
+that I would get if we rolled the dice can
+
+62
+00:02:49,040 --> 00:02:50,880
+be written like this.
+
+63
+00:02:50,880 --> 00:02:54,530
+So the dice has six faces with a value 1
+
+64
+00:02:54,530 --> 00:02:59,850
+through 6, which each is equally probable.
+
+65
+00:02:59,850 --> 00:03:04,210
+So the probability that z is i is equal to 1/6,
+
+66
+00:03:04,210 --> 00:03:10,410
+if i is equal to 1, 2, and so on up to 6, and 0 otherwise.
+
+67
+00:03:10,410 --> 00:03:13,650
+If we visualize this pmf, it will look something
+
+68
+00:03:13,650 --> 00:03:16,320
+like this, where we only have probability
+
+69
+00:03:16,320 --> 00:03:18,240
+mass for discrete values.
+
+70
+00:03:18,240 --> 00:03:28,290
+
+
+71
+00:03:28,290 --> 00:03:31,230
+I would encourage you to verify for yourself
+
+72
+00:03:31,230 --> 00:03:35,430
+that this is a pmf here which has both of these properties
+
+73
+00:03:35,430 --> 00:03:40,680
+here, and that you understand why that is.
+
+74
+00:03:40,680 --> 00:03:42,920
+Now let's look at a corresponding description
+
+75
+00:03:42,920 --> 00:03:45,620
+for continuous-valued random variables, which
+
+76
+00:03:45,620 --> 00:03:49,880
+we call the Probability Density Function, or pdf for short.
+
+77
+00:03:49,880 --> 00:03:52,220
+So the probability density function
+
+78
+00:03:52,220 --> 00:03:54,650
+of a continuous-valued random variable
+
+79
+00:03:54,650 --> 00:03:57,740
+is denoted as lowercase p of z.
+
+80
+00:03:57,740 --> 00:04:01,040
+And again, the probability density of any value of z
+
+81
+00:04:01,040 --> 00:04:04,580
+needs to be greater or equal to 0.
+
+82
+00:04:04,580 --> 00:04:08,600
+And if we integrate p of z over all values of z,
+
+83
+00:04:08,600 --> 00:04:11,560
+this integral needs to be 1.
+
+84
+00:04:11,560 --> 00:04:13,250
+Now again, the interpretation of this
+
+85
+00:04:13,250 --> 00:04:17,029
+is that the probability that z takes some value always
+
+86
+00:04:17,029 --> 00:04:18,079
+needs to be 1.
+
+87
+00:04:18,079 --> 00:04:22,010
+However, it does not follow that p of z has to be lower than 1
+
+88
+00:04:22,010 --> 00:04:25,640
+for all values of z, as in the discrete case.
+
+89
+00:04:25,640 --> 00:04:28,760
+We only require that it should integrate to 1.
+
+90
+00:04:28,760 --> 00:04:31,760
+So the probability density for some value of z
+
+91
+00:04:31,760 --> 00:04:34,830
+could actually be greater than 1.
+
+92
+00:04:34,830 --> 00:04:37,550
+Let's look at an example of a continuous-valued random
+
+93
+00:04:37,550 --> 00:04:43,080
+variable z which is uniformly distributed between 0 and 2 pi.
+
+94
+00:04:43,080 --> 00:04:46,710
+So here z could, for example, be a stochastic angle.
+
+95
+00:04:46,710 --> 00:04:49,220
+The pdf of z can then be written like this,
+
+96
+00:04:49,220 --> 00:04:53,810
+where we have 1 over 2 pi if z is within the interval of 0
+
+97
+00:04:53,810 --> 00:04:57,240
+to 2 pi and 0 otherwise.
+
+98
+00:04:57,240 --> 00:05:01,620
+Now, we get 1 over 2 pi here, as all angles are equally
+
+99
+00:05:01,620 --> 00:05:04,200
+probable in a uniform distribution
+
+100
+00:05:04,200 --> 00:05:07,470
+and the size of the interval is 2 pi.
+
+101
+00:05:07,470 --> 00:05:09,300
+So 1 over 2 pi.
+
+102
+00:05:09,300 --> 00:05:13,190
+If we visualize this density, it will look something like this.
+
+103
+00:05:13,190 --> 00:05:21,010
+
+
+104
+00:05:21,010 --> 00:05:23,010
+If we were to relate the probability mass
+
+105
+00:05:23,010 --> 00:05:26,100
+function to the probability density function,
+
+106
+00:05:26,100 --> 00:05:29,010
+we can consider the discrete-valued random variable
+
+107
+00:05:29,010 --> 00:05:32,560
+describing the event that z is in some interval A.
+
+108
+00:05:32,560 --> 00:05:35,936
+So we have some interval here which we call A.
+
+109
+00:05:35,936 --> 00:05:40,200
+And we want to know if z is within this interval.
+
+110
+00:05:40,200 --> 00:05:43,070
+Now, the probability mass that z is in this interval
+
+111
+00:05:43,070 --> 00:05:44,390
+can be written like this.
+
+112
+00:05:44,390 --> 00:05:58,560
+So z is in A and can be calculated by integrating pdf
+
+113
+00:05:58,560 --> 00:06:06,010
+over the interval A. So this is the integral of the pdf.
+
+114
+00:06:06,010 --> 00:06:10,690
+
+
+115
+00:06:10,690 --> 00:06:15,230
+So in this case, the pmf is the integral of the pdf.
+
+116
+00:06:15,230 --> 00:06:22,594
+
+

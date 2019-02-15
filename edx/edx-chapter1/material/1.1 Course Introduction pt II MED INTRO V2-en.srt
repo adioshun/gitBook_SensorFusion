@@ -1,0 +1,940 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,500
+Now let's look at three applications
+
+2
+00:00:02,500 --> 00:00:04,330
+where we use the type of methods that you
+
+3
+00:00:04,330 --> 00:00:06,460
+will learn in this course and apply them
+
+4
+00:00:06,460 --> 00:00:08,720
+to real sensor observations.
+
+5
+00:00:08,720 --> 00:00:11,320
+This first example concerns tracking vehicles
+
+6
+00:00:11,320 --> 00:00:13,860
+using observations from a mono camera
+
+7
+00:00:13,860 --> 00:00:18,820
+and comes from this paper by Samuel Scheidegger in 2018.
+
+8
+00:00:18,820 --> 00:00:22,540
+The aim is to estimate the 3D position and velocity
+
+9
+00:00:22,540 --> 00:00:25,600
+of vehicles from a sequence of images.
+
+10
+00:00:25,600 --> 00:00:28,810
+Much in the same way as we did in our previous illustration,
+
+11
+00:00:28,810 --> 00:00:31,030
+but with actual camera observations.
+
+12
+00:00:31,030 --> 00:00:32,800
+The observations that are used come
+
+13
+00:00:32,800 --> 00:00:35,020
+from a convolutional neural network
+
+14
+00:00:35,020 --> 00:00:37,030
+which is trained to detect vehicles
+
+15
+00:00:37,030 --> 00:00:41,050
+and to report a 2D bounding box of the vehicles in the image,
+
+16
+00:00:41,050 --> 00:00:43,240
+as illustrated by these colored boxes,
+
+17
+00:00:43,240 --> 00:00:45,970
+as well as the distance to the object.
+
+18
+00:00:45,970 --> 00:00:48,805
+As we discussed previously, using a single camera,
+
+19
+00:00:48,805 --> 00:00:51,880
+we cannot directly measure the distance to the vehicle.
+
+20
+00:00:51,880 --> 00:00:54,910
+The distance reported by the network is therefore, instead,
+
+21
+00:00:54,910 --> 00:00:57,840
+based on learned scale and appearance cues,
+
+22
+00:00:57,840 --> 00:01:00,130
+and can sometimes be a bit noisy.
+
+23
+00:01:00,130 --> 00:01:02,740
+However, by filtering these observations
+
+24
+00:01:02,740 --> 00:01:06,010
+in a so-called unscented Kalman filter, which
+
+25
+00:01:06,010 --> 00:01:07,780
+you will learn about in this course,
+
+26
+00:01:07,780 --> 00:01:10,870
+we can get better and less noisy estimates
+
+27
+00:01:10,870 --> 00:01:12,640
+of where the vehicles are.
+
+28
+00:01:12,640 --> 00:01:15,970
+So what we will see to the left is the original image
+
+29
+00:01:15,970 --> 00:01:18,400
+where the bounding boxes of the detected vehicles
+
+30
+00:01:18,400 --> 00:01:20,110
+are shown in separate colors.
+
+31
+00:01:20,110 --> 00:01:22,840
+To the right is a bird's eye view of the situation,
+
+32
+00:01:22,840 --> 00:01:24,430
+centered at the camera.
+
+33
+00:01:24,430 --> 00:01:28,060
+The detection from the camera is shown as white stars.
+
+34
+00:01:28,060 --> 00:01:32,320
+And the result of our filter is shown as these colored ellipses
+
+35
+00:01:32,320 --> 00:01:36,180
+with the same color as the bounding boxes in the image.
+
+36
+00:01:36,180 --> 00:01:39,430
+And the plus in the middle here indicates our estimated
+
+37
+00:01:39,430 --> 00:01:40,240
+position.
+
+38
+00:01:40,240 --> 00:01:43,650
+And the star is the actual positions of the vehicles.
+
+39
+00:01:43,650 --> 00:01:47,530
+So ideally, we want our estimate, the plus markers,
+
+40
+00:01:47,530 --> 00:01:50,440
+to be as close as possible to the true position
+
+41
+00:01:50,440 --> 00:01:52,480
+of the vehicles, the stars, which
+
+42
+00:01:52,480 --> 00:01:55,240
+would mean that our guess of where the vehicle is,
+
+43
+00:01:55,240 --> 00:01:56,380
+is accurate.
+
+44
+00:01:56,380 --> 00:01:58,180
+Now, when we start playing the video,
+
+45
+00:01:58,180 --> 00:02:00,520
+we will also illustrate the trace of the vehicle
+
+46
+00:02:00,520 --> 00:02:04,330
+to show the filtered and true vehicle trajectories over time.
+
+47
+00:02:04,330 --> 00:02:08,300
+Now, let's view the result. What we
+
+48
+00:02:08,300 --> 00:02:10,310
+see here is that our filter manages
+
+49
+00:02:10,310 --> 00:02:13,140
+to filter the noisy detections from the camera
+
+50
+00:02:13,140 --> 00:02:16,334
+and over time gets more and more certain about the position
+
+51
+00:02:16,334 --> 00:02:17,000
+of the vehicles.
+
+52
+00:02:17,000 --> 00:02:29,020
+
+
+53
+00:02:29,020 --> 00:02:31,527
+Pretty nice, right?
+
+54
+00:02:31,527 --> 00:02:33,360
+The next example that we're going to look at
+
+55
+00:02:33,360 --> 00:02:37,030
+is related to the geometry of the road ahead of our host
+
+56
+00:02:37,030 --> 00:02:37,530
+vehicle.
+
+57
+00:02:37,530 --> 00:02:41,130
+This work was published in this paper from 2016,
+
+58
+00:02:41,130 --> 00:02:44,130
+where we used observations from a radar and a camera
+
+59
+00:02:44,130 --> 00:02:47,160
+to try to estimate the geometry or shape of the road
+
+60
+00:02:47,160 --> 00:02:50,550
+up to 200 meters ahead of our host vehicle
+
+61
+00:02:50,550 --> 00:02:52,410
+in highway scenarios.
+
+62
+00:02:52,410 --> 00:02:54,480
+Now from the camera, we get information
+
+63
+00:02:54,480 --> 00:02:57,780
+about the shape of the lane markings, of the current lane.
+
+64
+00:02:57,780 --> 00:03:02,070
+These are shown here as red dashed lines.
+
+65
+00:03:02,070 --> 00:03:04,170
+Typically, the camera is able to detect
+
+66
+00:03:04,170 --> 00:03:07,680
+the lane markings up to roughly 50 to 60 meters,
+
+67
+00:03:07,680 --> 00:03:09,690
+but sometimes shorter.
+
+68
+00:03:09,690 --> 00:03:11,520
+The length of these lines indicate
+
+69
+00:03:11,520 --> 00:03:14,880
+how far ahead the lane geometry from the camera is valid.
+
+70
+00:03:14,880 --> 00:03:17,730
+From the radar, we mainly get two things.
+
+71
+00:03:17,730 --> 00:03:20,280
+First, we get the relative position and velocity
+
+72
+00:03:20,280 --> 00:03:21,570
+of other vehicles.
+
+73
+00:03:21,570 --> 00:03:23,940
+These are shown here as these blue dots
+
+74
+00:03:23,940 --> 00:03:26,980
+where the arrow indicates the velocity vector.
+
+75
+00:03:26,980 --> 00:03:29,370
+The second thing that we get is stationary detections
+
+76
+00:03:29,370 --> 00:03:32,830
+from the roadside objects, such as guardrails or barriers,
+
+77
+00:03:32,830 --> 00:03:34,850
+as shown here.
+
+78
+00:03:34,850 --> 00:03:37,570
+So how can we use this to estimate
+
+79
+00:03:37,570 --> 00:03:40,000
+the geometry of the road?
+
+80
+00:03:40,000 --> 00:03:42,460
+Well, the lane markings coming from the camera
+
+81
+00:03:42,460 --> 00:03:45,730
+is directly related to the shape of the road, right?
+
+82
+00:03:45,730 --> 00:03:48,670
+But in best case, it's only valid up to roughly 50,
+
+83
+00:03:48,670 --> 00:03:51,820
+60 meters, which is not enough.
+
+84
+00:03:51,820 --> 00:03:54,550
+The radar, on the other hand, can see much further
+
+85
+00:03:54,550 --> 00:03:58,250
+and typically reports objects up to 200 meters or more.
+
+86
+00:03:58,250 --> 00:04:00,970
+However, the radar cannot measure the geometry
+
+87
+00:04:00,970 --> 00:04:03,190
+of the road directly.
+
+88
+00:04:03,190 --> 00:04:06,610
+What it can do is to measure the position and velocity
+
+89
+00:04:06,610 --> 00:04:10,450
+of the other vehicles that are traveling on the road.
+
+90
+00:04:10,450 --> 00:04:12,790
+And as they are traveling on the road,
+
+91
+00:04:12,790 --> 00:04:17,019
+their velocity vector should be roughly parallel to the road,
+
+92
+00:04:17,019 --> 00:04:17,920
+right?
+
+93
+00:04:17,920 --> 00:04:21,279
+Similarly, the reflection from the guardrail shown here
+
+94
+00:04:21,279 --> 00:04:25,090
+should also align and be roughly parallel to the road as well.
+
+95
+00:04:25,090 --> 00:04:28,180
+So what we have done is to construct sensor models
+
+96
+00:04:28,180 --> 00:04:32,350
+saying that a camera can measure the road up to 50, 60 meters,
+
+97
+00:04:32,350 --> 00:04:34,750
+that the vehicles that are detected by the radar
+
+98
+00:04:34,750 --> 00:04:38,110
+should drive approximately parallel to the road.
+
+99
+00:04:38,110 --> 00:04:40,330
+If we are able to detect a guardrail,
+
+100
+00:04:40,330 --> 00:04:42,430
+this guardrail should be approximately
+
+101
+00:04:42,430 --> 00:04:44,740
+parallel to the road as well.
+
+102
+00:04:44,740 --> 00:04:46,900
+Now, if we assume that we can describe
+
+103
+00:04:46,900 --> 00:04:51,040
+the shape of the road using a so-called clothoid spline, so
+
+104
+00:04:51,040 --> 00:04:53,890
+a mathematical model of the road geometry,
+
+105
+00:04:53,890 --> 00:04:55,750
+we can then estimate the parameters
+
+106
+00:04:55,750 --> 00:04:58,750
+of this spline using our sensor models
+
+107
+00:04:58,750 --> 00:05:03,290
+and our observations in an unscented Kalman filter.
+
+108
+00:05:03,290 --> 00:05:05,680
+The resulting clothoid spline is shown here
+
+109
+00:05:05,680 --> 00:05:10,040
+as this magenta-colored line, where
+
+110
+00:05:10,040 --> 00:05:12,050
+our uncertainty in the shape of the road
+
+111
+00:05:12,050 --> 00:05:15,620
+is shown as these error ellipses at the splinoids.
+
+112
+00:05:15,620 --> 00:05:17,600
+The black lines here indicate that we
+
+113
+00:05:17,600 --> 00:05:21,870
+have detected a guardrail at these distances
+
+114
+00:05:21,870 --> 00:05:23,430
+perpendicular to the road.
+
+115
+00:05:23,430 --> 00:05:26,920
+
+
+116
+00:05:26,920 --> 00:05:30,160
+The blue dots here is the ground truth position
+
+117
+00:05:30,160 --> 00:05:32,590
+of the middle of the host lane, which
+
+118
+00:05:32,590 --> 00:05:34,480
+is what we like to describe.
+
+119
+00:05:34,480 --> 00:05:40,350
+We will plot the results having our host vehicle at the origin,
+
+120
+00:05:40,350 --> 00:05:41,880
+always pointing to the right.
+
+121
+00:05:41,880 --> 00:05:45,680
+
+
+122
+00:05:45,680 --> 00:05:48,490
+So if we run our filter, it could look something like this.
+
+123
+00:05:48,490 --> 00:05:59,960
+
+
+124
+00:05:59,960 --> 00:06:02,810
+Here we see that we're able to fairly accurately describe
+
+125
+00:06:02,810 --> 00:06:05,930
+the shape of the road at also far distances,
+
+126
+00:06:05,930 --> 00:06:08,420
+by including information about the direction in which
+
+127
+00:06:08,420 --> 00:06:10,370
+the leading vehicles are traveling
+
+128
+00:06:10,370 --> 00:06:13,238
+and the shape of the detected guardrails.
+
+129
+00:06:13,238 --> 00:06:19,720
+
+
+130
+00:06:19,720 --> 00:06:22,360
+What's happening here is that we get limited information
+
+131
+00:06:22,360 --> 00:06:25,030
+about the shape of the road at 200 meters,
+
+132
+00:06:25,030 --> 00:06:26,590
+so we assume that the road is still
+
+133
+00:06:26,590 --> 00:06:29,290
+bending when it's actually starting to straighten out.
+
+134
+00:06:29,290 --> 00:06:32,080
+We should also note that our uncertainty increases here.
+
+135
+00:06:32,080 --> 00:06:34,480
+Once we get new observations telling the filter
+
+136
+00:06:34,480 --> 00:06:38,005
+that the road has straightened out, our filter quickly adapts.
+
+137
+00:06:38,005 --> 00:07:02,260
+
+
+138
+00:07:02,260 --> 00:07:05,440
+The third example of how we can use the methods that you will
+
+139
+00:07:05,440 --> 00:07:08,050
+learn in this course is related to the problem
+
+140
+00:07:08,050 --> 00:07:10,060
+of self-localization.
+
+141
+00:07:10,060 --> 00:07:12,400
+Let's say that we have an autonomous vehicle which
+
+142
+00:07:12,400 --> 00:07:15,910
+should navigate on its own in this type of city environment.
+
+143
+00:07:15,910 --> 00:07:17,920
+Well, it would surely be beneficial to have
+
+144
+00:07:17,920 --> 00:07:21,610
+some kind of map to navigate by, and that our vehicle is
+
+145
+00:07:21,610 --> 00:07:24,540
+able to position itself in this map, such
+
+146
+00:07:24,540 --> 00:07:26,170
+that it knows when it's time to make
+
+147
+00:07:26,170 --> 00:07:28,930
+a right at this intersection here, for example.
+
+148
+00:07:28,930 --> 00:07:33,820
+One possible such map could be a semantic 3D point cloud map.
+
+149
+00:07:33,820 --> 00:07:36,310
+Now this is a 3D point cloud where
+
+150
+00:07:36,310 --> 00:07:39,940
+each point is labeled by the semantic class of the object
+
+151
+00:07:39,940 --> 00:07:41,770
+at that specific position.
+
+152
+00:07:41,770 --> 00:07:45,970
+This label could, for example, be road, sidewalk, building,
+
+153
+00:07:45,970 --> 00:07:47,650
+tree, and so on.
+
+154
+00:07:47,650 --> 00:07:49,360
+This type of map can be constructed
+
+155
+00:07:49,360 --> 00:07:52,810
+from a sequence of semantically segmented street view images
+
+156
+00:07:52,810 --> 00:07:56,860
+using structure from motion and multiview stereo algorithms.
+
+157
+00:07:56,860 --> 00:07:59,240
+But this is not the focus of this course.
+
+158
+00:07:59,240 --> 00:08:01,300
+So for our little piece of a city,
+
+159
+00:08:01,300 --> 00:08:04,870
+the map could look something like this.
+
+160
+00:08:04,870 --> 00:08:07,180
+So here we see that we have points labeled
+
+161
+00:08:07,180 --> 00:08:18,710
+as road, sidewalk, buildings, trees, vegetation,
+
+162
+00:08:18,710 --> 00:08:20,900
+and some other smaller classes.
+
+163
+00:08:20,900 --> 00:08:24,020
+So let's now assume that this is our map
+
+164
+00:08:24,020 --> 00:08:28,220
+and that we would like to position ourself in this map.
+
+165
+00:08:28,220 --> 00:08:31,130
+Now, we've said that this is a 3D point cloud map, which
+
+166
+00:08:31,130 --> 00:08:33,940
+means that each point has a 3D position
+
+167
+00:08:33,940 --> 00:08:37,070
+and that we can view this map from any post, that is,
+
+168
+00:08:37,070 --> 00:08:39,320
+position and heading of our host vehicle.
+
+169
+00:08:39,320 --> 00:08:52,300
+
+
+170
+00:08:52,300 --> 00:08:56,220
+The idea of how to localize our vehicle in this type of map
+
+171
+00:08:56,220 --> 00:08:57,390
+is simple.
+
+172
+00:08:57,390 --> 00:08:59,830
+What we will present here is based on this paper
+
+173
+00:08:59,830 --> 00:09:02,980
+by Erik Stenborg et al. from 2018.
+
+174
+00:09:02,980 --> 00:09:05,710
+Now, assume that we have a camera on our vehicle
+
+175
+00:09:05,710 --> 00:09:07,960
+that can observe this scene.
+
+176
+00:09:07,960 --> 00:09:10,090
+We can then try to align our pose such
+
+177
+00:09:10,090 --> 00:09:14,470
+that if we project our semantic 3D map onto our camera image,
+
+178
+00:09:14,470 --> 00:09:16,630
+our building points will fall on buildings
+
+179
+00:09:16,630 --> 00:09:20,300
+and our tree points will land on trees, and so on.
+
+180
+00:09:20,300 --> 00:09:22,420
+Now here is one such image from a camera
+
+181
+00:09:22,420 --> 00:09:25,000
+observing the same scene as our map,
+
+182
+00:09:25,000 --> 00:09:28,090
+where we have semantically labeled each pixel in the image
+
+183
+00:09:28,090 --> 00:09:31,210
+with the same classes that we have in our map.
+
+184
+00:09:31,210 --> 00:09:34,000
+We do this by using a deep convolutional neural
+
+185
+00:09:34,000 --> 00:09:36,970
+network that takes an ordinary image as input,
+
+186
+00:09:36,970 --> 00:09:40,540
+and outputs a semantic label of each pixel.
+
+187
+00:09:40,540 --> 00:09:42,160
+In the image to the right, we have
+
+188
+00:09:42,160 --> 00:09:45,670
+overlaid the semantic image on the original image where
+
+189
+00:09:45,670 --> 00:09:48,820
+we can see that the network manages to fairly well label
+
+190
+00:09:48,820 --> 00:09:49,930
+each pixel.
+
+191
+00:09:49,930 --> 00:09:52,390
+Additionally, a subset of our map points
+
+192
+00:09:52,390 --> 00:09:54,850
+are projected onto our image.
+
+193
+00:09:54,850 --> 00:09:57,490
+And as we can see, our black building points
+
+194
+00:09:57,490 --> 00:10:00,880
+fall on buildings and our green tree points land
+
+195
+00:10:00,880 --> 00:10:02,890
+on trees, for example.
+
+196
+00:10:02,890 --> 00:10:04,660
+This would indicate that the pose that we
+
+197
+00:10:04,660 --> 00:10:07,660
+have used to project our map onto our image
+
+198
+00:10:07,660 --> 00:10:10,810
+matches well with the actual pose of the camera.
+
+199
+00:10:10,810 --> 00:10:14,200
+So how can we use this to position our autonomous
+
+200
+00:10:14,200 --> 00:10:15,490
+vehicle?
+
+201
+00:10:15,490 --> 00:10:18,250
+Well, one way is to use a so-called particle
+
+202
+00:10:18,250 --> 00:10:22,150
+filter, which we will learn all about in this course.
+
+203
+00:10:22,150 --> 00:10:24,010
+Using a particle filter, we would
+
+204
+00:10:24,010 --> 00:10:27,100
+represent the pose of our vehicle, so position
+
+205
+00:10:27,100 --> 00:10:31,240
+and heading, using a whole bunch of more or less randomly chosen
+
+206
+00:10:31,240 --> 00:10:33,010
+particles.
+
+207
+00:10:33,010 --> 00:10:36,280
+Now, each particle-- here shown in yellow in the figure
+
+208
+00:10:36,280 --> 00:10:37,270
+to the left--
+
+209
+00:10:37,270 --> 00:10:41,200
+describes one possible pose of our vehicle, or actually
+
+210
+00:10:41,200 --> 00:10:43,000
+a whole vehicle trajectory.
+
+211
+00:10:43,000 --> 00:10:45,400
+But let us not focus on that right now.
+
+212
+00:10:45,400 --> 00:10:48,160
+Each particle is then rated by how well
+
+213
+00:10:48,160 --> 00:10:50,620
+it explains our observations.
+
+214
+00:10:50,620 --> 00:10:55,180
+So how well a projection of our map, using that particles pose,
+
+215
+00:10:55,180 --> 00:10:58,420
+matches with our semantically segmented images.
+
+216
+00:10:58,420 --> 00:11:00,640
+The particle that matches the best will then
+
+217
+00:11:00,640 --> 00:11:02,590
+get a high score and the particles
+
+218
+00:11:02,590 --> 00:11:05,650
+where the projected map and the semantic segmentation matches
+
+219
+00:11:05,650 --> 00:11:07,660
+poorly will get a low score.
+
+220
+00:11:07,660 --> 00:11:09,780
+When we now run our particle filter,
+
+221
+00:11:09,780 --> 00:11:12,430
+we will see the position of the particles in yellow
+
+222
+00:11:12,430 --> 00:11:16,180
+in this bird's eye view of our semantic 3D point cloud map
+
+223
+00:11:16,180 --> 00:11:17,650
+to the left.
+
+224
+00:11:17,650 --> 00:11:20,590
+And to the right, we will see the semantic segmentation
+
+225
+00:11:20,590 --> 00:11:23,500
+of our current image and the projected map points
+
+226
+00:11:23,500 --> 00:11:25,660
+for the best scoring particle.
+
+227
+00:11:25,660 --> 00:11:29,770
+The green triangle to the left represents the actual position
+
+228
+00:11:29,770 --> 00:11:32,100
+of the vehicle.
+
+229
+00:11:32,100 --> 00:11:34,110
+What we can see with this type of filter
+
+230
+00:11:34,110 --> 00:11:36,045
+is that our uncertainty is described
+
+231
+00:11:36,045 --> 00:11:39,022
+by how spread out our particles are,
+
+232
+00:11:39,022 --> 00:11:40,980
+which is a bit different than the other methods
+
+233
+00:11:40,980 --> 00:11:43,550
+that we will learn in this course.
+
+234
+00:11:43,550 --> 00:11:52,085
+
+

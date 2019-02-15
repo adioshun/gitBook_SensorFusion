@@ -1,0 +1,78 @@
+
+So now we have seen some examples of methods
+that you will learn in this course.
+Let's go into a bit more detail about what you will actually
+learn and how the course is structured.
+So the course is divided into seven sections.
+In this first section that you're watching right now,
+we will give you a course introduction
+and a primer in statistics.
+We will use mathematical statistics extensively
+throughout this course, and we, therefore, offer this refresher
+in some of the more important concepts that you will need.
+However, we hope that these concepts are not new to you.
+The second section will focus on the specific statistical
+framework that all our filters are based on,
+and that is Bayesian statistics.
+You will learn the basic concepts
+of Bayesian statistics, which includes
+the most important rule of them all, which is Bayes' rule.
+You will also learn about the common building blocks
+that makes up a Bayesian model and how
+to make optimal decisions using this Bayesian framework.
+When you've completed this section,
+you will be able to explain the fundamental principles
+in Bayesian estimation.
+In the third section, we will introduce state space models
+and show how we can design optimal filters based on these.
+And after this section, you will understand
+the fundamental assumptions that are made
+and be able to derive expressions
+for an optimal filter based on these assumptions.
+Now it's finally time that we learn our first filter,
+and that is the Kalman filter.
+Some of you might have come across this filter before
+in previous courses.
+In this course, we will, however,
+start from scratch with a focus that you
+should be able to describe the essential properties
+of the Kalman filter and be able to apply it
+on linear state space models.
+As we alluded in our example in the beginning,
+our state space models consist of two basic models, one motion
+model and one measurement model.
+In this section, we will present the most commonly used motion
+and measurement models for automotive applications
+and show how we can derive time discrete motion
+models from time continuous dynamic models.
+After this section, you'll be able to summarize and compare
+the most typical motion models in automotive systems
+in order to know when to use them in practical problems.
+You will also be able to describe and model commonly
+used sensor measurements.
+Now in section four, you learned about the Kalman filter,
+which we can use if our state space models are linear.
+If we have nonlinear models, however, we
+need to do something else.
+So in this section, we will look at an important family
+of nonlinear filters, and that is
+the nonlinear Gaussian filters.
+Here, you will get to implement the key nonlinear
+Gaussian filters, both the extended Kalman filter, as well
+as the unscented Kalman filter.
+You will also analyze how they behave in different scenarios.
+Lastly, we will present the particle filters,
+which is also a nonlinear filter but,
+in contrast to all the previous methods,
+the particle filter do not try to describe the results using
+a Gaussian distribution, but rather
+as a set of weighted particles as we saw in the self
+localization problem.
+You will get to implement also these filters
+and try them out on illustrative examples.
+After completing all these sections,
+you will be able to solve a variety of important real world
+filtering problems by employing and adapting the methods
+that you have learned to a variety of applications.
+So once again, welcome to this course.
+I hope you will enjoy it.

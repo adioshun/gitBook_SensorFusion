@@ -1,0 +1,116 @@
+
+The theory, methods, and algorithms
+used to do sensor fusion and nonlinear filtering
+relies heavily on mathematical statistics.
+In order to follow this course, we therefore
+recommend that you have a good understanding
+of some basic statistical concepts.
+To help you out, we have put together this set of lectures
+where we'll go through the most important concepts on a fairly
+high level.
+Our hope is that what we present here
+is not new to you, but rather a refresher on things
+that you already know.
+However, if you feel that some of these concepts that we
+present here are unfamiliar to you,
+we would highly recommend that you take some time
+and read up on these.
+In this first lecture, we're going
+to discuss random variables.
+When we do nonlinear filtering, we
+need them to describe the quantity
+that we're interested in, for example,
+the position of a vehicle.
+We also need random variables to describe the observations
+that we want to filter.
+To describe our random variables,
+we'd use the so-called probability mass function
+for discrete-valued random variables
+and a so-called probability density function
+for continuous valued random variables.
+Let's start by looking at discrete-valued random
+variables, for which we describe their properties using
+a Probability Mass Function, or pmf for short.
+Now, the probability mass function
+of a discrete-valued random variable is, in this course,
+denoted as Pr of z, or just P of z.
+But we will mostly be using this notation in this course.
+Note also that we are using braces here
+to indicate that z is a discrete-valued random
+variable.
+Now, our probability mass function
+need to have the following properties in order
+to be proper probability mass functions.
+First, the probability that our discrete-valued random variable
+z is equal to some integral value
+i, which is written like this, needs
+to be greater than or equal to 0.
+Now, one way to view this value here
+is if we collect many values of z,
+the fraction of these that are equal to i
+is given by this number here.
+And this needs to hold for all values of i.
+The second property of our probability mass function
+is that if we sum over all values of z,
+this sum needs to be 1.
+That is, the probability that z takes any value needs to be 1.
+We can also note that as a consequence of these two,
+we cannot have a probability mass for a value i that is
+greater than 1, which seems to be reasonable, right?
+Now if we look at this use in the example of a fair dice,
+the probability mass function for the face value
+that I would get if we rolled the dice can
+be written like this.
+So the dice has six faces with a value 1
+through 6, which each is equally probable.
+So the probability that z is i is equal to 1/6,
+if i is equal to 1, 2, and so on up to 6, and 0 otherwise.
+If we visualize this pmf, it will look something
+like this, where we only have probability
+mass for discrete values.
+
+I would encourage you to verify for yourself
+that this is a pmf here which has both of these properties
+here, and that you understand why that is.
+Now let's look at a corresponding description
+for continuous-valued random variables, which
+we call the Probability Density Function, or pdf for short.
+So the probability density function
+of a continuous-valued random variable
+is denoted as lowercase p of z.
+And again, the probability density of any value of z
+needs to be greater or equal to 0.
+And if we integrate p of z over all values of z,
+this integral needs to be 1.
+Now again, the interpretation of this
+is that the probability that z takes some value always
+needs to be 1.
+However, it does not follow that p of z has to be lower than 1
+for all values of z, as in the discrete case.
+We only require that it should integrate to 1.
+So the probability density for some value of z
+could actually be greater than 1.
+Let's look at an example of a continuous-valued random
+variable z which is uniformly distributed between 0 and 2 pi.
+So here z could, for example, be a stochastic angle.
+The pdf of z can then be written like this,
+where we have 1 over 2 pi if z is within the interval of 0
+to 2 pi and 0 otherwise.
+Now, we get 1 over 2 pi here, as all angles are equally
+probable in a uniform distribution
+and the size of the interval is 2 pi.
+So 1 over 2 pi.
+If we visualize this density, it will look something like this.
+
+If we were to relate the probability mass
+function to the probability density function,
+we can consider the discrete-valued random variable
+describing the event that z is in some interval A.
+So we have some interval here which we call A.
+And we want to know if z is within this interval.
+Now, the probability mass that z is in this interval
+can be written like this.
+So z is in A and can be calculated by integrating pdf
+over the interval A. So this is the integral of the pdf.
+
+So in this case, the pmf is the integral of the pdf.

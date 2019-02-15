@@ -1,0 +1,277 @@
+
+In this lecture, we're going to go
+through three of the most important basic tools
+that we're going to use throughout this course.
+And that is expectation, covariance,
+and the Gaussian distribution.
+That actually sounds like the title of a movie
+that I would watch.
+Now, anyway, the single most important distribution
+for sensor fusion and nonlinear filtering
+is the Gaussian distribution.
+In many cases, our goal is to describe our results
+using the mean vector or expected value
+and the covariance matrix of a Gaussian distribution.
+And if our result is not Gaussian,
+we anyway tend to approximate our results using the mean
+and covariance of this non-Gaussian distribution,
+even though these do not fully capture all the facets
+of our actual distribution.
+So as we said, probability distributions
+are also characterized by their mean vectors
+and covariance matrices.
+So how do we calculate this?
+Well, the expected value or mean of an m-dimensional random
+vector x, defined like this, is the expected value of x.
+Now, the expectation of x is defined
+as an integral of the vector x weighted by the probability
+density of that vector.
+So what we have here is that for values
+of x which have high probability density
+will influence our expected value
+more than values of x which have low probability density.
+Often we denote this mean vector here as either mu, or x bar
+in this case.
+And we call this the first moment of p of x.
+Now, the notation here is simply shorthand that we
+integrated from minus infinity to infinity
+for all the dimensions of x.
+So that was the expected value.
+Now, the covariance of x or the second central moment
+of p of x is written like this and is defined
+as the expectation of x minus its mean times the same thing
+transposed.
+Now, we can view this factor here
+as the distance between x and its mean,
+that is, how much does x spread around its mean value?
+Now, if we write it like this, we
+assume that x is a column vector,
+as we will do throughout the whole of this course,
+as this here, the product here, should be an outer product.
+That is, we have a tall matrix times a wide matrix.
+So this product here is an m by m squared matrix, which
+is symmetric and positive semidefinite, as this
+is a square here.
+So it needs to be positive semidefinite.
+So that is the definition of the covariance matrix
+of a random variable x.
+Now, for discrete-valued random variables,
+the above integrals are then replaced
+by corresponding summations.
+So we have summation here instead.
+So let us look a bit more into how
+we can interpret this covariance matrix using an example where
+we have independent samples from a zero-mean two-dimensional
+random vector x, which has the components x1 and x2.
+Now, our samples are plotted in red here in this figure.
+The question is if you can guess the covariance matrix
+of x using these samples here.
+Now, to help you out a bit, we have also
+plotted to one standard deviation
+and three standard deviation contours
+of the distribution of x.
+So we have three sigma contour here,
+and we have one sigma contour here.
+Additionally, we can mention that the covariance
+of a two-dimensional random variable
+has the following structure.
+So the covariance of x can be written like this, where
+sigma 1 is the standard deviation of x1 and sigma 2
+is the standard deviation of x2.
+And the factor rho here is what's
+called a correlation factor.
+So what do you think the covariance of x is?
+I would encourage you to pause the video here and think
+about this yourself for a couple of minutes.
+And then we can go through the results together.
+
+So as I mentioned, the covariance matrix
+is a measure for how the samples of a random vector
+have spread around its mean.
+Now, as x is a zero-mean random vector,
+its mean is located here at 0, 0.
+
+And if we look at the structure of the covariance matrix
+that we'll find here, we see that we basically
+need to find the standard deviation of x1 and x2
+plus the correlation factor rho.
+Now, the standard deviation of x1 and x2
+can be found by projecting this one sigma
+contour onto both dimensions here and then
+looking at the distance between the projected
+contour and the mean.
+So if we do this, we get sigma 1 and sigma 2
+approximately equal to 1.4.
+So we can start filling in our covariance matrix here.
+
+So what about the correlation factor?
+So we know that the correlation factor
+is a value between minus 1 and 1 that tells us how correlated
+two random variables are.
+If the correlation factor is, for example, 1,
+the two random variables are fully positively correlated,
+meaning that x1 here, for example,
+is a deterministic positive function of x2, and vice versa.
+Now, if we look at our samples, we
+see that there is quite a significant positive
+correlation here.
+So if we have a high value on x1,
+there's a high probability that x2 also has a high value.
+But it's definitely not a deterministic mapping, right,
+as if it were, all the samples here would collapse and fall
+on the line like this.
+But that's not the case, right?
+So we have some spread around us.
+So this would mean rho equal to 1,
+if all the samples were on this line.
+Now in this case, I would say that the correlation
+is somewhere around 0.9.
+So we have 0.9 here.
+
+Putting this together, we get a final guess
+for our covariance matrix, which is--
+so the variance in each dimension is around 2.
+And we have a cross-covariance of 1.8.
+So does this match what you guessed?
+
+So if we look at the covariance matrix for a random variable,
+it will tell us both the variance
+in the different dimensions, but it will also
+tell us how correlated the different dimensions are.
+So we have a cross-covariance of 1.8 here between x1 and x2.
+And this information is something
+that is used extensively in sensor fusion and nonlinear
+filtering, which we will see later in this course.
+Sometimes we're interested in finding
+the expected value of a random variable numerically.
+Perhaps we are not able to solve the involved integrals
+explicitly, or more commonly, when we do not actually
+know the underlying distribution but have access
+to a large number of samples from it.
+So in this case, we can use the law of large numbers, which
+states that sample averages converge
+to expected values for large sample sizes.
+Now, if x1, x2, and so on are independent and identically
+distributed random variables, distributed according
+to some distribution p of x, then the sample average,
+that is, we sum all the samples and divide
+by the number of samples, will converge
+to the actual expected value of x
+under p of x if we let the number of samples
+grow to infinity.
+Now, we can think of this as throwing a dice many times,
+where each roll of the dice would generate
+a new, independent, and identically distributed
+sample from a distribution of dice face values.
+If we do this sufficiently many times,
+eventually the average face value
+converges to expected value, which we can
+calculate to be 3.5, like this.
+So this is a way to numerically calculate expected values.
+So now that we know what the expected value and covariance
+is, it's time to look at the most important distribution
+of them all, at least in this course.
+And that is the Gaussian distribution.
+And as you will see, there is a clear connection
+with the mean and covariance of a random variable.
+So we write like this to denote that x
+is a Gaussian random variable with mean mu and covariance Q.
+And the pdf of x is then denoted like this, so p
+of x where we use this notation here to denote the Gaussian
+pdf as a function of x with the parameters mu and Q.
+Note that there's a important difference with what
+we write here, where we are saying that x is distributed
+according to Gaussian distribution
+with these parameters, mu and Q. But here we are referring
+to the actual function as a function of x
+with these parameters.
+So by definition, the Gaussian pdf
+can be expressed like this, where
+we have here a constant term, which
+is dependent on the covariance, times the exponential
+to the power of a quadratic function of x.
+We will have x minus its mean squared, which
+is then normalized by or scaled by the covariance matrix
+inverse.
+If we plot this function here in the scalar case for a Gaussian
+distribution with mean 0 and variance 1,
+we get this classical bell-shaped curve,
+where the peak is at the mean, which is 0 in this case,
+and the spread around the mean is dependent on the variance.
+
+So note that a Gaussian random variable is completely
+determined by its mean and its covariance matrix.
+So we do not need any other parameters to describe
+a Gaussian distribution.
+Later in this course, we will use this extensively
+when we describe the results of our filters.
+
+One of the nicer properties with Gaussian random variables
+is what happens when we have a linear combination
+of independent Gaussian random variables.
+So let x and y be Gaussian random variables
+with these means and covariances.
+If we now construct a new random variable
+z, which is then a linear combination of x and y
+like this, so z is equal to A times
+x plus B times y, where A and B are now deterministic matrices.
+Then z will also be a Gaussian random variable, which mean
+can be calculated like this.
+So the mean of z is the expected value of Ax plus By.
+Now, as we can always split the expectation of a sum
+into its individual components, we get the expected value of Ax
+plus the expected value of By.
+And A and B are deterministic matrices,
+we can move them outside of the expectations.
+So we get A times the expected value
+of x, which is mu x, plus B times the expected value of y,
+which is mu y.
+Now for the covariance, it's a bit more tricky.
+But by definition, the covariance of z
+is equal to the covariance of Ax plus By.
+We just insert what z is, right?
+Now, as x and y are independent, we
+can divide this covariance of this sum
+into the covariance of the different parts here
+or the different terms in the sum.
+Now, note that we cannot do this in general,
+as we need to consider the cross-covariance terms,
+which in this case is the cross-covariance of Ax,
+By and the cross-covariance of By and Ax.
+
+But as x and y are independent, these terms here are 0.
+
+So we can ignore them here.
+Now again, as A and B are deterministic,
+we can move them outside of the covariance.
+But instead of getting them just as a factor
+that we got here when we calculated the mean,
+we get them squared here.
+And as we're dealing with matrices,
+we need to be a bit careful about which order
+we do the square.
+So in this case, we get A times Qx, A transpose,
+plus BQy, B transpose.
+And this is a general rule for the covariance.
+So if you have a covariance of deterministic matrices
+times a random vector, the result
+will be A times the covariance of the random vector
+times A transpose.
+Now, if you feel that I went through this a bit quickly,
+I would highly recommend that you
+try to derive this expression here yourself
+using the definition of covariance
+that we presented at the beginning of this lecture
+and perhaps also brush up on rules related
+to the expectation operator.
+And I will think that you will find this well worth the effort
+when we start to discuss the actual material of this course.
+For your convenience, here is a summary of the basic statistics
+result that we have presented in this set of primer
+in statistics lectures.
+I would encourage you to familiarize yourself
+with these expressions and make sure that you
+understand what they are.
+You might also find this slide handy
+when we go through the results about nonlinear
+filtering and the rest of the lectures in this course.
