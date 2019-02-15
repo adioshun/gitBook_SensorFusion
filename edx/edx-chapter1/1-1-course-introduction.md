@@ -25,3 +25,11 @@ radar
 
 ### 1.1.2 Demonstrations
 
+> 1.1 Course Introduction pt II MED INTRO V2-en
+
+본 과정에서 배운것의 활용 분야 
+
+- 데모 1 : 카메라 기반 위치 속도 
+- 데모 2 : 카메라 radar 기반, road geometry estimation 
+- 데모 3 : Self-localization 
+
