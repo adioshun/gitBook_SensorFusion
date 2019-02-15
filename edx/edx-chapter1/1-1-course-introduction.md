@@ -59,20 +59,19 @@ radar
 
 ## 1.4 Primer in statistics  
 
-###  1.4.1 Random variables
+###  1.4.1 Random variables(확률 변수)
 
 > 1.2 Random Variables MED INTRO V2-en
+
+
 
 When we do nonlinear filtering, 
 - we need them to **describe the quantity** that we're interested in, for example, the position of a vehicle.
 - We also need random variables to **describe the observations** that we want to filter.
 
 To describe our random variables, we'd use the 
-- so-called probability mass function for discrete-valued random variables and a 
-- so-called probability density function for continuous valued random variables.
-
-
-#### A. discrete-valued random variables
+- so-called probability mass function(PMF) for discrete-valued random variables and a 
+- so-called probability density function(PDF) for continuous valued random variables.
 
 ![](https://i.imgur.com/xNejMqE.png)
 
