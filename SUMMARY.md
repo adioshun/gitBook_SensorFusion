@@ -31,12 +31,14 @@
 ## edx
 
 * [EDX-Chapter1](edx/edx-chapter1.md)
+  * [README](edx/edx-chapter1/readme.md)
+  * [1-1-Course Introduction](edx/edx-chapter1/1-1-course-introduction.md)
 * [EDX-Chapter2](edx/edx-chapter2.md)
 * [EDX-Chapter3](edx/edx-chapter3.md)
 * [EDX-Chapter4](edx/edx-chapter4.md)
 * [EDX-Chapter5](edx/edx-chapter5.md)
 * [EDX-Chapter6](edx/edx-chapter6.md)
-* EDX-Chapter7
+* [EDX-Chapter7](edx/edx-chapter7.md)
 
 ## Devices
 
