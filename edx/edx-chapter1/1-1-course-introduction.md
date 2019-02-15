@@ -23,6 +23,7 @@ radar
 - 단점 : not good at measuring the angle to an object.
 
 
+
 ### 1.1.2 Demonstrations
 
 > 1.1 Course Introduction pt II MED INTRO V2-en
@@ -32,4 +33,91 @@ radar
 - 데모 1 : 카메라 기반 위치 속도 
 - 데모 2 : 카메라 radar 기반, road geometry estimation 
 - 데모 3 : Self-localization 
+
+
+### 1.1.3 Course structure and learning outcome
+
+> 1.1 Course Introduction pt III MED INTRO V2-en
+
+강의 구성 및 간략한 설명 
+
+### 1.1.4 About the course staff
+
+
+- LARS HAMMARSTRAND
+
+- ERIK STENBORG
+
+---
+
+## 1.2 Pre-course survey  
+
+
+## 1.3 Discussion forum guidelines  
+
+---
+
+## 1.4 Primer in statistics  
+
+###  1.4.1 Random variables
+
+> 1.2 Random Variables MED INTRO V2-en, [[자료]]()
+
+
+When we do nonlinear filtering, 
+- we need them to **describe the quantity** that we're interested in, for example, the position of a vehicle.
+- We also need random variables to **describe the observations** that we want to filter.
+
+To describe our random variables, we'd use the 
+- so-called probability mass function for discrete-valued random variables and a 
+- so-called probability density function for continuous valued random variables.
+
+
+#### A. discrete-valued random variables
+
+![](https://i.imgur.com/xNejMqE.png)
+
+for which we describe their properties using a Probability Mass Function, or pmf for short.
+
+Now, the probability mass function of a discrete-valued random variable is, in this course,
+denoted as Pr of z, or just P of z.
+But we will mostly be using this notation in this course.
+Note also that we are using braces here
+to indicate that z is a discrete-valued random
+variable.
+Now, our probability mass function
+need to have the following properties in order
+to be proper probability mass functions.
+First, the probability that our discrete-valued random variable
+z is equal to some integral value
+i, which is written like this, needs
+to be greater than or equal to 0.
+Now, one way to view this value here
+is if we collect many values of z,
+the fraction of these that are equal to i
+is given by this number here.
+And this needs to hold for all values of i.
+The second property of our probability mass function
+is that if we sum over all values of z,
+this sum needs to be 1.
+That is, the probability that z takes any value needs to be 1.
+We can also note that as a consequence of these two,
+we cannot have a probability mass for a value i that is
+greater than 1, which seems to be reasonable, right?
+Now if we look at this use in the example of a fair dice,
+the probability mass function for the face value
+that I would get if we rolled the dice can
+be written like this.
+So the dice has six faces with a value 1
+through 6, which each is equally probable.
+So the probability that z is i is equal to 1/6,
+if i is equal to 1, 2, and so on up to 6, and 0 otherwise.
+If we visualize this pmf, it will look something
+like this, where we only have probability
+mass for discrete values.
+
+![](https://i.imgur.com/6iENBYV.png)
+
+
+
 
