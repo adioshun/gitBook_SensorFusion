@@ -35,6 +35,7 @@
   * [1-1-Course Introduction](edx/edx-chapter1/1-1-course-introduction.md)
   * [1-references-matlab](edx/edx-chapter1/1-references-matlab.md)
   * [1-assigment](edx/edx-chapter1/1-assigment.md)
+  * [1-4-Primer on Statistics](edx/edx-chapter1/1-4-primer-on-statistics.md)
 * [EDX-Chapter2](edx/edx-chapter2.md)
   * [2-1-An Introduction Bayesian statistics](edx/edx-chapter2/2-1-an-introduction-bayesian-statistics.md)
   * [2-2-Bayes rule](edx/edx-chapter2/2-2-bayes-rule.md)
