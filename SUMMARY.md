@@ -32,6 +32,8 @@
 * [EDX-Chapter1](edx/edx-chapter1.md)
   * [README](edx/edx-chapter1/readme.md)
   * [1-1-Course Introduction](edx/edx-chapter1/1-1-course-introduction.md)
+  * [1-references-matlab](edx/edx-chapter1/1-references-matlab.md)
+  * [1-assigment](edx/edx-chapter1/1-assigment.md)
 * [EDX-Chapter2](edx/edx-chapter2.md)
 * [EDX-Chapter3](edx/edx-chapter3.md)
 * [EDX-Chapter4](edx/edx-chapter4.md)

@@ -61,8 +61,7 @@ radar
 
 ###  1.4.1 Random variables
 
-> 1.2 Random Variables MED INTRO V2-en, [[자료]]()
-
+> 1.2 Random Variables MED INTRO V2-en
 
 When we do nonlinear filtering, 
 - we need them to **describe the quantity** that we're interested in, for example, the position of a vehicle.
@@ -100,6 +99,25 @@ be written like this.
 
 ![](https://i.imgur.com/6iENBYV.png)
 
+### 1.4.2 Conditional, joint and marginal distributions
+
+> 1.3 Distributions MED INTRO V3-en
+
+how the distribution of two or more random variables depend on each other.
+- conditional distributions
+- joint distributions.
+
+isolated distribution of a single random variable, where we have removed the influence of all the other variables.
+- marginal distribution
+
+### 1.4.3 Expectations, covariance and the Gaussian distribution
+
+> 1.4 Expectation Covariance Gaussian MED INTRO V3-en
 
 
+### 1.4.4. Exercises
+
+![](https://i.imgur.com/HAN0Cd3.png)
+
+![](https://i.imgur.com/OfzRTVN.png)
 
