@@ -29,7 +29,7 @@
 
 ## edx
 
-* [EDX-Introductioon](edx/edx-introductioon.md)
+* [EDX-Introductioon](edx/README.md)
 * [EDX-Chapter1](edx/edx-chapter1.md)
   * [README](edx/edx-chapter1/readme.md)
   * [1-1-Course Introduction](edx/edx-chapter1/1-1-course-introduction.md)
