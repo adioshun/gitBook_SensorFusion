@@ -12,3 +12,4 @@
 
 ### BAYESIAN APPROACH TO SENSOR FUSION
 
+![](https://i.imgur.com/ZPcoAGd.png)
