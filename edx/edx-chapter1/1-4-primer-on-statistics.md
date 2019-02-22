@@ -44,8 +44,8 @@ be written like this.
 > 1.3 Distributions MED INTRO V3-en
 
 how the distribution of two or more random variables depend on each other.
-- [conditional distributions](https://legacy.gitbook.com/book/adioshun/statics-with-r/edit#/edit/master/probability/probability-function/conditional-distribution.md?_k=haw4u7)
-- [joint distributions](https://legacy.gitbook.com/book/adioshun/statics-with-r/edit#/edit/master/probability/probability-function/joint-distribution-function.md?_k=u75e4h)
+- [conditional distributions](https://github.com/adioshun/gitBook_Statistics/blob/master/probability/probability-function/conditional-distribution.md)
+- [joint distributions](https://github.com/adioshun/gitBook_Statistics/blob/master/probability/probability-function/joint-distribution-function.md)
 
 isolated distribution of a single random variable, where we have removed the influence of all the other variables.
 - [marginal distribution](https://legacy.gitbook.com/book/adioshun/statics-with-r/edit#/edit/master/probability/probability-function/joint-distribution-function.md?_k=u75e4h)
