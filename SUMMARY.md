@@ -44,6 +44,8 @@
   * [2-5-Cos function in Bayesian Decision Theory](edx/edx-chapter2/2-5-cos-function-in-bayesian-decision-theory.md)
 * [EDX-Chapter3](edx/edx-chapter3.md)
   * [3-1-Filtering, smoothing and prediction](edx/edx-chapter3/3-1-filtering-smoothing-and-prediction.md)
+  * [3-2-State Space Models](edx/edx-chapter3/3-2-state-space-models.md)
+  * [3-3-Conditional independencies in state space models](edx/edx-chapter3/3-3-conditional-independencies-in-state-space-models.md)
 * [EDX-Chapter4](edx/edx-chapter4.md)
 * [EDX-Chapter5](edx/edx-chapter5.md)
 * [EDX-Chapter6](edx/edx-chapter6.md)
