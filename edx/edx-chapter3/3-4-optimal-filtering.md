@@ -24,3 +24,9 @@
 
 ![](https://i.imgur.com/3GHIPXC.png)
 
+
+## 4. Example 
+
+![](https://i.imgur.com/5fWZKMK.png)
+
+![](https://i.imgur.com/LrBos32.png)
