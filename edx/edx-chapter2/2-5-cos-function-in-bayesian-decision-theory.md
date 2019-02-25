@@ -9,3 +9,12 @@
 - MAP 
 
 ![](https://i.imgur.com/v3N1eZl.png)
+
+## 1. MMSE
+
+
+![](https://i.imgur.com/iLecIV1.png)
+
+## 2. MAP 
+
+![](https://i.imgur.com/6PJIEiG.png)
