@@ -43,6 +43,7 @@
   * [2-4-Bayesian decision theory](edx/edx-chapter2/2-4-bayesian-decision-theory.md)
   * [2-5-Cos function in Bayesian Decision Theory](edx/edx-chapter2/2-5-cos-function-in-bayesian-decision-theory.md)
 * [EDX-Chapter3](edx/edx-chapter3.md)
+  * [3-1-Filtering, smoothing and prediction](edx/edx-chapter3/3-1-filtering-smoothing-and-prediction.md)
 * [EDX-Chapter4](edx/edx-chapter4.md)
 * [EDX-Chapter5](edx/edx-chapter5.md)
 * [EDX-Chapter6](edx/edx-chapter6.md)
