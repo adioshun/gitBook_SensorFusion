@@ -52,6 +52,10 @@
 * [EDX-Chapter6](edx/edx-chapter6.md)
 * [EDX-Chapter7](edx/edx-chapter7.md)
 
+## Kalman and Bayesian Filters in Python
+
+* [README](KB-inPython/README.md)
+
 ## Devices
 
 * [Radar](radar.md)
