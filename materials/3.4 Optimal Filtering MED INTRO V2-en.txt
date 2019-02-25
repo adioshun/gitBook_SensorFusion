@@ -1,0 +1,397 @@
+
+Now it's finally time that we put all these things together
+and learn how to do filtering.
+In this lecture, we will derive the equations
+for the optimal filter, which are general equations
+that we can use to solve any filtering problem that we
+will encounter in this course.
+We will show how we can calculate
+our filtering densities efficiently
+by making the filter updates recursively,
+and we will illustrate the computed densities
+using a simple example.
+But before we start, we need to properly define
+the filtering problem.
+So remember our discrete time state space models
+where we have a state vector xk and an observation yk.
+So we described how the state evolves over time using a known
+motion model like this and how our observations
+relate to our state vector using a measurement model like this.
+Further, we suppose that we have some prior distribution that
+is known to us and that the state at time k
+is conditionally independent on all the previous measurements
+or past measurements and that the state at time k
+is conditionally independent on all the past measurements
+and the past states if we condition on xk minus 1.
+All the past states here and all the past measurements
+here does not include any more information about xk
+than what the previous status does.
+And this equality here is what's called a Markov property.
+We also assume that the current measurement, yk,
+is conditionally independent of all other states, x0
+to k minus 1, and all the past measurements
+if the condition on xk.
+So we can remove all the past states
+and all the past measurements in this expression
+here because all the information should be summarized
+in the current state.
+So remember that a necessary condition for these
+to hold true is that both the motion and measurement noise
+processes need to be independent over time and with each other.
+So in this setting, the objective in filtering
+is to compute the so-called filtering density, which
+is this posterior density of xk given observations up to
+and including time k.
+And typically we want to do this for k equal to 1,
+2, 3, and so on.
+So in principle, as we know Bayesian statistics,
+we can also find this posterior density.
+In a bit of a brute-force approach,
+we can find this filtering density in two steps.
+First, we can use Bayes' rule to find
+the posterior density of the complete sequence of state
+vectors--
+so the collection of states from time 0 to time k.
+And this posterior density we conditioned
+on all the measurements up to time k.
+If we use Bayes' rule, we can now flip these two such
+that we get this factor here where the density is now
+over the set of measurements, and we condition
+on our state sequence.
+And then we have time steps prior on our state sequence,
+and we get this normalization factor here.
+Note that we can regard this as a normalization factor
+as we're interested in this as a function of our state sequence
+and this factor here does not depend on that.
+So we see that we can express this posterior density here
+over the state sequence as a product of our measurement
+models and our prior.
+And these are models that we all know, so we can express this.
+Now as a second step, to get the filtering density
+we need to marginalize the state sequence posterior with respect
+to all the past states.
+That is the states that we are not
+interested in at the moment.
+That is we find a filtering density
+by integrating our sequence posterior
+over all the past states.
+As we see here, we can use Bayes' rule in combination
+with the law of total probability
+to calculate the filtering posterior.
+Although we, in theory, end up with the correct solution
+following these two steps here, in practice
+the complexity of the solution will
+grow as the state sequence here will become larger and larger.
+This has two implications.
+For one, this density here will become more and more complex
+and will involve the multiplication of more and more
+factors here as k grows.
+Second, the integration here will
+be taken over a larger and larger space,
+and the complexity of this integral
+will become larger and larger.
+As such, it will become harder and harder
+to calculate this filtering density.
+As we typically want to calculate this posterior
+density at each time step k, we tend
+to want the complexity to be roughly the same at each time
+instance and especially not grow over time.
+So the weakness with this approach
+is that it grows with k.
+Now is there a smarter way to calculate
+the filtering density that does not have this weakness?
+But of course there is!
+The solution is that we calculate the filtering density
+recursively where the general approach or methodology is
+that we want to use that we have just calculated the posterior
+density from the previous time instance,
+and we want to use this together with our conditional
+independence assumptions to calculate the new posterior
+at the current time.
+So here is an illustration that summarizes
+the general methodology of the recursive filtering solution.
+So we assume that we have computed the posterior density
+from the previous time instance.
+That is we have computed p of xk minus 1 given measurement
+of 2 times k minus 1.
+So we know this already.
+The next step is to take this density, which summarizes what
+we know about the state at time k minus 1,
+and predict that in time such that it says something
+about the state at the current time.
+So we want to calculate this predicted density here,
+and we do that with a prediction step
+where we use our motion model.
+So the motion model enters here.
+So after the prediction, we get what is
+called the predicted density--
+so the density of the state at the current time
+given measurements up to the previous time instance.
+So this describes what we know about the current state given
+all the past measurement.
+Now we want to use this predicted density
+with the current observation, yk,
+to get the posterior filtering density.
+In order to do that, we will make use of our measurement
+model in an update step.
+So the measurement model enters in the update step.
+
+So once we have computed the posterior density,
+we can compute an estimate of our current state.
+We call that x hat k given measurements up to time k,
+and we write that like this.
+And we can start all over again, so making this our new prior.
+So we exchange this for this, and then we make this again.
+So we have a recursive solution starting from the posterior
+density from the previous time instance.
+We make a prediction, and then we make an update,
+and we get a new posterior density.
+So note that all the densities that we have computed here,
+they all have the same dimensionality as the state.
+So we have avoided that the computational complexity grows
+with time, so making these things here
+have roughly the same complexity each time we do it.
+So now we seem to have something that is a bit more reasonable.
+The only question now is how do you actually
+calculate this predicted density and this posterior density
+here?
+We start by looking at the prediction step.
+Here, we want the predicted density, so the density of xk
+given all the past measurements, and we
+want to calculate this from our posterior density,
+so the density of xk minus 1 given
+all the past measurements.
+So in this step we make use of our knowledge regarding
+our previous state, xk minus 1, that we
+have obtained from our previous measurements
+in order to predict xk, so the state at the current time.
+That is we want to translate our old knowledge about our states
+that is summarized in this posterior density
+to describe the state at the current time using
+this predicted density here.
+As hinted previously, we want to use our motion model, p of xk
+given xk minus 1, together with our posterior density
+from the previous time instance in order
+to compute the predicted density.
+So a useful first step is to introduce the missing variable
+here, which is the previous state, xk minus 1.
+And we can do this by using the law of total probability
+where we add the previous state and this expression here.
+So we get p of xk and xk minus 1,
+conditioned on all the past measurements.
+And in order for the equality here to still hold true,
+we need to integrate out over our added previous state.
+So we need to integrate over xk minus 1.
+Now if we look at this, we can see
+that we can factorize this density here by splitting up
+these two into two densities.
+
+The first is over xk given xk minus 1
+and all our past measurements, and then just over xk minus 1,
+given all our past measurements.
+
+And note that we now have the posterior
+density from the previous time instance here, which we wanted.
+However, we also have this strange-looking density here.
+But if we look a bit more carefully at this,
+I hope that you can recognize it from before
+and remember that our current state is conditionally
+independent on the measurements if we condition
+on our previous state.
+So this is the Markov property of our state sequence.
+Now if we use this, we see that we
+can remove the past measurements from this density
+as they do not provide any information about xk when
+we condition on xk minus 1.
+And this is because xk minus 1 should summarize everything
+that we need to know about the system up to that time.
+By doing this, we see that this density here simply becomes
+our motion model.
+Now the final expression for the predicted density becomes--
+
+so our motion model times our posterior
+density from the previous time instance.
+And then we integrate over our previous state.
+And this equation here, it's called
+a Chapman-Kolmogorov equation, and that
+is what we use in the prediction step in a recursive filter.
+So to summarize, in order to compute the predicted density,
+we use the posterior density from the previous time instance
+together with our motion model to solve the Chapman-Kolmogorov
+equation to get this density.
+So here is a self-assessment question
+that you could answer by solving equations
+on the previous slide, but here I would rather
+like you to think about it from a conceptual point of view
+and think about what would make more sense.
+So now onto the measurement-update step
+where we want to compute the posterior density,
+so the density of xk given all the measurements up to time
+k using this predicted density that we just calculated
+in the prediction step.
+So in principle, what we want to do in this step
+is that we want to update our knowledge about xk using
+the new information in yk.
+So we go from this predicted density
+where we don't include yk to this posterior density
+where we include information from yk,
+the current measurement.
+To derive the updated posterior density,
+we start by separating out the current measurement
+from this measurement sequence here such that we get something
+looking like this.
+
+We do this just to make what will happen
+in next step a bit more clear.
+Now in order to get out the predicted density,
+we can use Bayes' rule to switch places on xk and yk,
+in this case.
+So if we use Bayes' rule to switch xk and yk,
+we get the following expression.
+
+So we get the predicted density here,
+which we wanted, and this density here
+could be regarded as a constant as it does not
+depend on our current state.
+Now if we look at this factor here,
+we can see that we can simplify this as a likelihood function
+or measurement model as yk is conditionally
+independent on all the past measurements
+if we also condition on xk.
+So we can remove this factor here from our density.
+Again, this is due to that everything
+that we need to know in order to describe
+the current measurement should be summarized
+in our current state.
+So if we ignore the proportionality constant,
+the updated density can be defined as proportional
+to this expression here--
+so proportional to the likelihood
+times the predicted density.
+
+So in the update step of a recursive filter,
+we see our predicted density as our prior
+that we multiply by our likelihood
+to get our posterior density.
+So now we have also derived an expression
+for the measurement-update step in our recursive filter,
+and we have expressed it in terms of our predicted density,
+which we have calculated in the prediction step,
+and our measurement model which we assume that we know.
+We should note that this expression
+here and the expression that we derived
+for the predicted density are general expressions.
+So these expressions here are general,
+and they provide a recursive solution
+to any filtering problem.
+We will, in later parts of this course,
+look at how we can solve these equations exactly when we have
+the so-called linear and Gaussian models
+and how we can find good approximations
+if we have a nonlinear and non-Gaussian model.
+To wrap things up, I thought we'd look at a simple example
+to see what is happening in the different steps of the filter
+recursion and how the resulting densities look like.
+We will do this by considering a random walk in two dimensions
+where we also get position observations.
+That is we have a two-dimensional state vector,
+xk, which has two components, x1 and x2,
+and we can think of this as a 2D position of some object.
+The motion of this object is using a motion model
+like this where the current state is
+equal to the state at the previous time
+instance plus some noise, where the noise in this case
+here is a zero-mean Gaussian with some covariance Q.
+So here we can see a realization of a random walk
+of this process model here where we can interpret this basically
+as the state, the position of the object
+is basically taking a step of random length and direction
+at each time instance.
+We are randomly walking around in this 2D environment,
+and hence the name random walk.
+And this is a fairly simple motion model
+but nonetheless it's important and used in many situations.
+So further, at each time instance
+we observe the position of our object.
+So yk is our state plus some measurement noise, rk.
+And rk, our measurement noise, is, again, a zero-mean Gaussian
+process with some covariance R. And in addition, we
+have some Gaussian prior of our state
+at time zero, which is 0 mean with some covariance P0.
+So how does a prior, predicted density, likelihood,
+and updated density look for the optimal filter
+solution for this problem?
+So that's what we're going to look at now.
+If we look at this for some generic time k,
+at the start of the recursion we have the posterior density
+from the previous time instance.
+So we have the density over xk minus 1.
+This gives us the information that the object of interest
+was most likely here somewhere at the previous time instance.
+And now we want to use this information, together
+with our motion model, to predict where it
+would be at the current time.
+So we want to calculate the predicted density of xk given
+all the past measurements.
+Note that as we are doing predictions into the future
+and not adding any new information here,
+we will become more uncertain, which
+is illustrated that this density here is wider than we
+had when we started here.
+This is also logical considering a random walk motion
+model which states that the object will
+take a step of a random length and a random direction.
+And as long as we haven't received
+any information about which direction the object has moved,
+we will surely be more uncertain after doing the prediction.
+The next step is that we will make use of our measurement
+update where we view our predicted density here.
+So we have predicted density here as our prior
+and our measurement model as our likelihood.
+So in this case we get an observation
+that an object is here somewhere if we are projecting down
+the peak here onto the plane.
+The likelihood of our state would look something like this.
+So it says that it's most probably here somewhere,
+but as we have measurement uncertainty,
+we are also uncertain about where
+the object is after receiving the measurement.
+Now if we multiply our predicted density with our likelihood,
+we have something that is proportional to our updated
+posterior density.
+We can see that, in this case, our measurement
+is fairly informative so that the updated density is fairly
+close to where the observation was,
+which was here somewhere, right?
+And we are definitely further away
+from the predicted density, which we thought that object
+was around here somewhere.
+We should also note that uncertainty decreases
+after the update as we have gotten
+new information regarding where the object is
+from the measurement.
+So to summarize, we start off with our initial prior,
+which is our posterior from the previous time instance.
+We do a prediction step to calculate
+our predicted density, which describes
+our state at the current time using
+all our past observations.
+So while doing this, our uncertainty about the object
+will increase as the data that we used is getting a bit older.
+So we are only basing this on observations up
+the time k minus 1 but still describing the state
+at the current time.
+So by performing the measurement update where we multiply
+the predicted density by our likelihood of the state using
+our observation at time k, we incorporate the new information
+in the new observation to compute the posterior density.
+That is, again, a bit more certain about
+where the object is.
+So this is basically what is happening
+in the filter recursion.
+In future lectures, we will look into more details surrounding
+the mathematics around calculating these densities
+here for different types of state space models and also how
+we can find approximate solutions to the posterior
+density when we cannot solve the prediction and update
+the equations analytically.

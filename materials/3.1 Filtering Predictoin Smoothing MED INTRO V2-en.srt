@@ -1,0 +1,1088 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,280
+In this set of lectures, our aim is
+
+2
+00:00:02,280 --> 00:00:05,310
+to give the background needed to define and understand
+
+3
+00:00:05,310 --> 00:00:08,250
+the formulation of the optimal filtering problem
+
+4
+00:00:08,250 --> 00:00:11,460
+and how can you solve it in an efficient manner using
+
+5
+00:00:11,460 --> 00:00:14,090
+knowledge of Bayesian statistics.
+
+6
+00:00:14,090 --> 00:00:17,310
+That is, we will define and discuss the underlying modeling
+
+7
+00:00:17,310 --> 00:00:19,890
+assumptions we will use a tool called
+
+8
+00:00:19,890 --> 00:00:23,850
+Bayesian networks to illustrate how these assumptions affect
+
+9
+00:00:23,850 --> 00:00:26,280
+the dependencies and independencies
+
+10
+00:00:26,280 --> 00:00:28,320
+of our stochastic variables, and how
+
+11
+00:00:28,320 --> 00:00:31,770
+we can use this to make convenient simplifications
+
+12
+00:00:31,770 --> 00:00:32,970
+of our problems.
+
+13
+00:00:32,970 --> 00:00:35,700
+Lastly, we will show how we can use all this
+
+14
+00:00:35,700 --> 00:00:38,460
+to calculate the posterior density for a fairly
+
+15
+00:00:38,460 --> 00:00:40,800
+general problem family.
+
+16
+00:00:40,800 --> 00:00:42,990
+To start off however, I thought we'd
+
+17
+00:00:42,990 --> 00:00:44,920
+put it all in a bit of context.
+
+18
+00:00:44,920 --> 00:00:47,730
+What do we mean by filtering, and how does it
+
+19
+00:00:47,730 --> 00:00:51,240
+connect to the related estimation problems smoothing
+
+20
+00:00:51,240 --> 00:00:53,110
+and prediction?
+
+21
+00:00:53,110 --> 00:00:54,990
+So what is filtering?
+
+22
+00:00:54,990 --> 00:00:57,600
+Well, filtering is about recursively,
+
+23
+00:00:57,600 --> 00:00:59,430
+which usually means that each time
+
+24
+00:00:59,430 --> 00:01:02,610
+instance, estimating parameters of interest
+
+25
+00:01:02,610 --> 00:01:04,110
+based on measurements.
+
+26
+00:01:04,110 --> 00:01:06,210
+And these measurements can come from one sensor
+
+27
+00:01:06,210 --> 00:01:07,392
+or multiple sensors.
+
+28
+00:01:07,392 --> 00:01:08,850
+If they come from multiple sensors,
+
+29
+00:01:08,850 --> 00:01:11,790
+we usually call it fusion or sensor fusion.
+
+30
+00:01:11,790 --> 00:01:15,000
+But in theory, it's basically all the same.
+
+31
+00:01:15,000 --> 00:01:17,280
+And in this course, we will not focus so much
+
+32
+00:01:17,280 --> 00:01:20,590
+on whether our measurements come from one or multiple sensors.
+
+33
+00:01:20,590 --> 00:01:24,000
+If we know how to do it for one sensor, adding another sensor
+
+34
+00:01:24,000 --> 00:01:25,890
+is, in many cases, trivial.
+
+35
+00:01:25,890 --> 00:01:27,360
+To help us discuss the problem, we
+
+36
+00:01:27,360 --> 00:01:29,710
+need to introduce some notation.
+
+37
+00:01:29,710 --> 00:01:31,510
+So basically, throughout the course,
+
+38
+00:01:31,510 --> 00:01:37,320
+we will let xk indexed by some time index k,
+
+39
+00:01:37,320 --> 00:01:40,680
+be a vector that contains the parameters of interest.
+
+40
+00:01:40,680 --> 00:01:43,680
+And yk contain the measurements at time k.
+
+41
+00:01:43,680 --> 00:01:46,620
+As sensors tend to deliver data at discrete times
+
+42
+00:01:46,620 --> 00:01:50,190
+with fixed sample interval, time in this k typically,
+
+43
+00:01:50,190 --> 00:01:52,590
+refers to one such interval, and does it
+
+44
+00:01:52,590 --> 00:01:54,990
+at a discrete time index.
+
+45
+00:01:54,990 --> 00:01:58,110
+So using this notation, the filtering objective is
+
+46
+00:01:58,110 --> 00:02:01,770
+to compute the posterior density of our state xk,
+
+47
+00:02:01,770 --> 00:02:06,330
+using what we denote as y 1 to k where y 1 to k
+
+48
+00:02:06,330 --> 00:02:10,889
+is a vector containing all the data up to time k.
+
+49
+00:02:10,889 --> 00:02:13,372
+And as we discussed earlier, if we can compute this,
+
+50
+00:02:13,372 --> 00:02:16,770
+and we can for example, compute and the mmse estimate
+
+51
+00:02:16,770 --> 00:02:20,730
+or the map estimate of xk using this posterior density.
+
+52
+00:02:20,730 --> 00:02:22,410
+To make things a bit more concrete,
+
+53
+00:02:22,410 --> 00:02:24,540
+let us look at some filtering of fusion
+
+54
+00:02:24,540 --> 00:02:27,420
+problems in modern automotive applications.
+
+55
+00:02:27,420 --> 00:02:29,490
+So modern vehicles today are equipped
+
+56
+00:02:29,490 --> 00:02:30,990
+with several onboard sensors.
+
+57
+00:02:30,990 --> 00:02:34,180
+And this could be RADAR, LIDAR, or camera, for example.
+
+58
+00:02:34,180 --> 00:02:36,960
+We want to use noisy observations from these sensors
+
+59
+00:02:36,960 --> 00:02:40,140
+to estimate a more refined view of the current traffic
+
+60
+00:02:40,140 --> 00:02:41,025
+situation.
+
+61
+00:02:41,025 --> 00:02:44,010
+And so driver assistance systems in the vehicle
+
+62
+00:02:44,010 --> 00:02:47,310
+then uses this refined view to assess
+
+63
+00:02:47,310 --> 00:02:49,440
+if there is any dangerous situation that we need
+
+64
+00:02:49,440 --> 00:02:52,920
+to warn the driver of, or automatically intervene
+
+65
+00:02:52,920 --> 00:02:54,960
+in order to avoid a situation altogether,
+
+66
+00:02:54,960 --> 00:02:56,820
+or to mitigate its consequences.
+
+67
+00:02:56,820 --> 00:02:59,200
+For a self-driving vehicle on the other hand,
+
+68
+00:02:59,200 --> 00:03:01,560
+this is the basic information that is uses in order
+
+69
+00:03:01,560 --> 00:03:04,590
+to plan a safe and comfortable path that the control
+
+70
+00:03:04,590 --> 00:03:07,170
+algorithms in a car can then follow.
+
+71
+00:03:07,170 --> 00:03:09,690
+Let us look at this example here or illustration
+
+72
+00:03:09,690 --> 00:03:12,630
+here, where we have a host vehicle that is equipped
+
+73
+00:03:12,630 --> 00:03:17,950
+with a RADAR and a camera.
+
+74
+00:03:17,950 --> 00:03:20,380
+The RADAR will give us range, angle,
+
+75
+00:03:20,380 --> 00:03:23,830
+and range rate to objects reflecting the RADAR signal.
+
+76
+00:03:23,830 --> 00:03:26,770
+For example, this could be other vehicles in here,
+
+77
+00:03:26,770 --> 00:03:29,320
+but could also be the metallic guardrail here.
+
+78
+00:03:29,320 --> 00:03:32,470
+The camera on the other hand, can detect and classify
+
+79
+00:03:32,470 --> 00:03:35,540
+vehicles, but can also detect the lane markings on the road,
+
+80
+00:03:35,540 --> 00:03:36,184
+for example.
+
+81
+00:03:36,184 --> 00:03:37,600
+The information from these sensors
+
+82
+00:03:37,600 --> 00:03:39,950
+is then used to estimate for example,
+
+83
+00:03:39,950 --> 00:03:43,340
+the current relative position of velocity of other vehicles.
+
+84
+00:03:43,340 --> 00:03:46,420
+For example, we want to estimate where these vehicles are
+
+85
+00:03:46,420 --> 00:03:47,510
+and where it's heading.
+
+86
+00:03:47,510 --> 00:03:52,090
+And we can call this our state vector x1k for that vehicle.
+
+87
+00:03:52,090 --> 00:03:54,640
+And then we'll have another state vector
+
+88
+00:03:54,640 --> 00:03:56,980
+for this car called x2k.
+
+89
+00:03:56,980 --> 00:04:02,065
+And then for this car we call that x3k.
+
+90
+00:04:02,065 --> 00:04:03,740
+What we also want to do is we want
+
+91
+00:04:03,740 --> 00:04:06,550
+to estimate the current relative position and heading
+
+92
+00:04:06,550 --> 00:04:08,210
+and shape of the current lane.
+
+93
+00:04:08,210 --> 00:04:15,010
+Want to describe the geometry of our current lane like this.
+
+94
+00:04:15,010 --> 00:04:17,820
+We call this lk.
+
+95
+00:04:17,820 --> 00:04:19,440
+And this is crucial information if we
+
+96
+00:04:19,440 --> 00:04:22,260
+need to plan a path that keeps the vehicle in its own lane,
+
+97
+00:04:22,260 --> 00:04:22,980
+for example.
+
+98
+00:04:22,980 --> 00:04:26,310
+Similarly, we can use RADAR reflections from the guardrail
+
+99
+00:04:26,310 --> 00:04:28,890
+here to estimate relative position, heading,
+
+100
+00:04:28,890 --> 00:04:30,790
+and shape of the guardrail as well.
+
+101
+00:04:30,790 --> 00:04:32,190
+One can think of many more things
+
+102
+00:04:32,190 --> 00:04:34,830
+that we possibly would like to know but in order for them
+
+103
+00:04:34,830 --> 00:04:37,030
+to be classified as a filtering problem,
+
+104
+00:04:37,030 --> 00:04:40,140
+it should be related to estimating the current value
+
+105
+00:04:40,140 --> 00:04:42,150
+using data up to the current time.
+
+106
+00:04:42,150 --> 00:04:44,760
+We want to use as much data as possible
+
+107
+00:04:44,760 --> 00:04:47,090
+without introducing any lag.
+
+108
+00:04:47,090 --> 00:04:49,050
+So filtering is, of course, not only used
+
+109
+00:04:49,050 --> 00:04:50,760
+within the automotive applications.
+
+110
+00:04:50,760 --> 00:04:52,530
+One of the first applications was
+
+111
+00:04:52,530 --> 00:04:55,440
+related to finding the position and velocity of airplanes
+
+112
+00:04:55,440 --> 00:04:59,100
+and ships for military purposes, which is still an active area
+
+113
+00:04:59,100 --> 00:04:59,710
+today.
+
+114
+00:04:59,710 --> 00:05:01,920
+Within control of physical systems,
+
+115
+00:05:01,920 --> 00:05:04,590
+it is common to use filtering techniques to estimate
+
+116
+00:05:04,590 --> 00:05:08,130
+interior states of the system in order to better control it.
+
+117
+00:05:08,130 --> 00:05:10,800
+If we, for example, look at engine control,
+
+118
+00:05:10,800 --> 00:05:12,510
+this could be estimating the angle
+
+119
+00:05:12,510 --> 00:05:15,330
+of the crankshaft or the pressure in the piston in order
+
+120
+00:05:15,330 --> 00:05:16,886
+to control the fuel injection.
+
+121
+00:05:16,886 --> 00:05:19,260
+It is also quite common that you use filtering techniques
+
+122
+00:05:19,260 --> 00:05:22,150
+to estimate things that you are not able to measure directly.
+
+123
+00:05:22,150 --> 00:05:24,540
+And there are many such examples in the engine
+
+124
+00:05:24,540 --> 00:05:26,970
+where it's hard to place sensors everywhere.
+
+125
+00:05:26,970 --> 00:05:28,650
+But you can observe other things, which
+
+126
+00:05:28,650 --> 00:05:30,780
+relate to things that you are interested in,
+
+127
+00:05:30,780 --> 00:05:33,420
+and hence, estimate it using those observations
+
+128
+00:05:33,420 --> 00:05:36,250
+and using the techniques you will learn in this course.
+
+129
+00:05:36,250 --> 00:05:39,470
+You can also use filtering to assess the state in many others
+
+130
+00:05:39,470 --> 00:05:42,450
+types of systems such as biological and economical,
+
+131
+00:05:42,450 --> 00:05:43,140
+for example.
+
+132
+00:05:43,140 --> 00:05:45,300
+This could, for example, include estimating
+
+133
+00:05:45,300 --> 00:05:48,330
+the diffusion constant of a dissolvent and the solvent,
+
+134
+00:05:48,330 --> 00:05:51,880
+or the spread of a disease or the price of a commodity.
+
+135
+00:05:51,880 --> 00:05:54,700
+There are two problems that are related to filtering,
+
+136
+00:05:54,700 --> 00:05:58,020
+and that is was called smoothing and prediction.
+
+137
+00:05:58,020 --> 00:06:00,720
+The objective of all of these is to compute a probability
+
+138
+00:06:00,720 --> 00:06:03,450
+density function of state xk, but they
+
+139
+00:06:03,450 --> 00:06:05,700
+differ in how much data we condition on.
+
+140
+00:06:05,700 --> 00:06:08,730
+So let us assume that we have a positive integer that
+
+141
+00:06:08,730 --> 00:06:09,960
+is greater than 0.
+
+142
+00:06:09,960 --> 00:06:11,370
+In the smoothing problem, we want
+
+143
+00:06:11,370 --> 00:06:14,160
+to compute the distribution of xk
+
+144
+00:06:14,160 --> 00:06:17,220
+using measurements from 1 to k plus n.
+
+145
+00:06:17,220 --> 00:06:21,450
+That is, we want to use future data at times k to k plus n
+
+146
+00:06:21,450 --> 00:06:23,700
+to estimate a state a time k.
+
+147
+00:06:23,700 --> 00:06:26,400
+In the prediction case, it's rather the opposite.
+
+148
+00:06:26,400 --> 00:06:30,270
+Instead we want to compute the distribution of our state xk
+
+149
+00:06:30,270 --> 00:06:34,770
+using data from 1 to k minus n, that
+
+150
+00:06:34,770 --> 00:06:38,010
+is, we are trying to make predictions of the state using
+
+151
+00:06:38,010 --> 00:06:39,060
+all the data.
+
+152
+00:06:39,060 --> 00:06:41,490
+The relation between prediction filtering and smoothing
+
+153
+00:06:41,490 --> 00:06:44,160
+can be seen in this figure here.
+
+154
+00:06:44,160 --> 00:06:47,430
+In all the cases, we're interested in knowing the state
+
+155
+00:06:47,430 --> 00:06:48,840
+at time k.
+
+156
+00:06:48,840 --> 00:06:51,480
+We have not yet received so many measurements.
+
+157
+00:06:51,480 --> 00:06:55,520
+We have just received measurements up to k minus n,
+
+158
+00:06:55,520 --> 00:06:57,300
+but would anyway like to say something
+
+159
+00:06:57,300 --> 00:07:00,150
+about the state at the future time k.
+
+160
+00:07:00,150 --> 00:07:01,920
+When it comes to filtering, however, we
+
+161
+00:07:01,920 --> 00:07:05,320
+have received all the measurements up to time k,
+
+162
+00:07:05,320 --> 00:07:07,690
+and we want to use all these measurements to estimate
+
+163
+00:07:07,690 --> 00:07:08,770
+the current state.
+
+164
+00:07:08,770 --> 00:07:12,190
+And lastly, smoothing we have received more measurements.
+
+165
+00:07:12,190 --> 00:07:16,210
+So we have received measurements up to time k plus n.
+
+166
+00:07:16,210 --> 00:07:19,210
+And we want to use all of these observations
+
+167
+00:07:19,210 --> 00:07:22,690
+to also improve our knowledge about the state at time k.
+
+168
+00:07:22,690 --> 00:07:26,590
+So let us look at some examples of prediction and smoothing.
+
+169
+00:07:26,590 --> 00:07:28,390
+Let us first look at examples where
+
+170
+00:07:28,390 --> 00:07:30,970
+we use smoothing in automotive applications.
+
+171
+00:07:30,970 --> 00:07:34,210
+Many autonomous vehicles use detailed maps
+
+172
+00:07:34,210 --> 00:07:36,580
+to position themselves and to navigate.
+
+173
+00:07:36,580 --> 00:07:40,330
+These maps typically include detailed geometry of the lanes
+
+174
+00:07:40,330 --> 00:07:44,050
+and intersections, as well as position of traffic signs
+
+175
+00:07:44,050 --> 00:07:45,610
+and pedestrian crossings.
+
+176
+00:07:45,610 --> 00:07:48,010
+And one way to construct these maps
+
+177
+00:07:48,010 --> 00:07:51,400
+is to collect sensor data from many vehicles that
+
+178
+00:07:51,400 --> 00:07:53,510
+are equipped with sensors that can give a course
+
+179
+00:07:53,510 --> 00:07:55,720
+information about the position of the vehicle,
+
+180
+00:07:55,720 --> 00:07:57,790
+for example, the normal GPS system,
+
+181
+00:07:57,790 --> 00:08:00,820
+as well as sensors that detect and measure
+
+182
+00:08:00,820 --> 00:08:03,070
+for example, lane markings.
+
+183
+00:08:03,070 --> 00:08:04,780
+By collecting data from all vehicles that
+
+184
+00:08:04,780 --> 00:08:06,940
+have traveled a certain road, it is
+
+185
+00:08:06,940 --> 00:08:10,810
+possible to jointly estimate the vehicle's trajectories as well
+
+186
+00:08:10,810 --> 00:08:12,370
+as the map.
+
+187
+00:08:12,370 --> 00:08:14,650
+So an example is that you want to use the information
+
+188
+00:08:14,650 --> 00:08:17,680
+from the camera sensor at each time instance here
+
+189
+00:08:17,680 --> 00:08:22,360
+to accurately estimate the global position, heading,
+
+190
+00:08:22,360 --> 00:08:24,490
+and shape of all lanes.
+
+191
+00:08:24,490 --> 00:08:28,840
+So we want to store in the map a global map of all the lane
+
+192
+00:08:28,840 --> 00:08:29,680
+markings.
+
+193
+00:08:29,680 --> 00:08:31,750
+It can also include the global position
+
+194
+00:08:31,750 --> 00:08:35,500
+and shape of the guardrails, so a description of the guardrail.
+
+195
+00:08:35,500 --> 00:08:38,230
+We can also include the global position of signs
+
+196
+00:08:38,230 --> 00:08:42,159
+and what type of sign it is using image classification
+
+197
+00:08:42,159 --> 00:08:45,520
+to detect the sign type and using RADAR and or LIDAR to get
+
+198
+00:08:45,520 --> 00:08:47,010
+its position.
+
+199
+00:08:47,010 --> 00:08:50,230
+As we are not interested in having our estimate as fast as
+
+200
+00:08:50,230 --> 00:08:52,330
+possible, but are very interested in using
+
+201
+00:08:52,330 --> 00:08:55,300
+as much information as possible to make the map more
+
+202
+00:08:55,300 --> 00:08:57,640
+detailed and accurate, we can allow ourselves
+
+203
+00:08:57,640 --> 00:09:00,400
+to wait and collect as much data as we can
+
+204
+00:09:00,400 --> 00:09:03,580
+before we need to compute our densities.
+
+205
+00:09:03,580 --> 00:09:05,920
+Other examples of smoothing applications
+
+206
+00:09:05,920 --> 00:09:09,160
+are, for example, surveillance at airports
+
+207
+00:09:09,160 --> 00:09:11,080
+where it's important for safety reasons
+
+208
+00:09:11,080 --> 00:09:13,510
+to estimate the position of people and bags
+
+209
+00:09:13,510 --> 00:09:18,440
+and so forth, but without having a strong real-time requirement.
+
+210
+00:09:18,440 --> 00:09:20,440
+Here we are typically more interested in getting
+
+211
+00:09:20,440 --> 00:09:23,240
+an accurate understanding of what has happened.
+
+212
+00:09:23,240 --> 00:09:25,870
+And we can allow ourselves to collect more data in order
+
+213
+00:09:25,870 --> 00:09:28,030
+to be more certain and accurate.
+
+214
+00:09:28,030 --> 00:09:30,430
+Other examples include communication system
+
+215
+00:09:30,430 --> 00:09:33,370
+where we typically receive a complete message
+
+216
+00:09:33,370 --> 00:09:35,420
+before we want to decode it.
+
+217
+00:09:35,420 --> 00:09:37,560
+And by decoding it, we basically mean
+
+218
+00:09:37,560 --> 00:09:40,330
+that we want to estimate the message that was sent.
+
+219
+00:09:40,330 --> 00:09:42,980
+In sports, we want to, for example,
+
+220
+00:09:42,980 --> 00:09:47,290
+use a hawkeye system in tennis to determine if a tennis ball
+
+221
+00:09:47,290 --> 00:09:49,530
+was in or outside the line.
+
+222
+00:09:49,530 --> 00:09:52,090
+And we do this after the fact, by estimating
+
+223
+00:09:52,090 --> 00:09:56,140
+the trajectory of the ball using a complete set of images.
+
+224
+00:09:56,140 --> 00:09:58,450
+Other examples are in medicine where
+
+225
+00:09:58,450 --> 00:10:01,540
+we use a sequence of arterial blood pressure
+
+226
+00:10:01,540 --> 00:10:03,940
+to estimate the intercranial pressure.
+
+227
+00:10:03,940 --> 00:10:07,870
+Also here, it's more important to be accurate than timely.
+
+228
+00:10:07,870 --> 00:10:11,080
+Now let's look at when we are solving the prediction problem.
+
+229
+00:10:11,080 --> 00:10:14,020
+And again, we start with automotive applications.
+
+230
+00:10:14,020 --> 00:10:16,930
+So both our advanced driver assistance systems
+
+231
+00:10:16,930 --> 00:10:20,110
+and autonomous vehicles need to make predictions of the traffic
+
+232
+00:10:20,110 --> 00:10:24,190
+situation in the near future, when for example,
+
+233
+00:10:24,190 --> 00:10:28,210
+planning for a safe path or assessing collision risks.
+
+234
+00:10:28,210 --> 00:10:30,790
+And in both these cases, we need to have an understanding
+
+235
+00:10:30,790 --> 00:10:32,740
+of what will happen in the future
+
+236
+00:10:32,740 --> 00:10:35,560
+in order to take appropriate actions now.
+
+237
+00:10:35,560 --> 00:10:38,680
+And as we do not have any observation of the future yet,
+
+238
+00:10:38,680 --> 00:10:40,390
+we need to rely on predictions.
+
+239
+00:10:40,390 --> 00:10:44,380
+So for example, we would like to predict the relative position
+
+240
+00:10:44,380 --> 00:10:46,060
+and velocity of the other car.
+
+241
+00:10:46,060 --> 00:10:49,960
+So we want to know where these cars will be in the near future
+
+242
+00:10:49,960 --> 00:10:52,420
+in order to assess if we are going to collide with them
+
+243
+00:10:52,420 --> 00:10:55,360
+or in order to plan the path ahead.
+
+244
+00:10:55,360 --> 00:10:58,300
+We also would like to know relative position and heading
+
+245
+00:10:58,300 --> 00:11:00,700
+and shape of the current lane, such as when
+
+246
+00:11:00,700 --> 00:11:03,430
+we plan a path here in the future we
+
+247
+00:11:03,430 --> 00:11:05,200
+can stay within our own lane.
+
+248
+00:11:05,200 --> 00:11:08,560
+And similarly, it's interesting to know where the guardrail is
+
+249
+00:11:08,560 --> 00:11:09,760
+also in the future.
+
+250
+00:11:09,760 --> 00:11:12,130
+When it comes to predictions in other applications,
+
+251
+00:11:12,130 --> 00:11:14,680
+one example that most of us are familiar with
+
+252
+00:11:14,680 --> 00:11:16,990
+is weather predictions, where we want
+
+253
+00:11:16,990 --> 00:11:19,750
+to predict the winds and pressure and temperatures
+
+254
+00:11:19,750 --> 00:11:21,190
+for the coming days.
+
+255
+00:11:21,190 --> 00:11:23,440
+This also illustrates that it's always harder
+
+256
+00:11:23,440 --> 00:11:25,850
+to do predictions than filtering or smoothing,
+
+257
+00:11:25,850 --> 00:11:27,670
+where we have access to more data.
+
+258
+00:11:27,670 --> 00:11:30,580
+So it's hard to make these type of weather predictions,
+
+259
+00:11:30,580 --> 00:11:32,620
+at least in Sweden, where I live.
+
+260
+00:11:32,620 --> 00:11:35,110
+We have also other examples in economy
+
+261
+00:11:35,110 --> 00:11:37,120
+where the management of companies
+
+262
+00:11:37,120 --> 00:11:39,590
+relies on forecasts of, for example,
+
+263
+00:11:39,590 --> 00:11:43,670
+the demand of their products in order to make decisions.
+
+264
+00:11:43,670 --> 00:11:45,630
+And in politics, many decisions are
+
+265
+00:11:45,630 --> 00:11:47,550
+based on predictions regarding population
+
+266
+00:11:47,550 --> 00:11:50,170
+growth and the financial markets and so on.
+
+267
+00:11:50,170 --> 00:11:53,380
+So these are all examples of predictions that we do.
+
+268
+00:11:53,380 --> 00:11:55,336
+So here is a self-assessment question for you
+
+269
+00:11:55,336 --> 00:11:57,210
+to check your understanding of the difference
+
+270
+00:11:57,210 --> 00:12:00,080
+between these related problems.
+
+271
+00:12:00,080 --> 00:12:02,511
+
+
