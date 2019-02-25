@@ -1,0 +1,1428 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,880
+So now we know what a discrete-time state space
+
+2
+00:00:02,880 --> 00:00:03,960
+model is.
+
+3
+00:00:03,960 --> 00:00:05,640
+In this lecture, we're going to look
+
+4
+00:00:05,640 --> 00:00:09,210
+into conditional independencies and dependencies that
+
+5
+00:00:09,210 --> 00:00:11,170
+are inherent in these models.
+
+6
+00:00:11,170 --> 00:00:13,020
+And perhaps most importantly, we will
+
+7
+00:00:13,020 --> 00:00:15,960
+see how these conditional independencies will
+
+8
+00:00:15,960 --> 00:00:18,870
+help us to factorize our filtering distributions,
+
+9
+00:00:18,870 --> 00:00:20,880
+such that we can express them using
+
+10
+00:00:20,880 --> 00:00:23,400
+just three types of models.
+
+11
+00:00:23,400 --> 00:00:26,040
+Our motion models, our measurement models,
+
+12
+00:00:26,040 --> 00:00:27,870
+and a prior.
+
+13
+00:00:27,870 --> 00:00:30,100
+As we discussed in the previous lecture,
+
+14
+00:00:30,100 --> 00:00:32,910
+we have two forms of our state space models.
+
+15
+00:00:32,910 --> 00:00:35,420
+We have one equation form, like this,
+
+16
+00:00:35,420 --> 00:00:37,530
+and we have one density form, like this.
+
+17
+00:00:37,530 --> 00:00:39,480
+When we presented the state space models
+
+18
+00:00:39,480 --> 00:00:42,300
+on this form, the equation form, we explicitly
+
+19
+00:00:42,300 --> 00:00:44,880
+mentioned that, we assumed that both the motion
+
+20
+00:00:44,880 --> 00:00:48,300
+noise, qk minus 1, and the measurement noise, rk,
+
+21
+00:00:48,300 --> 00:00:50,100
+which entered these models here, that they
+
+22
+00:00:50,100 --> 00:00:53,490
+were independent of all other noise vectors.
+
+23
+00:00:53,490 --> 00:00:56,160
+The corresponding assumption, when we have the density form,
+
+24
+00:00:56,160 --> 00:00:58,240
+would look like this.
+
+25
+00:00:58,240 --> 00:01:01,780
+So if we start by looking at the distribution of xk,
+
+26
+00:01:01,780 --> 00:01:05,570
+conditioned on all past states and all the past measurements.
+
+27
+00:01:05,570 --> 00:01:08,550
+So we look at all the states, from the prior to the state
+
+28
+00:01:08,550 --> 00:01:10,560
+at k minus 1, and all the measurements
+
+29
+00:01:10,560 --> 00:01:13,410
+from the first measurement, up to k minus 1.
+
+30
+00:01:13,410 --> 00:01:16,680
+We assume that we can write this distribution here
+
+31
+00:01:16,680 --> 00:01:19,350
+like this distribution here, where we only need to condition
+
+32
+00:01:19,350 --> 00:01:21,950
+on the past state at k minus 1.
+
+33
+00:01:21,950 --> 00:01:25,860
+What we're assuming here, is that if we know xk minus 1,
+
+34
+00:01:25,860 --> 00:01:30,300
+xk is conditionally independent of all the other states and all
+
+35
+00:01:30,300 --> 00:01:33,300
+the other measurements, except xk minus 1.
+
+36
+00:01:33,300 --> 00:01:35,670
+If we relate this to the independence assumption
+
+37
+00:01:35,670 --> 00:01:38,730
+that we have here, we see that if we know the previous state
+
+38
+00:01:38,730 --> 00:01:42,420
+xk minus 1, the only thing that we are uncertain about
+
+39
+00:01:42,420 --> 00:01:46,360
+is the motion noise, qk minus 1.
+
+40
+00:01:46,360 --> 00:01:49,870
+So we know xk minus 1, the only thing we are uncertain about
+
+41
+00:01:49,870 --> 00:01:52,870
+is qk minus 1, you know to solve this equation here.
+
+42
+00:01:52,870 --> 00:01:56,830
+But as qk minus 1 is independent of all other noise processes,
+
+43
+00:01:56,830 --> 00:01:58,810
+we can't get any information about it
+
+44
+00:01:58,810 --> 00:02:02,590
+from knowing the past states or the past measurements.
+
+45
+00:02:02,590 --> 00:02:06,130
+As such, they do not help us to describe the density of xk,
+
+46
+00:02:06,130 --> 00:02:09,610
+so we may just as well remove it from this expression here.
+
+47
+00:02:09,610 --> 00:02:12,340
+Now, if we look at the distribution of the measurement
+
+48
+00:02:12,340 --> 00:02:18,640
+yk, again given all the previous states up to the current time
+
+49
+00:02:18,640 --> 00:02:21,100
+and the past measurements, we assume
+
+50
+00:02:21,100 --> 00:02:25,850
+that we can simplify this as just a measurement model.
+
+51
+00:02:25,850 --> 00:02:27,410
+Again, what we are assuming here is
+
+52
+00:02:27,410 --> 00:02:31,940
+that, if we know the current state, xk, the measurement, yk,
+
+53
+00:02:31,940 --> 00:02:37,042
+is independent of all past states and the measurements.
+
+54
+00:02:37,042 --> 00:02:39,500
+This can also be seen from the structure of the measurement
+
+55
+00:02:39,500 --> 00:02:41,480
+model and this assumption here.
+
+56
+00:02:41,480 --> 00:02:44,900
+That if we know xk, the only thing that we are certain about
+
+57
+00:02:44,900 --> 00:02:46,400
+is rk.
+
+58
+00:02:46,400 --> 00:02:48,670
+And as we assume that rk is independent of all
+
+59
+00:02:48,670 --> 00:02:51,890
+the other vectors, we can't get any information about it
+
+60
+00:02:51,890 --> 00:02:54,800
+from knowing the past states and the observations.
+
+61
+00:02:54,800 --> 00:02:57,770
+A consequence of this is that for this to hold,
+
+62
+00:02:57,770 --> 00:03:00,350
+the state vector needs to summarize everything
+
+63
+00:03:00,350 --> 00:03:03,890
+we need to know about the system up to the current time.
+
+64
+00:03:03,890 --> 00:03:07,250
+If not, we cannot express these models on this form,
+
+65
+00:03:07,250 --> 00:03:08,930
+or on this form.
+
+66
+00:03:08,930 --> 00:03:12,920
+As such, in some cases we need to select our state vector
+
+67
+00:03:12,920 --> 00:03:15,770
+carefully in order for this to hold.
+
+68
+00:03:15,770 --> 00:03:18,770
+This usually means that we need to add more variables
+
+69
+00:03:18,770 --> 00:03:20,330
+in our state vector.
+
+70
+00:03:20,330 --> 00:03:27,080
+We should also note that xk and yk are stochastic processes.
+
+71
+00:03:27,080 --> 00:03:31,700
+And the assumption here implies that xk is
+
+72
+00:03:31,700 --> 00:03:34,010
+what's called a Markov process.
+
+73
+00:03:34,010 --> 00:03:36,350
+In fact, it's even a stronger statement,
+
+74
+00:03:36,350 --> 00:03:38,840
+as in order for xk to be Markov, we only
+
+75
+00:03:38,840 --> 00:03:42,740
+require that xk is conditionally independent on all
+
+76
+00:03:42,740 --> 00:03:46,170
+the past states, if we know xk minus 1.
+
+77
+00:03:46,170 --> 00:03:48,290
+Here we state that it's also conditionally
+
+78
+00:03:48,290 --> 00:03:51,170
+independent of all the past measurements as well.
+
+79
+00:03:51,170 --> 00:03:53,690
+A useful tool when thinking about conditional
+
+80
+00:03:53,690 --> 00:03:55,760
+independencies and dependencies is
+
+81
+00:03:55,760 --> 00:03:59,000
+what's called a Bayesian network, or what's also
+
+82
+00:03:59,000 --> 00:04:02,150
+called a belief network or Bayes net.
+
+83
+00:04:02,150 --> 00:04:04,400
+This is a probabilistic, graphical model
+
+84
+00:04:04,400 --> 00:04:08,090
+that uses a graph to illustrate how stochastic variables relate
+
+85
+00:04:08,090 --> 00:04:11,319
+to each other, or how they depend on each other.
+
+86
+00:04:11,319 --> 00:04:12,860
+There are many such graphical models.
+
+87
+00:04:12,860 --> 00:04:14,990
+But specifically, Bayesian networks
+
+88
+00:04:14,990 --> 00:04:18,140
+are directed acyclic graphs, where
+
+89
+00:04:18,140 --> 00:04:20,390
+each node is a stochastic variable,
+
+90
+00:04:20,390 --> 00:04:24,290
+and the vertex between two nodes, or stochastic variables,
+
+91
+00:04:24,290 --> 00:04:26,330
+indicate that there is a dependency
+
+92
+00:04:26,330 --> 00:04:28,360
+between the stochastic variables.
+
+93
+00:04:28,360 --> 00:04:31,400
+And with directed we mean that each vertex in the graph
+
+94
+00:04:31,400 --> 00:04:33,250
+has a specific direction.
+
+95
+00:04:33,250 --> 00:04:36,650
+And acyclic means that if we start in any node in the graph,
+
+96
+00:04:36,650 --> 00:04:39,530
+and only move in the direction of the vertices,
+
+97
+00:04:39,530 --> 00:04:42,380
+we cannot get back to the same node as we started in.
+
+98
+00:04:42,380 --> 00:04:44,930
+So there are no cycles in the graph.
+
+99
+00:04:44,930 --> 00:04:49,040
+The main purpose of these graphs is to describe a joint density
+
+100
+00:04:49,040 --> 00:04:51,320
+and how it can be factorized.
+
+101
+00:04:51,320 --> 00:04:54,230
+But it also illustrates conditional independencies.
+
+102
+00:04:54,230 --> 00:04:56,930
+And we're going to look a bit more into this.
+
+103
+00:04:56,930 --> 00:04:59,750
+So let us look at this from a small, toy example.
+
+104
+00:04:59,750 --> 00:05:03,410
+Where we want to reason about, if a vehicle in front of us,
+
+105
+00:05:03,410 --> 00:05:06,870
+we are in this vehicle here, and we see this vehicle here.
+
+106
+00:05:06,870 --> 00:05:10,310
+And want to reason about if this vehicle here in front
+
+107
+00:05:10,310 --> 00:05:12,870
+should take this exit here or not.
+
+108
+00:05:12,870 --> 00:05:15,620
+What we can observe is whether this vehicle here
+
+109
+00:05:15,620 --> 00:05:20,150
+is slowing down, or if the turn indicator is activated.
+
+110
+00:05:20,150 --> 00:05:22,790
+So for this problem we have three random variables.
+
+111
+00:05:22,790 --> 00:05:32,800
+We have take exit, slow down, and turn indicator.
+
+112
+00:05:32,800 --> 00:05:36,485
+In our Bayesian network, these are three nodes in our graph.
+
+113
+00:05:36,485 --> 00:05:39,370
+I will indicate our nodes by drawing circles around them.
+
+114
+00:05:39,370 --> 00:05:43,090
+We connect these nodes with directed vertices indicating
+
+115
+00:05:43,090 --> 00:05:44,890
+how they depend on each other.
+
+116
+00:05:44,890 --> 00:05:47,320
+So whether the turn indicator is active or not
+
+117
+00:05:47,320 --> 00:05:49,600
+is dependent on whether the vehicle intends
+
+118
+00:05:49,600 --> 00:05:51,260
+to take the exit or not.
+
+119
+00:05:51,260 --> 00:05:55,810
+We have a dependency between take exit and turn indicator.
+
+120
+00:05:55,810 --> 00:05:58,960
+Similarly, if the vehicle is taking the exit,
+
+121
+00:05:58,960 --> 00:06:01,150
+there is a greater probability that the vehicle
+
+122
+00:06:01,150 --> 00:06:04,180
+is slowing down in order to safely take that exit.
+
+123
+00:06:04,180 --> 00:06:07,000
+One way of viewing this model, and the direction
+
+124
+00:06:07,000 --> 00:06:10,090
+of the arrows, is in terms of causality.
+
+125
+00:06:10,090 --> 00:06:12,190
+If the vehicle intends to take the exit,
+
+126
+00:06:12,190 --> 00:06:16,600
+it causes the vehicle to slow down and or turn on the turn
+
+127
+00:06:16,600 --> 00:06:17,830
+indicator.
+
+128
+00:06:17,830 --> 00:06:20,020
+It also gives us information regarding
+
+129
+00:06:20,020 --> 00:06:22,000
+how one could go about generating
+
+130
+00:06:22,000 --> 00:06:23,440
+these random variables here.
+
+131
+00:06:23,440 --> 00:06:25,300
+If I were to do this, I would first
+
+132
+00:06:25,300 --> 00:06:28,570
+generate if the vehicle would take the exit or not,
+
+133
+00:06:28,570 --> 00:06:31,450
+and then use this when generating the other two.
+
+134
+00:06:31,450 --> 00:06:33,970
+As, clearly, it helps to know if the vehicle intends
+
+135
+00:06:33,970 --> 00:06:36,280
+to take the exit, or not, when generating
+
+136
+00:06:36,280 --> 00:06:39,850
+if it is also slowing down, or if it's activating the turn
+
+137
+00:06:39,850 --> 00:06:40,800
+indicator.
+
+138
+00:06:40,800 --> 00:06:42,550
+This is because, as we see from the graph,
+
+139
+00:06:42,550 --> 00:06:45,640
+there is a direct dependence for these two variables,
+
+140
+00:06:45,640 --> 00:06:48,460
+if the vehicle intends to take the exit or not.
+
+141
+00:06:48,460 --> 00:06:50,410
+All right, so this makes sense, right?
+
+142
+00:06:50,410 --> 00:06:53,500
+But does this mean that slow down
+
+143
+00:06:53,500 --> 00:06:55,960
+is independent of turn indicator?
+
+144
+00:06:55,960 --> 00:06:57,940
+Well, not really, right?
+
+145
+00:06:57,940 --> 00:07:00,250
+If we reason about it, it seems reasonable
+
+146
+00:07:00,250 --> 00:07:03,030
+that, if the turn indicator is active,
+
+147
+00:07:03,030 --> 00:07:06,400
+it's also more probable that the vehicle will slow down
+
+148
+00:07:06,400 --> 00:07:09,580
+in order to take the exit safely, and vice versa.
+
+149
+00:07:09,580 --> 00:07:12,190
+But what happens if we condition on the vehicle
+
+150
+00:07:12,190 --> 00:07:14,170
+will take the exit, that is we know
+
+151
+00:07:14,170 --> 00:07:17,980
+for certain that the vehicle will take the upcoming exit?
+
+152
+00:07:17,980 --> 00:07:20,710
+What happens then with the dependency between slowing
+
+153
+00:07:20,710 --> 00:07:22,180
+down and turn indicator?
+
+154
+00:07:22,180 --> 00:07:24,550
+Well, the reason why they are dependent
+
+155
+00:07:24,550 --> 00:07:27,070
+is that we are uncertain about whether the vehicle will
+
+156
+00:07:27,070 --> 00:07:28,450
+take the exit or not.
+
+157
+00:07:28,450 --> 00:07:30,700
+However if we conditioned on this,
+
+158
+00:07:30,700 --> 00:07:33,010
+we can be quite certain that the vehicle also
+
+159
+00:07:33,010 --> 00:07:35,500
+will slow down and safely take the exit.
+
+160
+00:07:35,500 --> 00:07:37,660
+And if the turn indicator is active or not,
+
+161
+00:07:37,660 --> 00:07:40,150
+that becomes more of a personal choice.
+
+162
+00:07:40,150 --> 00:07:42,610
+So conditioned on that the vehicle will take the exit,
+
+163
+00:07:42,610 --> 00:07:44,920
+slow down and turn indicator becomes
+
+164
+00:07:44,920 --> 00:07:47,200
+conditionally independent.
+
+165
+00:07:47,200 --> 00:07:49,150
+The general conclusion is that, if we're
+
+166
+00:07:49,150 --> 00:07:52,390
+conditioned on a parent, the general conclusion
+
+167
+00:07:52,390 --> 00:07:54,700
+is that if we condition on a parent node,
+
+168
+00:07:54,700 --> 00:07:57,040
+so take exit as a parent to slow down
+
+169
+00:07:57,040 --> 00:08:00,160
+and turn indicator because it is preceding them in this graph,
+
+170
+00:08:00,160 --> 00:08:02,860
+the child nodes become conditionally independent
+
+171
+00:08:02,860 --> 00:08:05,740
+on all the non-descendants.
+
+172
+00:08:05,740 --> 00:08:08,440
+So if we would add extra nodes here,
+
+173
+00:08:08,440 --> 00:08:12,160
+they would not be independent of those but all non descendants.
+
+174
+00:08:12,160 --> 00:08:14,760
+So turn indicator becomes independent of slow
+
+175
+00:08:14,760 --> 00:08:16,090
+down in this case.
+
+176
+00:08:16,090 --> 00:08:17,840
+We can also see this if we factorize
+
+177
+00:08:17,840 --> 00:08:20,920
+the joint probability of all these variables using
+
+178
+00:08:20,920 --> 00:08:22,120
+the product rule.
+
+179
+00:08:22,120 --> 00:08:24,520
+And then using this Bayesian network to see how
+
+180
+00:08:24,520 --> 00:08:26,630
+we can simplify the expression.
+
+181
+00:08:26,630 --> 00:08:31,450
+So if we denote take exit as the random variable E,
+
+182
+00:08:31,450 --> 00:08:35,559
+turn indicators I, and slow down as S,
+
+183
+00:08:35,559 --> 00:08:39,240
+we can write the joint probability
+
+184
+00:08:39,240 --> 00:08:48,860
+of all these variables as probability of S, I, and E.
+
+185
+00:08:48,860 --> 00:08:50,520
+And using the product rule, we know
+
+186
+00:08:50,520 --> 00:08:53,760
+that we can factorize this joint density like this.
+
+187
+00:08:53,760 --> 00:09:03,680
+
+
+188
+00:09:03,680 --> 00:09:07,630
+So we know that we can always do this for any joint density.
+
+189
+00:09:07,630 --> 00:09:09,959
+We're just using the product rule here.
+
+190
+00:09:09,959 --> 00:09:11,500
+But if we now look at this expression
+
+191
+00:09:11,500 --> 00:09:14,620
+here and take a look on our Bayesian network,
+
+192
+00:09:14,620 --> 00:09:19,390
+we know that S is independent of the turn indicator,
+
+193
+00:09:19,390 --> 00:09:24,370
+I, if we condition on E. So in this expression here,
+
+194
+00:09:24,370 --> 00:09:29,170
+we know that we can remove I from this expression.
+
+195
+00:09:29,170 --> 00:09:33,480
+So this can be simplified using our Bayesian network
+
+196
+00:09:33,480 --> 00:09:34,520
+to this expression here.
+
+197
+00:09:34,520 --> 00:09:47,540
+
+
+198
+00:09:47,540 --> 00:09:50,230
+Which is something a bit more simpler
+
+199
+00:09:50,230 --> 00:09:52,750
+than the general expression that we got here.
+
+200
+00:09:52,750 --> 00:09:55,720
+Because we could remove the dependence on I here,
+
+201
+00:09:55,720 --> 00:09:57,770
+so we'll get a simpler expression here.
+
+202
+00:09:57,770 --> 00:10:00,130
+So in general, if we can formulate a Bayesian network
+
+203
+00:10:00,130 --> 00:10:02,350
+for a problem, we can use that to see
+
+204
+00:10:02,350 --> 00:10:05,410
+how we can factorize our joint distribution into as
+
+205
+00:10:05,410 --> 00:10:07,370
+small pieces as possible.
+
+206
+00:10:07,370 --> 00:10:10,630
+So we have now introduced the concept of Bayesian networks,
+
+207
+00:10:10,630 --> 00:10:12,580
+at least in the form of an example.
+
+208
+00:10:12,580 --> 00:10:14,620
+What we want to do now is to use it
+
+209
+00:10:14,620 --> 00:10:18,220
+to illustrate the dependencies and independencies of our state
+
+210
+00:10:18,220 --> 00:10:19,180
+space models.
+
+211
+00:10:19,180 --> 00:10:22,630
+So what we see here is a Bayesian network illustration
+
+212
+00:10:22,630 --> 00:10:24,520
+of our state space model, where we
+
+213
+00:10:24,520 --> 00:10:27,460
+can divide the model into a hidden part and an observed
+
+214
+00:10:27,460 --> 00:10:28,060
+part.
+
+215
+00:10:28,060 --> 00:10:29,620
+The hidden variables, in this case,
+
+216
+00:10:29,620 --> 00:10:32,110
+is the state space variables xk minus 2,
+
+217
+00:10:32,110 --> 00:10:34,570
+xk minus 1, and xk and so forth.
+
+218
+00:10:34,570 --> 00:10:37,030
+And the observed variables are our measurements
+
+219
+00:10:37,030 --> 00:10:42,400
+or observations, yk minus 2, yk minus 1, and yk and so on.
+
+220
+00:10:42,400 --> 00:10:46,900
+Where, for example, yk minus 1 is an observation of our state
+
+221
+00:10:46,900 --> 00:10:48,280
+xk minus 1.
+
+222
+00:10:48,280 --> 00:10:49,960
+This Bayesian network here gives us
+
+223
+00:10:49,960 --> 00:10:52,240
+some intuition regarding the dependencies
+
+224
+00:10:52,240 --> 00:10:53,390
+between our variables.
+
+225
+00:10:53,390 --> 00:10:55,900
+It also illustrates the models that we have.
+
+226
+00:10:55,900 --> 00:10:59,440
+For example, we see that xk minus 1
+
+227
+00:10:59,440 --> 00:11:01,970
+is dependent on xk minus 2.
+
+228
+00:11:01,970 --> 00:11:06,940
+So if we know xk minus 2, we can generate xk minus 1
+
+229
+00:11:06,940 --> 00:11:10,030
+using our process model for example.
+
+230
+00:11:10,030 --> 00:11:18,900
+So this vertex here basically says that p of xk
+
+231
+00:11:18,900 --> 00:11:23,770
+minus 1, given xk minus 2.
+
+232
+00:11:23,770 --> 00:11:26,450
+We have this type of model in our network.
+
+233
+00:11:26,450 --> 00:11:28,750
+Similarly, as we mentioned earlier,
+
+234
+00:11:28,750 --> 00:11:32,690
+our observation yk minus 1 is dependent on the state
+
+235
+00:11:32,690 --> 00:11:34,330
+at time k minus 1.
+
+236
+00:11:34,330 --> 00:11:37,020
+And this dependency is described by the measurement model,
+
+237
+00:11:37,020 --> 00:11:37,520
+right.
+
+238
+00:11:37,520 --> 00:11:43,280
+
+
+239
+00:11:43,280 --> 00:11:46,550
+As a consequence of this, we can also see that, for example,
+
+240
+00:11:46,550 --> 00:11:49,190
+yk minus 1 is conditionally independent
+
+241
+00:11:49,190 --> 00:11:54,100
+on all other variables if we know xk minus 1.
+
+242
+00:11:54,100 --> 00:11:57,020
+And similarly, if we know xk minus 1,
+
+243
+00:11:57,020 --> 00:12:00,320
+for example, the variables here, to the right,
+
+244
+00:12:00,320 --> 00:12:04,100
+are no longer dependent on these variables here.
+
+245
+00:12:04,100 --> 00:12:07,170
+Because they are non-descendants of these variables.
+
+246
+00:12:07,170 --> 00:12:09,170
+And everything that we need to know
+
+247
+00:12:09,170 --> 00:12:11,960
+is summarized in xk minus 1.
+
+248
+00:12:11,960 --> 00:12:15,140
+Before we use this model to factorize our distribution,
+
+249
+00:12:15,140 --> 00:12:16,975
+I would like to point out two things.
+
+250
+00:12:16,975 --> 00:12:18,350
+The first thing is that we do not
+
+251
+00:12:18,350 --> 00:12:22,040
+expect that you will become an expert in Bayesian networks
+
+252
+00:12:22,040 --> 00:12:24,230
+after this short introduction.
+
+253
+00:12:24,230 --> 00:12:25,820
+However we hope that it will help
+
+254
+00:12:25,820 --> 00:12:28,310
+you to understand and remember the dependencies
+
+255
+00:12:28,310 --> 00:12:32,640
+and independencies that we have in our state space models.
+
+256
+00:12:32,640 --> 00:12:35,750
+And we should also note that the Bayesian network here does not
+
+257
+00:12:35,750 --> 00:12:38,120
+introduce any new information, it only
+
+258
+00:12:38,120 --> 00:12:41,780
+illustrates the dependencies and independencies
+
+259
+00:12:41,780 --> 00:12:45,330
+that we already introduced in the first slide.
+
+260
+00:12:45,330 --> 00:12:48,080
+The second thing is that, although the Bayesian network
+
+261
+00:12:48,080 --> 00:12:51,140
+illustrates how we model our random variable,
+
+262
+00:12:51,140 --> 00:12:55,790
+we use, for example, xk to generate yk.
+
+263
+00:12:55,790 --> 00:12:58,100
+But when we do inference, information typically
+
+264
+00:12:58,100 --> 00:13:00,810
+flows in the opposite direction.
+
+265
+00:13:00,810 --> 00:13:04,340
+Where we observe yk to draw conclusions
+
+266
+00:13:04,340 --> 00:13:06,790
+regarding our state, xk.
+
+267
+00:13:06,790 --> 00:13:09,140
+It's just that it is often convenient to model it
+
+268
+00:13:09,140 --> 00:13:10,070
+the other way around.
+
+269
+00:13:10,070 --> 00:13:13,370
+To model yk conditioned on xk.
+
+270
+00:13:13,370 --> 00:13:16,490
+So now, let's use the Bayesian network
+
+271
+00:13:16,490 --> 00:13:21,560
+to simplify our factorization of the joint distribution over all
+
+272
+00:13:21,560 --> 00:13:22,730
+our variables.
+
+273
+00:13:22,730 --> 00:13:24,140
+So we have the joint distribution
+
+274
+00:13:24,140 --> 00:13:28,040
+where all our states from the prior to time k,
+
+275
+00:13:28,040 --> 00:13:32,180
+and all our observations from time 1 to time k.
+
+276
+00:13:32,180 --> 00:13:36,160
+We can always factorize this using the product rule.
+
+277
+00:13:36,160 --> 00:13:39,110
+So we can, for example, divide it into this density
+
+278
+00:13:39,110 --> 00:13:41,750
+here where we have our observations conditioned
+
+279
+00:13:41,750 --> 00:13:45,500
+on all our states, and then just all our states.
+
+280
+00:13:45,500 --> 00:13:47,660
+Now we can split this up even further
+
+281
+00:13:47,660 --> 00:13:51,350
+if we separate this density here into factors
+
+282
+00:13:51,350 --> 00:13:53,340
+over individual observations.
+
+283
+00:13:53,340 --> 00:13:58,940
+We have p of y1, given all the states, p of y2, given p of y1,
+
+284
+00:13:58,940 --> 00:14:00,020
+given all the states.
+
+285
+00:14:00,020 --> 00:14:02,240
+This is just using the product rule, right?
+
+286
+00:14:02,240 --> 00:14:03,770
+And so forth.
+
+287
+00:14:03,770 --> 00:14:07,820
+Up to p of yk, given all the previous measurements
+
+288
+00:14:07,820 --> 00:14:09,410
+and all the states.
+
+289
+00:14:09,410 --> 00:14:13,640
+Similarly, we can split the density over all our states
+
+290
+00:14:13,640 --> 00:14:17,780
+into individual densities of each individual state.
+
+291
+00:14:17,780 --> 00:14:21,200
+So we have our prior, p of x0.
+
+292
+00:14:21,200 --> 00:14:24,870
+Then the density of x1, given x0.
+
+293
+00:14:24,870 --> 00:14:29,320
+Then the density of x2 given x0 and x1.
+
+294
+00:14:29,320 --> 00:14:32,750
+And so forth, until we have p of xk,
+
+295
+00:14:32,750 --> 00:14:35,120
+given all the previous states.
+
+296
+00:14:35,120 --> 00:14:37,850
+So note that we have not made any assumptions yet,
+
+297
+00:14:37,850 --> 00:14:39,275
+we have only used the product rule
+
+298
+00:14:39,275 --> 00:14:40,970
+to factorize the joint density.
+
+299
+00:14:40,970 --> 00:14:45,690
+So we go from joint density into these factors using the product
+
+300
+00:14:45,690 --> 00:14:46,280
+rule.
+
+301
+00:14:46,280 --> 00:14:48,640
+And we can do this for any density.
+
+302
+00:14:48,640 --> 00:14:51,620
+And now we want to use our Bayesian network here
+
+303
+00:14:51,620 --> 00:14:54,080
+to simplify these factors.
+
+304
+00:14:54,080 --> 00:14:56,840
+If you start by looking at these conditional distributions
+
+305
+00:14:56,840 --> 00:14:59,090
+over our individual observations,
+
+306
+00:14:59,090 --> 00:15:03,710
+we see from our patient network that each measurement, here,
+
+307
+00:15:03,710 --> 00:15:06,440
+is conditionally independent of all other states
+
+308
+00:15:06,440 --> 00:15:08,060
+and measurements.
+
+309
+00:15:08,060 --> 00:15:10,290
+If we condition on its respective states.
+
+310
+00:15:10,290 --> 00:15:13,580
+So if we condition on xk minus 1, yk minus 1
+
+311
+00:15:13,580 --> 00:15:15,410
+becomes conditionally independent
+
+312
+00:15:15,410 --> 00:15:17,570
+of all of these other states.
+
+313
+00:15:17,570 --> 00:15:21,990
+Because these are non-descendants of yk minus 1.
+
+314
+00:15:21,990 --> 00:15:26,540
+So if we look at it here as y1 it's conditionally independent
+
+315
+00:15:26,540 --> 00:15:32,120
+of all other states, except x1, we can remove them from this.
+
+316
+00:15:32,120 --> 00:15:40,200
+So we have for the first one here.
+
+317
+00:15:40,200 --> 00:15:43,800
+And then here we have y2, conditioned
+
+318
+00:15:43,800 --> 00:15:45,840
+on y1 and all the other states.
+
+319
+00:15:45,840 --> 00:15:49,470
+And here we have x2, right, so y2 is conditionally
+
+320
+00:15:49,470 --> 00:15:52,020
+independent of all the other states here, except x2.
+
+321
+00:15:52,020 --> 00:15:59,030
+
+
+322
+00:15:59,030 --> 00:16:01,970
+So it simplifies to this.
+
+323
+00:16:01,970 --> 00:16:03,290
+And so on until we get.
+
+324
+00:16:03,290 --> 00:16:08,140
+
+
+325
+00:16:08,140 --> 00:16:12,370
+So it leaves us with a product of measurement models.
+
+326
+00:16:12,370 --> 00:16:15,760
+So instead of having this very complicated product
+
+327
+00:16:15,760 --> 00:16:17,770
+of densities, we have a simple product
+
+328
+00:16:17,770 --> 00:16:20,370
+of our measurement models.
+
+329
+00:16:20,370 --> 00:16:21,430
+And that is all.
+
+330
+00:16:21,430 --> 00:16:25,080
+It's much simpler than that original expression, right?
+
+331
+00:16:25,080 --> 00:16:27,210
+Similarly, if we look at this product
+
+332
+00:16:27,210 --> 00:16:30,330
+here, over the individual states,
+
+333
+00:16:30,330 --> 00:16:34,880
+we can remove all the past states in this product here.
+
+334
+00:16:34,880 --> 00:16:37,748
+So the prior we cannot simplify anymore.
+
+335
+00:16:37,748 --> 00:16:40,960
+
+
+336
+00:16:40,960 --> 00:16:46,180
+And not distribution of x1, given x0 either.
+
+337
+00:16:46,180 --> 00:16:49,445
+However here we see that, if we condition on x1,
+
+338
+00:16:49,445 --> 00:16:51,710
+x0 is conditionally independent of x2,
+
+339
+00:16:51,710 --> 00:16:54,282
+so we can remove it from the expression.
+
+340
+00:16:54,282 --> 00:16:57,120
+
+
+341
+00:16:57,120 --> 00:16:59,496
+And we can do this for all the rest
+
+342
+00:16:59,496 --> 00:17:06,369
+and we just get: So we can just simplify
+
+343
+00:17:06,369 --> 00:17:10,230
+this fairly complicated product here
+
+344
+00:17:10,230 --> 00:17:15,510
+as just a product of the prior and the individual motion
+
+345
+00:17:15,510 --> 00:17:16,140
+models.
+
+346
+00:17:16,140 --> 00:17:18,900
+So by using the structure of our state space model,
+
+347
+00:17:18,900 --> 00:17:21,480
+as illustrated by this Bayesian network,
+
+348
+00:17:21,480 --> 00:17:23,339
+we can factorize the joint distribution
+
+349
+00:17:23,339 --> 00:17:26,460
+of all these variables as a product of simple measurement
+
+350
+00:17:26,460 --> 00:17:31,810
+models, process models, or motion models, and the prior.
+
+351
+00:17:31,810 --> 00:17:33,600
+So we will use this in the next lecture
+
+352
+00:17:33,600 --> 00:17:36,450
+where we will drive the optimal filter.
+
+353
+00:17:36,450 --> 00:17:38,460
+And here is a self-assessment question
+
+354
+00:17:38,460 --> 00:17:41,460
+to check that you have understood the basic concepts
+
+355
+00:17:41,460 --> 00:17:43,770
+of a Bayesian network.
+
+356
+00:17:43,770 --> 00:17:48,465
+
+

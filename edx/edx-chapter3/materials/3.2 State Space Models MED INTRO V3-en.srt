@@ -1,0 +1,964 @@
+0
+00:00:00,000 --> 00:00:00,499
+
+
+1
+00:00:00,499 --> 00:00:03,040
+Throughout this course, we will formulate our filtering
+
+2
+00:00:03,040 --> 00:00:06,880
+prediction and smoothing problems using so-called state
+
+3
+00:00:06,880 --> 00:00:08,470
+space models.
+
+4
+00:00:08,470 --> 00:00:11,650
+We will use these statistical models to describe
+
+5
+00:00:11,650 --> 00:00:13,150
+what we're interested in--
+
+6
+00:00:13,150 --> 00:00:15,040
+we call this our state vector--
+
+7
+00:00:15,040 --> 00:00:17,800
+how the state vector evolves over time,
+
+8
+00:00:17,800 --> 00:00:21,370
+and how it relates to the observations that we make.
+
+9
+00:00:21,370 --> 00:00:23,380
+We will in a later lecture show how
+
+10
+00:00:23,380 --> 00:00:27,490
+we can use these models to solve the general filtering problem.
+
+11
+00:00:27,490 --> 00:00:31,630
+So in this lecture, we will look at how we define these models,
+
+12
+00:00:31,630 --> 00:00:34,810
+and what's their purpose when it comes to solving our estimation
+
+13
+00:00:34,810 --> 00:00:36,100
+problems.
+
+14
+00:00:36,100 --> 00:00:39,550
+We will focus our attention on discrete time state space
+
+15
+00:00:39,550 --> 00:00:42,820
+models, as it's often enough to estimate our state
+
+16
+00:00:42,820 --> 00:00:45,570
+with a certain time interval.
+
+17
+00:00:45,570 --> 00:00:49,250
+So discrete time state space model models a so-called state
+
+18
+00:00:49,250 --> 00:00:53,190
+vector, which we denote xk and a measurement vector,
+
+19
+00:00:53,190 --> 00:00:57,680
+which we denote yk where k here is a discrete time
+
+20
+00:00:57,680 --> 00:00:59,390
+index, in both cases.
+
+21
+00:00:59,390 --> 00:01:01,970
+First, we have a motion or process model,
+
+22
+00:01:01,970 --> 00:01:05,360
+which in its most general form describes the current state,
+
+23
+00:01:05,360 --> 00:01:09,980
+xk, as a function, fk minus 1, of the previous state,
+
+24
+00:01:09,980 --> 00:01:14,750
+xk minus 1, and a motion noise process, qk minus 1.
+
+25
+00:01:14,750 --> 00:01:18,800
+The purpose of this model is to statistically describe how
+
+26
+00:01:18,800 --> 00:01:21,030
+the state evolves over time.
+
+27
+00:01:21,030 --> 00:01:24,470
+Secondly, we have a measurement or a sensor model,
+
+28
+00:01:24,470 --> 00:01:26,780
+which, again, in this most general form,
+
+29
+00:01:26,780 --> 00:01:29,810
+describes the current measurement yk
+
+30
+00:01:29,810 --> 00:01:35,120
+as a function hk of the current state, xk, and a measurement
+
+31
+00:01:35,120 --> 00:01:36,890
+noise process, rk.
+
+32
+00:01:36,890 --> 00:01:40,040
+The purpose here is to statistically describe
+
+33
+00:01:40,040 --> 00:01:44,990
+how we can relate the current state to our observation, yk.
+
+34
+00:01:44,990 --> 00:01:47,540
+Additionally, in our discrete time state space model,
+
+35
+00:01:47,540 --> 00:01:50,000
+we also have a prior distribution of our state.
+
+36
+00:01:50,000 --> 00:01:53,420
+This is the distribution of our state at time 0
+
+37
+00:01:53,420 --> 00:01:55,640
+before we make any observation.
+
+38
+00:01:55,640 --> 00:01:58,460
+With this model, we can describe any general knowledge
+
+39
+00:01:58,460 --> 00:02:00,320
+that we have about our state vector
+
+40
+00:02:00,320 --> 00:02:02,750
+before we even make any observations.
+
+41
+00:02:02,750 --> 00:02:06,620
+So these are the basic building blocks of a discrete time state
+
+42
+00:02:06,620 --> 00:02:08,840
+space model, and I'm sure that you
+
+43
+00:02:08,840 --> 00:02:11,900
+have come across this type of model in other courses
+
+44
+00:02:11,900 --> 00:02:14,690
+that you have studied, for example, in control theory.
+
+45
+00:02:14,690 --> 00:02:16,580
+What we typically also assume, which
+
+46
+00:02:16,580 --> 00:02:18,680
+is not evident from what we see here,
+
+47
+00:02:18,680 --> 00:02:21,060
+is that both the motion noise, qk minus 1,
+
+48
+00:02:21,060 --> 00:02:23,900
+and the measurement noise, rk, are
+
+49
+00:02:23,900 --> 00:02:27,085
+independent of all other noise vectors.
+
+50
+00:02:27,085 --> 00:02:28,460
+This means that they are not only
+
+51
+00:02:28,460 --> 00:02:32,450
+independent from each other but also independent over time.
+
+52
+00:02:32,450 --> 00:02:34,670
+So the measurement noise at time k
+
+53
+00:02:34,670 --> 00:02:36,770
+is independent from the measurement noise
+
+54
+00:02:36,770 --> 00:02:39,210
+at time k minus 1, for example.
+
+55
+00:02:39,210 --> 00:02:41,240
+And these assumptions also ensures
+
+56
+00:02:41,240 --> 00:02:45,780
+that the Markov property holds for the state space model.
+
+57
+00:02:45,780 --> 00:02:48,590
+All right, so let's look into more detail regarding
+
+58
+00:02:48,590 --> 00:02:50,570
+the motion and measurement models.
+
+59
+00:02:50,570 --> 00:02:54,080
+We start with a motion or process model.
+
+60
+00:02:54,080 --> 00:02:56,090
+I should mention that, throughout the course,
+
+61
+00:02:56,090 --> 00:02:59,210
+I will probably use both of these terms interchangeably.
+
+62
+00:02:59,210 --> 00:03:02,330
+The term process model stems from control theory
+
+63
+00:03:02,330 --> 00:03:05,720
+where one, in general, wants to control some process.
+
+64
+00:03:05,720 --> 00:03:07,910
+And then one needs a model for the dynamics
+
+65
+00:03:07,910 --> 00:03:11,450
+of this process, which is then called a process model.
+
+66
+00:03:11,450 --> 00:03:14,180
+In terms of, for example, estimating the position
+
+67
+00:03:14,180 --> 00:03:16,760
+of a vehicle, the process model, in this case,
+
+68
+00:03:16,760 --> 00:03:19,430
+should then describe the dynamics of the vehicle,
+
+69
+00:03:19,430 --> 00:03:21,260
+and thus the process model will describe
+
+70
+00:03:21,260 --> 00:03:23,140
+the motion of the vehicle.
+
+71
+00:03:23,140 --> 00:03:24,950
+The more descriptive name, in this case,
+
+72
+00:03:24,950 --> 00:03:27,860
+is to call the process model for what it is,
+
+73
+00:03:27,860 --> 00:03:30,200
+and that's a motion model.
+
+74
+00:03:30,200 --> 00:03:35,420
+So in sum, the system dynamics is described by this model
+
+75
+00:03:35,420 --> 00:03:39,805
+here, which we refer to as a motion or a process model.
+
+76
+00:03:39,805 --> 00:03:41,180
+There are a couple of things that
+
+77
+00:03:41,180 --> 00:03:43,160
+are interesting to note here.
+
+78
+00:03:43,160 --> 00:03:46,790
+Firstly, the motion model describes the state evolution,
+
+79
+00:03:46,790 --> 00:03:49,010
+and an equivalent view of this is
+
+80
+00:03:49,010 --> 00:03:51,050
+that it describes the distribution
+
+81
+00:03:51,050 --> 00:03:54,950
+of the current state condition on the previous state.
+
+82
+00:03:54,950 --> 00:03:57,290
+Often, when we talk about the motion model,
+
+83
+00:03:57,290 --> 00:04:00,290
+we have both of these representations in mind--
+
+84
+00:04:00,290 --> 00:04:04,860
+both the equation form here and the density form here.
+
+85
+00:04:04,860 --> 00:04:08,320
+They are equivalent views of the motion or process model.
+
+86
+00:04:08,320 --> 00:04:14,500
+
+
+87
+00:04:11,500 --> 00:04:19,060
+With this interpretation here, we
+
+88
+00:04:13,060 --> 00:04:15,579
+assume that we have perfect knowledge about where the state
+
+89
+00:04:15,579 --> 00:04:18,220
+was one time instance ago.
+
+90
+00:04:18,220 --> 00:04:21,520
+That is, we have no uncertainty about this.
+
+91
+00:04:21,520 --> 00:04:23,230
+What the motion model then describes
+
+92
+00:04:23,230 --> 00:04:26,770
+is the distribution of xk conditioned
+
+93
+00:04:26,770 --> 00:04:28,420
+on the previous state.
+
+94
+00:04:28,420 --> 00:04:29,530
+So what are probable states in the next time instance?
+
+95
+00:04:32,530 --> 00:04:36,910
+As such, the motion model allows us to connect states over time
+
+96
+00:04:36,910 --> 00:04:41,110
+and help us rule out unreasonable trajectories.
+
+97
+00:04:41,110 --> 00:04:44,320
+That is if we want to estimate the position of an object
+
+98
+00:04:44,320 --> 00:04:47,830
+over time we typically have physical constraints that
+
+99
+00:04:47,830 --> 00:04:50,170
+limits the movements of this object over time
+
+100
+00:04:50,170 --> 00:04:50,171
+
+
+101
+00:04:50,450 --> 00:04:53,200
+So if we assume that we are tracking, the motion of some
+
+102
+00:04:53,200 --> 00:04:54,640
+object over time.
+
+103
+00:04:54,640 --> 00:04:58,560
+We often want this trajectory to look fairly smooth
+
+104
+00:04:58,560 --> 00:05:00,190
+due to physical constraints.
+
+105
+00:05:00,190 --> 00:05:03,520
+Often, something like this, and not something like this.
+
+106
+00:05:03,520 --> 00:05:06,940
+
+
+107
+00:05:06,940 --> 00:05:11,690
+And we use the motion model to rule out these unreasonable
+
+108
+00:05:11,690 --> 00:05:12,740
+trajectories.
+
+109
+00:05:12,740 --> 00:05:16,340
+So let us look at this from the perspective of an example.
+
+110
+00:05:16,340 --> 00:05:21,110
+So if the state at time k minus 1, for example,
+
+111
+00:05:21,110 --> 00:05:24,470
+describes the position and velocity of a vehicle.
+
+112
+00:05:24,470 --> 00:05:27,950
+So it describes the position and velocity of this vehicle.
+
+113
+00:05:27,950 --> 00:05:30,110
+So knowing this, the aim of the motion model
+
+114
+00:05:30,110 --> 00:05:32,480
+is to describe the state at time k
+
+115
+00:05:32,480 --> 00:05:35,060
+or the distribution of the state at time k.
+
+116
+00:05:35,060 --> 00:05:37,280
+In this case, it seems reasonable to assume
+
+117
+00:05:37,280 --> 00:05:39,320
+that the vehicle continues to move
+
+118
+00:05:39,320 --> 00:05:42,370
+as it did at time k minus 1, which would give us
+
+119
+00:05:42,370 --> 00:05:46,829
+a state something like this.
+
+120
+00:05:43,829 --> 00:05:46,370
+However, we cannot rule out that the vehicle doesn't make any
+
+121
+00:05:46,370 --> 00:05:49,200
+changes to its velocity vector by, for example,
+
+122
+00:05:49,200 --> 00:05:51,740
+turning the steering wheel, stepping on the brake,
+
+123
+00:05:51,740 --> 00:05:53,720
+or pushing the accelerator pedal.
+
+124
+00:05:53,720 --> 00:05:56,660
+This would mean that we need to allow for the predictions
+
+125
+00:05:56,660 --> 00:05:58,070
+to look something like this.
+
+126
+00:05:58,070 --> 00:06:01,970
+If for example, the vehicle has turned somewhat.
+
+127
+00:06:01,970 --> 00:06:04,460
+But we still need these deviations
+
+128
+00:06:04,460 --> 00:06:08,960
+to be reasonable and not as we see in this example here.
+
+129
+00:06:08,960 --> 00:06:12,200
+So it's unreasonable that a vehicle which
+
+130
+00:06:12,200 --> 00:06:17,630
+has a velocity like this would, in a short time instance,
+
+131
+00:06:17,630 --> 00:06:20,270
+have a position and velocity like this.
+
+132
+00:06:20,270 --> 00:06:23,120
+And this is unreasonable both form a vehicle dynamics
+
+133
+00:06:23,120 --> 00:06:25,430
+perspective and also from the kind of changes
+
+134
+00:06:25,430 --> 00:06:27,660
+that one can expect the driver to make.
+
+135
+00:06:27,660 --> 00:06:30,500
+So the motion model considers two aspects.
+
+136
+00:06:30,500 --> 00:06:32,930
+The dynamics of the system, which is usually
+
+137
+00:06:32,930 --> 00:06:36,470
+described using physical models and the uncertainty
+
+138
+00:06:36,470 --> 00:06:39,950
+regarding what can change between two time instances.
+
+139
+00:06:39,950 --> 00:06:43,850
+And how much changes we allow is modeled by the motion noise
+
+140
+00:06:43,850 --> 00:06:45,410
+process, qk minus 1.
+
+141
+00:06:45,410 --> 00:06:48,260
+These two aspects together make up all statistical model
+
+142
+00:06:48,260 --> 00:06:51,440
+probable state at the current time, given the state
+
+143
+00:06:51,440 --> 00:06:53,060
+at the previous time instance.
+
+144
+00:06:53,060 --> 00:06:54,230
+And in this case, we could get some distribution
+
+145
+00:06:57,230 --> 00:06:58,490
+looking like this.
+
+146
+00:06:58,490 --> 00:06:58,710
+
+
+147
+00:07:01,910 --> 00:07:05,040
+So states in this region are probable.
+
+148
+00:07:05,040 --> 00:07:07,430
+States outside this region are improbable.
+
+149
+00:07:07,430 --> 00:07:10,100
+And this is an illustration of the motion model.
+
+150
+00:07:10,100 --> 00:07:10,680
+
+
+151
+00:07:12,680 --> 00:07:15,100
+And with this motion model, these types of states
+
+152
+00:07:15,100 --> 00:07:17,110
+here would be very improbable.
+
+153
+00:07:17,110 --> 00:07:19,000
+The other piece of the puzzle is what's
+
+154
+00:07:19,000 --> 00:07:20,620
+called the measurement model, which
+
+155
+00:07:20,620 --> 00:07:22,660
+describe how the measurement relates
+
+156
+00:07:22,660 --> 00:07:25,480
+to the state vector using this equation here.
+
+157
+00:07:25,480 --> 00:07:27,550
+Also in this case, we have two names
+
+158
+00:07:27,550 --> 00:07:28,960
+that we use interchangeably.
+
+159
+00:07:28,960 --> 00:07:31,930
+We call it the measurement model or the sensor model.
+
+160
+00:07:31,930 --> 00:07:34,210
+We should note that, as with the motion model,
+
+161
+00:07:34,210 --> 00:07:36,910
+the measurement model has an equivalent probabilistic
+
+162
+00:07:36,910 --> 00:07:41,110
+interpretation as it describes the distribution of yk
+
+163
+00:07:41,110 --> 00:07:45,600
+given our state, xk, so p of yk given xk.
+
+164
+00:07:45,600 --> 00:07:47,440
+And we recognize this distribution
+
+165
+00:07:47,440 --> 00:07:50,266
+here as our likelihood function.
+
+166
+00:07:50,266 --> 00:07:51,640
+So the measurement model actually
+
+167
+00:07:51,640 --> 00:07:55,420
+defines the likelihood function in our estimation problem.
+
+168
+00:07:55,420 --> 00:07:57,700
+As such, when we talk about the measurement model,
+
+169
+00:07:57,700 --> 00:08:01,730
+we sometimes mean the likelihood function,
+
+170
+00:08:03,730 --> 00:08:02,060
+as they are equivalent.
+
+171
+00:08:02,060 --> 00:08:05,520
+As with the motion model, we have
+
+172
+00:08:05,520 --> 00:08:07,000
+an equivalent probabilistic representation
+
+173
+00:08:07,000 --> 00:08:08,350
+of this equation.
+
+174
+00:08:08,350 --> 00:08:09,820
+The other thing that we should note
+
+175
+00:08:09,820 --> 00:08:13,210
+is that we use the measurement model to relate data
+
+176
+00:08:13,210 --> 00:08:15,130
+to our state vector, and it helps
+
+177
+00:08:15,130 --> 00:08:17,920
+us to use data to learn more about our states.
+
+178
+00:08:17,920 --> 00:08:21,080
+And in most cases, we cannot observe the state directly.
+
+179
+00:08:21,080 --> 00:08:23,260
+And even if it could, our measurements
+
+180
+00:08:23,260 --> 00:08:15,929
+are then corrupted by measurement noise.
+
+181
+00:08:25,929 --> 00:08:28,000
+So let us look at this from an example
+
+182
+00:08:28,000 --> 00:08:29,679
+where we have a host vehicle that
+
+183
+00:08:29,679 --> 00:08:31,130
+is equipped with some sensor.
+
+184
+00:08:31,130 --> 00:08:34,309
+Let's say a radar in front of the vehicle, which
+
+185
+00:08:34,309 --> 00:08:36,530
+has this field of view here.
+
+186
+00:08:36,530 --> 00:08:39,860
+This radar will give us noisy observations of this vehicle
+
+187
+00:08:39,860 --> 00:08:43,310
+here that we are interested in positioning.
+
+188
+00:08:43,310 --> 00:08:45,650
+So in this case, our state vector, xk,
+
+189
+00:08:45,650 --> 00:08:50,170
+represents the position of this vehicle,
+
+190
+00:08:50,170 --> 00:08:52,810
+and yk then represents the radar returns
+
+191
+00:08:52,810 --> 00:08:54,520
+that we get from this vehicle.
+
+192
+00:08:54,520 --> 00:08:58,060
+One way to view this measurement model here, or here,
+
+193
+00:08:58,060 --> 00:09:01,810
+is to view it as a generative model that we, in this case,
+
+194
+00:09:01,810 --> 00:09:04,930
+can use to simulate radar returns, from this vehicle
+
+195
+00:09:04,930 --> 00:09:05,440
+here.
+
+196
+00:09:05,440 --> 00:09:07,090
+If we design our measurement model,
+
+197
+00:09:07,090 --> 00:09:09,790
+hk, accurately, we should then be
+
+198
+00:09:09,790 --> 00:09:12,850
+able to simulate radar returns from the vehicle, which
+
+199
+00:09:12,850 --> 00:09:15,040
+both describes where on the vehicle
+
+200
+00:09:15,040 --> 00:09:16,960
+we expect the radar returns to end up
+
+201
+00:09:16,960 --> 00:09:20,470
+as well as the statistical fluctuations in the returns,
+
+202
+00:09:20,470 --> 00:09:24,040
+which are influenced by our measurement noise process, rk.
+
+203
+00:09:24,040 --> 00:09:26,530
+If we use our measurement model to generate
+
+204
+00:09:26,530 --> 00:09:33,280
+independent samples of yk, it could look something like this:
+
+205
+00:09:33,280 --> 00:09:36,240
+And ideally, if the measurement model is accurate,
+
+206
+00:09:36,240 --> 00:09:39,150
+if we were to collect data from a radar that
+
+207
+00:09:39,150 --> 00:09:41,010
+is viewing the vehicle like this,
+
+208
+00:09:41,010 --> 00:09:43,180
+we will get something similar.
+
+209
+00:09:43,180 --> 00:09:46,260
+However, we should bear in mind that these are just models,
+
+210
+00:09:46,260 --> 00:09:49,830
+and we will never fully cover all aspects of reality.
+
+211
+00:09:49,830 --> 00:09:53,100
+What we aim for is to cover the more important aspects that
+
+212
+00:09:53,100 --> 00:09:55,380
+also affects our filtering results.
+
+213
+00:09:55,380 --> 00:09:57,420
+There is also a slightly different variant
+
+214
+00:09:57,420 --> 00:10:00,390
+of our time discrete state space model
+
+215
+00:10:00,390 --> 00:10:03,660
+where we include a known input signal, uk.
+
+216
+00:10:03,660 --> 00:10:05,790
+As the signal is assumed to be known,
+
+217
+00:10:05,790 --> 00:10:09,330
+we treat it as a deterministic variable in our models.
+
+218
+00:10:09,330 --> 00:10:12,000
+So we simply add it in our equations
+
+219
+00:10:12,000 --> 00:10:15,990
+here as a time-varying parameter in our models.
+
+220
+00:10:15,990 --> 00:10:17,970
+For the density representations, it
+
+221
+00:10:17,970 --> 00:10:21,000
+is common that we write it like this with a semicolon
+
+222
+00:10:21,000 --> 00:10:25,290
+here to indicate that uk is not a stochiastic variable,
+
+223
+00:10:25,290 --> 00:10:28,260
+but we should rather view it as a time-dependent parameter
+
+224
+00:10:28,260 --> 00:10:29,610
+in our models.
+
+225
+00:10:29,610 --> 00:10:32,010
+It is common to use this type of input signal
+
+226
+00:10:32,010 --> 00:10:36,000
+to include control input signals into our models,
+
+227
+00:10:36,000 --> 00:10:39,300
+but it may also be used to include accurate measurements
+
+228
+00:10:39,300 --> 00:10:40,860
+directly into our models.
+
+229
+00:10:40,860 --> 00:10:43,410
+For example, if we have an accurate accelerometer
+
+230
+00:10:43,410 --> 00:10:46,620
+with negligible noise, it would perhaps be a better idea
+
+231
+00:10:46,620 --> 00:10:49,380
+to include it directly in our process model
+
+232
+00:10:49,380 --> 00:10:51,900
+through this known input signal, uk,
+
+233
+00:10:51,900 --> 00:10:54,990
+than it would be to use it as a measurement.
+
+234
+00:10:54,990 --> 00:10:57,940
+And the reason is that if we use it in our motion model,
+
+235
+00:10:57,940 --> 00:11:02,130
+we can then hopefully get better predictions here,
+
+236
+00:11:02,130 --> 00:11:05,370
+which would help us to describe the measurements with less
+
+237
+00:11:05,370 --> 00:11:06,660
+uncertainty.
+
+238
+00:11:06,660 --> 00:11:08,280
+Here is a self-assessment question
+
+239
+00:11:08,280 --> 00:11:12,330
+related to the use of the motion and the measurement model.
+
+240
+00:11:12,330 --> 00:11:15,874
+
+

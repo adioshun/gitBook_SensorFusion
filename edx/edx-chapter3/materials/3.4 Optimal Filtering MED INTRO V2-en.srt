@@ -1,0 +1,1592 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:03,420
+Now it's finally time that we put all these things together
+
+2
+00:00:03,420 --> 00:00:05,250
+and learn how to do filtering.
+
+3
+00:00:05,250 --> 00:00:07,440
+In this lecture, we will derive the equations
+
+4
+00:00:07,440 --> 00:00:10,410
+for the optimal filter, which are general equations
+
+5
+00:00:10,410 --> 00:00:13,050
+that we can use to solve any filtering problem that we
+
+6
+00:00:13,050 --> 00:00:14,760
+will encounter in this course.
+
+7
+00:00:14,760 --> 00:00:16,800
+We will show how we can calculate
+
+8
+00:00:16,800 --> 00:00:19,110
+our filtering densities efficiently
+
+9
+00:00:19,110 --> 00:00:22,020
+by making the filter updates recursively,
+
+10
+00:00:22,020 --> 00:00:24,480
+and we will illustrate the computed densities
+
+11
+00:00:24,480 --> 00:00:26,860
+using a simple example.
+
+12
+00:00:26,860 --> 00:00:29,190
+But before we start, we need to properly define
+
+13
+00:00:29,190 --> 00:00:30,340
+the filtering problem.
+
+14
+00:00:30,340 --> 00:00:33,210
+So remember our discrete time state space models
+
+15
+00:00:33,210 --> 00:00:36,720
+where we have a state vector xk and an observation yk.
+
+16
+00:00:36,720 --> 00:00:40,170
+So we described how the state evolves over time using a known
+
+17
+00:00:40,170 --> 00:00:43,230
+motion model like this and how our observations
+
+18
+00:00:43,230 --> 00:00:46,470
+relate to our state vector using a measurement model like this.
+
+19
+00:00:46,470 --> 00:00:50,040
+Further, we suppose that we have some prior distribution that
+
+20
+00:00:50,040 --> 00:00:53,130
+is known to us and that the state at time k
+
+21
+00:00:53,130 --> 00:00:57,030
+is conditionally independent on all the previous measurements
+
+22
+00:00:57,030 --> 00:01:00,270
+or past measurements and that the state at time k
+
+23
+00:01:00,270 --> 00:01:03,780
+is conditionally independent on all the past measurements
+
+24
+00:01:03,780 --> 00:01:08,040
+and the past states if we condition on xk minus 1.
+
+25
+00:01:08,040 --> 00:01:10,890
+All the past states here and all the past measurements
+
+26
+00:01:10,890 --> 00:01:14,550
+here does not include any more information about xk
+
+27
+00:01:14,550 --> 00:01:16,480
+than what the previous status does.
+
+28
+00:01:16,480 --> 00:01:20,170
+And this equality here is what's called a Markov property.
+
+29
+00:01:20,170 --> 00:01:23,490
+We also assume that the current measurement, yk,
+
+30
+00:01:23,490 --> 00:01:26,940
+is conditionally independent of all other states, x0
+
+31
+00:01:26,940 --> 00:01:29,640
+to k minus 1, and all the past measurements
+
+32
+00:01:29,640 --> 00:01:31,170
+if the condition on xk.
+
+33
+00:01:31,170 --> 00:01:33,570
+So we can remove all the past states
+
+34
+00:01:33,570 --> 00:01:36,030
+and all the past measurements in this expression
+
+35
+00:01:36,030 --> 00:01:38,940
+here because all the information should be summarized
+
+36
+00:01:38,940 --> 00:01:40,450
+in the current state.
+
+37
+00:01:40,450 --> 00:01:43,050
+So remember that a necessary condition for these
+
+38
+00:01:43,050 --> 00:01:46,410
+to hold true is that both the motion and measurement noise
+
+39
+00:01:46,410 --> 00:01:50,680
+processes need to be independent over time and with each other.
+
+40
+00:01:50,680 --> 00:01:53,970
+So in this setting, the objective in filtering
+
+41
+00:01:53,970 --> 00:01:57,690
+is to compute the so-called filtering density, which
+
+42
+00:01:57,690 --> 00:02:02,310
+is this posterior density of xk given observations up to
+
+43
+00:02:02,310 --> 00:02:04,560
+and including time k.
+
+44
+00:02:04,560 --> 00:02:07,510
+And typically we want to do this for k equal to 1,
+
+45
+00:02:07,510 --> 00:02:10,030
+2, 3, and so on.
+
+46
+00:02:10,030 --> 00:02:13,080
+So in principle, as we know Bayesian statistics,
+
+47
+00:02:13,080 --> 00:02:15,750
+we can also find this posterior density.
+
+48
+00:02:15,750 --> 00:02:17,640
+In a bit of a brute-force approach,
+
+49
+00:02:17,640 --> 00:02:20,410
+we can find this filtering density in two steps.
+
+50
+00:02:20,410 --> 00:02:22,610
+First, we can use Bayes' rule to find
+
+51
+00:02:22,610 --> 00:02:26,610
+the posterior density of the complete sequence of state
+
+52
+00:02:26,610 --> 00:02:27,120
+vectors--
+
+53
+00:02:27,120 --> 00:02:31,320
+so the collection of states from time 0 to time k.
+
+54
+00:02:31,320 --> 00:02:33,060
+And this posterior density we conditioned
+
+55
+00:02:33,060 --> 00:02:36,000
+on all the measurements up to time k.
+
+56
+00:02:36,000 --> 00:02:39,850
+If we use Bayes' rule, we can now flip these two such
+
+57
+00:02:39,850 --> 00:02:42,780
+that we get this factor here where the density is now
+
+58
+00:02:42,780 --> 00:02:45,210
+over the set of measurements, and we condition
+
+59
+00:02:45,210 --> 00:02:47,190
+on our state sequence.
+
+60
+00:02:47,190 --> 00:02:50,130
+And then we have time steps prior on our state sequence,
+
+61
+00:02:50,130 --> 00:02:53,080
+and we get this normalization factor here.
+
+62
+00:02:53,080 --> 00:02:55,650
+Note that we can regard this as a normalization factor
+
+63
+00:02:55,650 --> 00:02:59,020
+as we're interested in this as a function of our state sequence
+
+64
+00:02:59,020 --> 00:03:02,090
+and this factor here does not depend on that.
+
+65
+00:03:02,090 --> 00:03:05,300
+So we see that we can express this posterior density here
+
+66
+00:03:05,300 --> 00:03:08,330
+over the state sequence as a product of our measurement
+
+67
+00:03:08,330 --> 00:03:10,790
+models and our prior.
+
+68
+00:03:10,790 --> 00:03:14,510
+And these are models that we all know, so we can express this.
+
+69
+00:03:14,510 --> 00:03:17,420
+Now as a second step, to get the filtering density
+
+70
+00:03:17,420 --> 00:03:21,320
+we need to marginalize the state sequence posterior with respect
+
+71
+00:03:21,320 --> 00:03:23,780
+to all the past states.
+
+72
+00:03:23,780 --> 00:03:25,340
+That is the states that we are not
+
+73
+00:03:25,340 --> 00:03:26,870
+interested in at the moment.
+
+74
+00:03:26,870 --> 00:03:29,180
+That is we find a filtering density
+
+75
+00:03:29,180 --> 00:03:32,120
+by integrating our sequence posterior
+
+76
+00:03:32,120 --> 00:03:34,640
+over all the past states.
+
+77
+00:03:34,640 --> 00:03:37,940
+As we see here, we can use Bayes' rule in combination
+
+78
+00:03:37,940 --> 00:03:40,640
+with the law of total probability
+
+79
+00:03:40,640 --> 00:03:43,760
+to calculate the filtering posterior.
+
+80
+00:03:43,760 --> 00:03:46,640
+Although we, in theory, end up with the correct solution
+
+81
+00:03:46,640 --> 00:03:49,310
+following these two steps here, in practice
+
+82
+00:03:49,310 --> 00:03:51,140
+the complexity of the solution will
+
+83
+00:03:51,140 --> 00:03:55,500
+grow as the state sequence here will become larger and larger.
+
+84
+00:03:55,500 --> 00:03:56,780
+This has two implications.
+
+85
+00:03:56,780 --> 00:04:01,250
+For one, this density here will become more and more complex
+
+86
+00:04:01,250 --> 00:04:04,220
+and will involve the multiplication of more and more
+
+87
+00:04:04,220 --> 00:04:06,110
+factors here as k grows.
+
+88
+00:04:06,110 --> 00:04:08,930
+Second, the integration here will
+
+89
+00:04:08,930 --> 00:04:11,930
+be taken over a larger and larger space,
+
+90
+00:04:11,930 --> 00:04:13,790
+and the complexity of this integral
+
+91
+00:04:13,790 --> 00:04:16,010
+will become larger and larger.
+
+92
+00:04:16,010 --> 00:04:18,329
+As such, it will become harder and harder
+
+93
+00:04:18,329 --> 00:04:20,730
+to calculate this filtering density.
+
+94
+00:04:20,730 --> 00:04:23,730
+As we typically want to calculate this posterior
+
+95
+00:04:23,730 --> 00:04:26,220
+density at each time step k, we tend
+
+96
+00:04:26,220 --> 00:04:29,130
+to want the complexity to be roughly the same at each time
+
+97
+00:04:29,130 --> 00:04:32,484
+instance and especially not grow over time.
+
+98
+00:04:32,484 --> 00:04:33,900
+So the weakness with this approach
+
+99
+00:04:33,900 --> 00:04:36,300
+is that it grows with k.
+
+100
+00:04:36,300 --> 00:04:38,310
+Now is there a smarter way to calculate
+
+101
+00:04:38,310 --> 00:04:41,820
+the filtering density that does not have this weakness?
+
+102
+00:04:41,820 --> 00:04:43,440
+But of course there is!
+
+103
+00:04:43,440 --> 00:04:46,620
+The solution is that we calculate the filtering density
+
+104
+00:04:46,620 --> 00:04:50,040
+recursively where the general approach or methodology is
+
+105
+00:04:50,040 --> 00:04:53,970
+that we want to use that we have just calculated the posterior
+
+106
+00:04:53,970 --> 00:04:55,770
+density from the previous time instance,
+
+107
+00:04:55,770 --> 00:04:58,320
+and we want to use this together with our conditional
+
+108
+00:04:58,320 --> 00:05:01,680
+independence assumptions to calculate the new posterior
+
+109
+00:05:01,680 --> 00:05:02,910
+at the current time.
+
+110
+00:05:02,910 --> 00:05:05,460
+So here is an illustration that summarizes
+
+111
+00:05:05,460 --> 00:05:08,580
+the general methodology of the recursive filtering solution.
+
+112
+00:05:08,580 --> 00:05:11,490
+So we assume that we have computed the posterior density
+
+113
+00:05:11,490 --> 00:05:13,290
+from the previous time instance.
+
+114
+00:05:13,290 --> 00:05:18,060
+That is we have computed p of xk minus 1 given measurement
+
+115
+00:05:18,060 --> 00:05:19,590
+of 2 times k minus 1.
+
+116
+00:05:19,590 --> 00:05:20,910
+So we know this already.
+
+117
+00:05:20,910 --> 00:05:24,210
+The next step is to take this density, which summarizes what
+
+118
+00:05:24,210 --> 00:05:26,610
+we know about the state at time k minus 1,
+
+119
+00:05:26,610 --> 00:05:29,790
+and predict that in time such that it says something
+
+120
+00:05:29,790 --> 00:05:31,870
+about the state at the current time.
+
+121
+00:05:31,870 --> 00:05:34,830
+So we want to calculate this predicted density here,
+
+122
+00:05:34,830 --> 00:05:36,600
+and we do that with a prediction step
+
+123
+00:05:36,600 --> 00:05:38,670
+where we use our motion model.
+
+124
+00:05:38,670 --> 00:05:42,190
+So the motion model enters here.
+
+125
+00:05:42,190 --> 00:05:44,430
+So after the prediction, we get what is
+
+126
+00:05:44,430 --> 00:05:46,390
+called the predicted density--
+
+127
+00:05:46,390 --> 00:05:48,990
+so the density of the state at the current time
+
+128
+00:05:48,990 --> 00:05:51,540
+given measurements up to the previous time instance.
+
+129
+00:05:51,540 --> 00:05:54,570
+So this describes what we know about the current state given
+
+130
+00:05:54,570 --> 00:05:55,770
+all the past measurement.
+
+131
+00:05:55,770 --> 00:05:57,930
+Now we want to use this predicted density
+
+132
+00:05:57,930 --> 00:06:00,060
+with the current observation, yk,
+
+133
+00:06:00,060 --> 00:06:02,610
+to get the posterior filtering density.
+
+134
+00:06:02,610 --> 00:06:05,340
+In order to do that, we will make use of our measurement
+
+135
+00:06:05,340 --> 00:06:07,020
+model in an update step.
+
+136
+00:06:07,020 --> 00:06:09,810
+So the measurement model enters in the update step.
+
+137
+00:06:09,810 --> 00:06:13,670
+
+
+138
+00:06:13,670 --> 00:06:16,540
+So once we have computed the posterior density,
+
+139
+00:06:16,540 --> 00:06:19,270
+we can compute an estimate of our current state.
+
+140
+00:06:19,270 --> 00:06:23,620
+We call that x hat k given measurements up to time k,
+
+141
+00:06:23,620 --> 00:06:25,470
+and we write that like this.
+
+142
+00:06:25,470 --> 00:06:28,910
+And we can start all over again, so making this our new prior.
+
+143
+00:06:28,910 --> 00:06:33,490
+So we exchange this for this, and then we make this again.
+
+144
+00:06:33,490 --> 00:06:37,330
+So we have a recursive solution starting from the posterior
+
+145
+00:06:37,330 --> 00:06:39,700
+density from the previous time instance.
+
+146
+00:06:39,700 --> 00:06:43,100
+We make a prediction, and then we make an update,
+
+147
+00:06:43,100 --> 00:06:45,160
+and we get a new posterior density.
+
+148
+00:06:45,160 --> 00:06:48,010
+So note that all the densities that we have computed here,
+
+149
+00:06:48,010 --> 00:06:51,010
+they all have the same dimensionality as the state.
+
+150
+00:06:51,010 --> 00:06:54,340
+So we have avoided that the computational complexity grows
+
+151
+00:06:54,340 --> 00:06:57,360
+with time, so making these things here
+
+152
+00:06:57,360 --> 00:07:01,000
+have roughly the same complexity each time we do it.
+
+153
+00:07:01,000 --> 00:07:04,490
+So now we seem to have something that is a bit more reasonable.
+
+154
+00:07:04,490 --> 00:07:06,940
+The only question now is how do you actually
+
+155
+00:07:06,940 --> 00:07:10,640
+calculate this predicted density and this posterior density
+
+156
+00:07:10,640 --> 00:07:11,140
+here?
+
+157
+00:07:11,140 --> 00:07:13,600
+We start by looking at the prediction step.
+
+158
+00:07:13,600 --> 00:07:17,320
+Here, we want the predicted density, so the density of xk
+
+159
+00:07:17,320 --> 00:07:19,270
+given all the past measurements, and we
+
+160
+00:07:19,270 --> 00:07:21,700
+want to calculate this from our posterior density,
+
+161
+00:07:21,700 --> 00:07:25,210
+so the density of xk minus 1 given
+
+162
+00:07:25,210 --> 00:07:26,340
+all the past measurements.
+
+163
+00:07:26,340 --> 00:07:28,720
+So in this step we make use of our knowledge regarding
+
+164
+00:07:28,720 --> 00:07:31,120
+our previous state, xk minus 1, that we
+
+165
+00:07:31,120 --> 00:07:33,370
+have obtained from our previous measurements
+
+166
+00:07:33,370 --> 00:07:36,940
+in order to predict xk, so the state at the current time.
+
+167
+00:07:36,940 --> 00:07:40,420
+That is we want to translate our old knowledge about our states
+
+168
+00:07:40,420 --> 00:07:42,460
+that is summarized in this posterior density
+
+169
+00:07:42,460 --> 00:07:45,100
+to describe the state at the current time using
+
+170
+00:07:45,100 --> 00:07:46,780
+this predicted density here.
+
+171
+00:07:46,780 --> 00:07:51,130
+As hinted previously, we want to use our motion model, p of xk
+
+172
+00:07:51,130 --> 00:07:55,584
+given xk minus 1, together with our posterior density
+
+173
+00:07:55,584 --> 00:07:57,250
+from the previous time instance in order
+
+174
+00:07:57,250 --> 00:07:59,110
+to compute the predicted density.
+
+175
+00:07:59,110 --> 00:08:02,290
+So a useful first step is to introduce the missing variable
+
+176
+00:08:02,290 --> 00:08:05,950
+here, which is the previous state, xk minus 1.
+
+177
+00:08:05,950 --> 00:08:09,070
+And we can do this by using the law of total probability
+
+178
+00:08:09,070 --> 00:08:12,350
+where we add the previous state and this expression here.
+
+179
+00:08:12,350 --> 00:08:18,270
+So we get p of xk and xk minus 1,
+
+180
+00:08:18,270 --> 00:08:21,030
+conditioned on all the past measurements.
+
+181
+00:08:21,030 --> 00:08:24,700
+And in order for the equality here to still hold true,
+
+182
+00:08:24,700 --> 00:08:28,570
+we need to integrate out over our added previous state.
+
+183
+00:08:28,570 --> 00:08:31,795
+So we need to integrate over xk minus 1.
+
+184
+00:08:31,795 --> 00:08:33,280
+Now if we look at this, we can see
+
+185
+00:08:33,280 --> 00:08:37,059
+that we can factorize this density here by splitting up
+
+186
+00:08:37,059 --> 00:08:38,799
+these two into two densities.
+
+187
+00:08:38,799 --> 00:08:44,179
+
+
+188
+00:08:44,179 --> 00:08:53,970
+The first is over xk given xk minus 1
+
+189
+00:08:53,970 --> 00:09:02,071
+and all our past measurements, and then just over xk minus 1,
+
+190
+00:09:02,071 --> 00:09:04,057
+given all our past measurements.
+
+191
+00:09:04,057 --> 00:09:09,524
+
+
+192
+00:09:09,524 --> 00:09:11,920
+And note that we now have the posterior
+
+193
+00:09:11,920 --> 00:09:16,360
+density from the previous time instance here, which we wanted.
+
+194
+00:09:16,360 --> 00:09:19,840
+However, we also have this strange-looking density here.
+
+195
+00:09:19,840 --> 00:09:22,600
+But if we look a bit more carefully at this,
+
+196
+00:09:22,600 --> 00:09:24,470
+I hope that you can recognize it from before
+
+197
+00:09:24,470 --> 00:09:26,890
+and remember that our current state is conditionally
+
+198
+00:09:26,890 --> 00:09:29,470
+independent on the measurements if we condition
+
+199
+00:09:29,470 --> 00:09:32,380
+on our previous state.
+
+200
+00:09:32,380 --> 00:09:35,600
+So this is the Markov property of our state sequence.
+
+201
+00:09:35,600 --> 00:09:37,310
+Now if we use this, we see that we
+
+202
+00:09:37,310 --> 00:09:40,250
+can remove the past measurements from this density
+
+203
+00:09:40,250 --> 00:09:43,430
+as they do not provide any information about xk when
+
+204
+00:09:43,430 --> 00:09:45,470
+we condition on xk minus 1.
+
+205
+00:09:45,470 --> 00:09:48,920
+And this is because xk minus 1 should summarize everything
+
+206
+00:09:48,920 --> 00:09:51,950
+that we need to know about the system up to that time.
+
+207
+00:09:51,950 --> 00:09:55,700
+By doing this, we see that this density here simply becomes
+
+208
+00:09:55,700 --> 00:09:57,470
+our motion model.
+
+209
+00:09:57,470 --> 00:10:00,380
+Now the final expression for the predicted density becomes--
+
+210
+00:10:00,380 --> 00:10:09,560
+
+
+211
+00:10:09,560 --> 00:10:18,510
+so our motion model times our posterior
+
+212
+00:10:18,510 --> 00:10:23,840
+density from the previous time instance.
+
+213
+00:10:23,840 --> 00:10:28,510
+And then we integrate over our previous state.
+
+214
+00:10:28,510 --> 00:10:30,510
+And this equation here, it's called
+
+215
+00:10:30,510 --> 00:10:33,540
+a Chapman-Kolmogorov equation, and that
+
+216
+00:10:33,540 --> 00:10:37,110
+is what we use in the prediction step in a recursive filter.
+
+217
+00:10:37,110 --> 00:10:41,670
+So to summarize, in order to compute the predicted density,
+
+218
+00:10:41,670 --> 00:10:44,880
+we use the posterior density from the previous time instance
+
+219
+00:10:44,880 --> 00:10:48,270
+together with our motion model to solve the Chapman-Kolmogorov
+
+220
+00:10:48,270 --> 00:10:50,430
+equation to get this density.
+
+221
+00:10:50,430 --> 00:10:52,080
+So here is a self-assessment question
+
+222
+00:10:52,080 --> 00:10:54,240
+that you could answer by solving equations
+
+223
+00:10:54,240 --> 00:10:57,000
+on the previous slide, but here I would rather
+
+224
+00:10:57,000 --> 00:11:00,180
+like you to think about it from a conceptual point of view
+
+225
+00:11:00,180 --> 00:11:03,450
+and think about what would make more sense.
+
+226
+00:11:03,450 --> 00:11:05,700
+So now onto the measurement-update step
+
+227
+00:11:05,700 --> 00:11:08,310
+where we want to compute the posterior density,
+
+228
+00:11:08,310 --> 00:11:11,600
+so the density of xk given all the measurements up to time
+
+229
+00:11:11,600 --> 00:11:15,330
+k using this predicted density that we just calculated
+
+230
+00:11:15,330 --> 00:11:16,530
+in the prediction step.
+
+231
+00:11:16,530 --> 00:11:18,870
+So in principle, what we want to do in this step
+
+232
+00:11:18,870 --> 00:11:21,780
+is that we want to update our knowledge about xk using
+
+233
+00:11:21,780 --> 00:11:24,210
+the new information in yk.
+
+234
+00:11:24,210 --> 00:11:26,040
+So we go from this predicted density
+
+235
+00:11:26,040 --> 00:11:29,670
+where we don't include yk to this posterior density
+
+236
+00:11:29,670 --> 00:11:32,270
+where we include information from yk,
+
+237
+00:11:32,270 --> 00:11:33,510
+the current measurement.
+
+238
+00:11:33,510 --> 00:11:35,330
+To derive the updated posterior density,
+
+239
+00:11:35,330 --> 00:11:38,370
+we start by separating out the current measurement
+
+240
+00:11:38,370 --> 00:11:41,700
+from this measurement sequence here such that we get something
+
+241
+00:11:41,700 --> 00:11:42,510
+looking like this.
+
+242
+00:11:42,510 --> 00:11:45,870
+
+
+243
+00:11:45,870 --> 00:11:48,080
+We do this just to make what will happen
+
+244
+00:11:48,080 --> 00:11:51,700
+in next step a bit more clear.
+
+245
+00:11:51,700 --> 00:11:54,100
+Now in order to get out the predicted density,
+
+246
+00:11:54,100 --> 00:11:58,120
+we can use Bayes' rule to switch places on xk and yk,
+
+247
+00:11:58,120 --> 00:11:59,290
+in this case.
+
+248
+00:11:59,290 --> 00:12:03,340
+So if we use Bayes' rule to switch xk and yk,
+
+249
+00:12:03,340 --> 00:12:05,122
+we get the following expression.
+
+250
+00:12:05,122 --> 00:12:22,840
+
+
+251
+00:12:22,840 --> 00:12:26,140
+So we get the predicted density here,
+
+252
+00:12:26,140 --> 00:12:28,420
+which we wanted, and this density here
+
+253
+00:12:28,420 --> 00:12:30,910
+could be regarded as a constant as it does not
+
+254
+00:12:30,910 --> 00:12:33,550
+depend on our current state.
+
+255
+00:12:33,550 --> 00:12:35,440
+Now if we look at this factor here,
+
+256
+00:12:35,440 --> 00:12:38,800
+we can see that we can simplify this as a likelihood function
+
+257
+00:12:38,800 --> 00:12:42,820
+or measurement model as yk is conditionally
+
+258
+00:12:42,820 --> 00:12:44,860
+independent on all the past measurements
+
+259
+00:12:44,860 --> 00:12:47,270
+if we also condition on xk.
+
+260
+00:12:47,270 --> 00:12:52,150
+So we can remove this factor here from our density.
+
+261
+00:12:52,150 --> 00:12:53,740
+Again, this is due to that everything
+
+262
+00:12:53,740 --> 00:12:55,510
+that we need to know in order to describe
+
+263
+00:12:55,510 --> 00:12:57,880
+the current measurement should be summarized
+
+264
+00:12:57,880 --> 00:13:00,110
+in our current state.
+
+265
+00:13:00,110 --> 00:13:03,430
+So if we ignore the proportionality constant,
+
+266
+00:13:03,430 --> 00:13:06,460
+the updated density can be defined as proportional
+
+267
+00:13:06,460 --> 00:13:09,440
+to this expression here--
+
+268
+00:13:09,440 --> 00:13:14,160
+so proportional to the likelihood
+
+269
+00:13:14,160 --> 00:13:15,720
+times the predicted density.
+
+270
+00:13:15,720 --> 00:13:21,430
+
+
+271
+00:13:21,430 --> 00:13:23,540
+So in the update step of a recursive filter,
+
+272
+00:13:23,540 --> 00:13:26,660
+we see our predicted density as our prior
+
+273
+00:13:26,660 --> 00:13:29,000
+that we multiply by our likelihood
+
+274
+00:13:29,000 --> 00:13:31,460
+to get our posterior density.
+
+275
+00:13:31,460 --> 00:13:33,330
+So now we have also derived an expression
+
+276
+00:13:33,330 --> 00:13:37,130
+for the measurement-update step in our recursive filter,
+
+277
+00:13:37,130 --> 00:13:40,410
+and we have expressed it in terms of our predicted density,
+
+278
+00:13:40,410 --> 00:13:42,830
+which we have calculated in the prediction step,
+
+279
+00:13:42,830 --> 00:13:45,890
+and our measurement model which we assume that we know.
+
+280
+00:13:45,890 --> 00:13:47,450
+We should note that this expression
+
+281
+00:13:47,450 --> 00:13:49,820
+here and the expression that we derived
+
+282
+00:13:49,820 --> 00:13:52,680
+for the predicted density are general expressions.
+
+283
+00:13:52,680 --> 00:13:54,800
+So these expressions here are general,
+
+284
+00:13:54,800 --> 00:13:56,510
+and they provide a recursive solution
+
+285
+00:13:56,510 --> 00:13:58,970
+to any filtering problem.
+
+286
+00:13:58,970 --> 00:14:01,070
+We will, in later parts of this course,
+
+287
+00:14:01,070 --> 00:14:04,760
+look at how we can solve these equations exactly when we have
+
+288
+00:14:04,760 --> 00:14:07,280
+the so-called linear and Gaussian models
+
+289
+00:14:07,280 --> 00:14:09,410
+and how we can find good approximations
+
+290
+00:14:09,410 --> 00:14:12,410
+if we have a nonlinear and non-Gaussian model.
+
+291
+00:14:12,410 --> 00:14:15,500
+To wrap things up, I thought we'd look at a simple example
+
+292
+00:14:15,500 --> 00:14:18,560
+to see what is happening in the different steps of the filter
+
+293
+00:14:18,560 --> 00:14:22,750
+recursion and how the resulting densities look like.
+
+294
+00:14:22,750 --> 00:14:26,600
+We will do this by considering a random walk in two dimensions
+
+295
+00:14:26,600 --> 00:14:29,440
+where we also get position observations.
+
+296
+00:14:29,440 --> 00:14:31,750
+That is we have a two-dimensional state vector,
+
+297
+00:14:31,750 --> 00:14:34,880
+xk, which has two components, x1 and x2,
+
+298
+00:14:34,880 --> 00:14:38,020
+and we can think of this as a 2D position of some object.
+
+299
+00:14:38,020 --> 00:14:40,420
+The motion of this object is using a motion model
+
+300
+00:14:40,420 --> 00:14:42,910
+like this where the current state is
+
+301
+00:14:42,910 --> 00:14:45,190
+equal to the state at the previous time
+
+302
+00:14:45,190 --> 00:14:48,760
+instance plus some noise, where the noise in this case
+
+303
+00:14:48,760 --> 00:14:52,840
+here is a zero-mean Gaussian with some covariance Q.
+
+304
+00:14:52,840 --> 00:14:56,320
+So here we can see a realization of a random walk
+
+305
+00:14:56,320 --> 00:14:59,860
+of this process model here where we can interpret this basically
+
+306
+00:14:59,860 --> 00:15:02,170
+as the state, the position of the object
+
+307
+00:15:02,170 --> 00:15:06,070
+is basically taking a step of random length and direction
+
+308
+00:15:06,070 --> 00:15:07,360
+at each time instance.
+
+309
+00:15:07,360 --> 00:15:10,600
+We are randomly walking around in this 2D environment,
+
+310
+00:15:10,600 --> 00:15:13,500
+and hence the name random walk.
+
+311
+00:15:13,500 --> 00:15:15,820
+And this is a fairly simple motion model
+
+312
+00:15:15,820 --> 00:15:19,750
+but nonetheless it's important and used in many situations.
+
+313
+00:15:19,750 --> 00:15:21,730
+So further, at each time instance
+
+314
+00:15:21,730 --> 00:15:25,280
+we observe the position of our object.
+
+315
+00:15:25,280 --> 00:15:29,980
+So yk is our state plus some measurement noise, rk.
+
+316
+00:15:29,980 --> 00:15:33,220
+And rk, our measurement noise, is, again, a zero-mean Gaussian
+
+317
+00:15:33,220 --> 00:15:37,390
+process with some covariance R. And in addition, we
+
+318
+00:15:37,390 --> 00:15:39,580
+have some Gaussian prior of our state
+
+319
+00:15:39,580 --> 00:15:43,780
+at time zero, which is 0 mean with some covariance P0.
+
+320
+00:15:43,780 --> 00:15:46,660
+So how does a prior, predicted density, likelihood,
+
+321
+00:15:46,660 --> 00:15:49,300
+and updated density look for the optimal filter
+
+322
+00:15:49,300 --> 00:15:51,910
+solution for this problem?
+
+323
+00:15:51,910 --> 00:15:53,980
+So that's what we're going to look at now.
+
+324
+00:15:53,980 --> 00:15:56,530
+If we look at this for some generic time k,
+
+325
+00:15:56,530 --> 00:15:59,230
+at the start of the recursion we have the posterior density
+
+326
+00:15:59,230 --> 00:16:00,650
+from the previous time instance.
+
+327
+00:16:00,650 --> 00:16:02,890
+So we have the density over xk minus 1.
+
+328
+00:16:02,890 --> 00:16:05,680
+This gives us the information that the object of interest
+
+329
+00:16:05,680 --> 00:16:10,820
+was most likely here somewhere at the previous time instance.
+
+330
+00:16:10,820 --> 00:16:12,880
+And now we want to use this information, together
+
+331
+00:16:12,880 --> 00:16:16,180
+with our motion model, to predict where it
+
+332
+00:16:16,180 --> 00:16:17,690
+would be at the current time.
+
+333
+00:16:17,690 --> 00:16:21,580
+So we want to calculate the predicted density of xk given
+
+334
+00:16:21,580 --> 00:16:23,110
+all the past measurements.
+
+335
+00:16:23,110 --> 00:16:25,510
+Note that as we are doing predictions into the future
+
+336
+00:16:25,510 --> 00:16:27,850
+and not adding any new information here,
+
+337
+00:16:27,850 --> 00:16:29,890
+we will become more uncertain, which
+
+338
+00:16:29,890 --> 00:16:33,460
+is illustrated that this density here is wider than we
+
+339
+00:16:33,460 --> 00:16:35,500
+had when we started here.
+
+340
+00:16:35,500 --> 00:16:38,170
+This is also logical considering a random walk motion
+
+341
+00:16:38,170 --> 00:16:40,390
+model which states that the object will
+
+342
+00:16:40,390 --> 00:16:43,960
+take a step of a random length and a random direction.
+
+343
+00:16:43,960 --> 00:16:45,730
+And as long as we haven't received
+
+344
+00:16:45,730 --> 00:16:48,640
+any information about which direction the object has moved,
+
+345
+00:16:48,640 --> 00:16:52,900
+we will surely be more uncertain after doing the prediction.
+
+346
+00:16:52,900 --> 00:16:55,330
+The next step is that we will make use of our measurement
+
+347
+00:16:55,330 --> 00:16:58,630
+update where we view our predicted density here.
+
+348
+00:16:58,630 --> 00:17:01,120
+So we have predicted density here as our prior
+
+349
+00:17:01,120 --> 00:17:04,210
+and our measurement model as our likelihood.
+
+350
+00:17:04,210 --> 00:17:05,980
+So in this case we get an observation
+
+351
+00:17:05,980 --> 00:17:09,670
+that an object is here somewhere if we are projecting down
+
+352
+00:17:09,670 --> 00:17:13,089
+the peak here onto the plane.
+
+353
+00:17:13,089 --> 00:17:15,589
+The likelihood of our state would look something like this.
+
+354
+00:17:15,589 --> 00:17:19,109
+So it says that it's most probably here somewhere,
+
+355
+00:17:19,109 --> 00:17:21,319
+but as we have measurement uncertainty,
+
+356
+00:17:21,319 --> 00:17:23,609
+we are also uncertain about where
+
+357
+00:17:23,609 --> 00:17:27,119
+the object is after receiving the measurement.
+
+358
+00:17:27,119 --> 00:17:32,280
+Now if we multiply our predicted density with our likelihood,
+
+359
+00:17:32,280 --> 00:17:37,170
+we have something that is proportional to our updated
+
+360
+00:17:37,170 --> 00:17:38,910
+posterior density.
+
+361
+00:17:38,910 --> 00:17:41,220
+We can see that, in this case, our measurement
+
+362
+00:17:41,220 --> 00:17:45,450
+is fairly informative so that the updated density is fairly
+
+363
+00:17:45,450 --> 00:17:47,910
+close to where the observation was,
+
+364
+00:17:47,910 --> 00:17:49,590
+which was here somewhere, right?
+
+365
+00:17:49,590 --> 00:17:51,030
+And we are definitely further away
+
+366
+00:17:51,030 --> 00:17:53,820
+from the predicted density, which we thought that object
+
+367
+00:17:53,820 --> 00:17:57,600
+was around here somewhere.
+
+368
+00:17:57,600 --> 00:18:00,060
+We should also note that uncertainty decreases
+
+369
+00:18:00,060 --> 00:18:02,010
+after the update as we have gotten
+
+370
+00:18:02,010 --> 00:18:04,470
+new information regarding where the object is
+
+371
+00:18:04,470 --> 00:18:05,970
+from the measurement.
+
+372
+00:18:05,970 --> 00:18:09,990
+So to summarize, we start off with our initial prior,
+
+373
+00:18:09,990 --> 00:18:13,420
+which is our posterior from the previous time instance.
+
+374
+00:18:13,420 --> 00:18:15,240
+We do a prediction step to calculate
+
+375
+00:18:15,240 --> 00:18:17,370
+our predicted density, which describes
+
+376
+00:18:17,370 --> 00:18:19,800
+our state at the current time using
+
+377
+00:18:19,800 --> 00:18:21,870
+all our past observations.
+
+378
+00:18:21,870 --> 00:18:24,480
+So while doing this, our uncertainty about the object
+
+379
+00:18:24,480 --> 00:18:29,400
+will increase as the data that we used is getting a bit older.
+
+380
+00:18:29,400 --> 00:18:31,440
+So we are only basing this on observations up
+
+381
+00:18:31,440 --> 00:18:34,350
+the time k minus 1 but still describing the state
+
+382
+00:18:34,350 --> 00:18:35,310
+at the current time.
+
+383
+00:18:35,310 --> 00:18:38,970
+So by performing the measurement update where we multiply
+
+384
+00:18:38,970 --> 00:18:42,660
+the predicted density by our likelihood of the state using
+
+385
+00:18:42,660 --> 00:18:46,550
+our observation at time k, we incorporate the new information
+
+386
+00:18:46,550 --> 00:18:50,130
+in the new observation to compute the posterior density.
+
+387
+00:18:50,130 --> 00:18:53,070
+That is, again, a bit more certain about
+
+388
+00:18:53,070 --> 00:18:54,240
+where the object is.
+
+389
+00:18:54,240 --> 00:18:56,190
+So this is basically what is happening
+
+390
+00:18:56,190 --> 00:18:57,780
+in the filter recursion.
+
+391
+00:18:57,780 --> 00:19:00,570
+In future lectures, we will look into more details surrounding
+
+392
+00:19:00,570 --> 00:19:03,360
+the mathematics around calculating these densities
+
+393
+00:19:03,360 --> 00:19:08,470
+here for different types of state space models and also how
+
+394
+00:19:08,470 --> 00:19:11,770
+we can find approximate solutions to the posterior
+
+395
+00:19:11,770 --> 00:19:14,115
+density when we cannot solve the prediction and update
+
+396
+00:19:14,115 --> 00:19:17,220
+the equations analytically.
+
+397
+00:19:17,220 --> 00:19:22,227
+
+
