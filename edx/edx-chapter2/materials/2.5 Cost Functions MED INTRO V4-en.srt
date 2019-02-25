@@ -1,0 +1,1004 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,090
+In the previous video, we learned
+
+2
+00:00:02,090 --> 00:00:04,700
+about the Bayesian decision principle,
+
+3
+00:00:04,700 --> 00:00:08,490
+which is to try to minimize the posterior expected loss,
+
+4
+00:00:08,490 --> 00:00:09,620
+or cost.
+
+5
+00:00:09,620 --> 00:00:12,680
+In this video, we will introduce two commonly used loss
+
+6
+00:00:12,680 --> 00:00:15,350
+functions for estimation problems.
+
+7
+00:00:15,350 --> 00:00:19,340
+We will then use these to derive the minimum mean square error
+
+8
+00:00:19,340 --> 00:00:23,810
+estimator, the MMSE estimator, as well
+
+9
+00:00:23,810 --> 00:00:27,830
+as the maximum a posteriori estimator, also known
+
+10
+00:00:27,830 --> 00:00:29,845
+as the MAP estimator.
+
+11
+00:00:29,845 --> 00:00:31,970
+In the Bayesian decision theory, there
+
+12
+00:00:31,970 --> 00:00:34,580
+are three important components--
+
+13
+00:00:34,580 --> 00:00:38,660
+the likelihood, the prior, and a cost function or a loss
+
+14
+00:00:38,660 --> 00:00:39,470
+function.
+
+15
+00:00:39,470 --> 00:00:42,350
+Using the first two, the likelihood and the prior,
+
+16
+00:00:42,350 --> 00:00:45,410
+we can compute the posterior distribution, like this.
+
+17
+00:00:45,410 --> 00:00:47,390
+And given the posterior distribution,
+
+18
+00:00:47,390 --> 00:00:52,010
+we can make decisions by minimizing the posterior
+
+19
+00:00:52,010 --> 00:00:53,810
+expected loss, like this.
+
+20
+00:00:53,810 --> 00:00:56,540
+So this summarizes the basic strategy
+
+21
+00:00:56,540 --> 00:00:58,610
+in Bayesian decision theory.
+
+22
+00:00:58,610 --> 00:01:02,060
+The most commonly used loss function in estimation theory
+
+23
+00:01:02,060 --> 00:01:03,860
+is the quadratic loss, which will
+
+24
+00:01:03,860 --> 00:01:07,940
+lead to the popular estimator, the minimum mean squared error
+
+25
+00:01:07,940 --> 00:01:10,670
+estimator, or MMSE estimator.
+
+26
+00:01:10,670 --> 00:01:12,680
+So suppose that we have an estimation
+
+27
+00:01:12,680 --> 00:01:16,100
+problem where we want to estimate a vector theta, which
+
+28
+00:01:16,100 --> 00:01:17,240
+is an Rn.
+
+29
+00:01:17,240 --> 00:01:21,380
+So as we said, a very common loss function in this setting
+
+30
+00:01:21,380 --> 00:01:23,360
+is the quadratic loss.
+
+31
+00:01:23,360 --> 00:01:26,150
+And the quadratic loss, we can express like this.
+
+32
+00:01:26,150 --> 00:01:30,290
+So we have a loss function, C of theta and a, which
+
+33
+00:01:30,290 --> 00:01:35,880
+is equal to this L2-norm of theta minus a squared.
+
+34
+00:01:35,880 --> 00:01:38,570
+Now this can be viewed as the square error
+
+35
+00:01:38,570 --> 00:01:43,760
+between the actual theta and our decision a.
+
+36
+00:01:43,760 --> 00:01:46,610
+Now, as theta is a column vector,
+
+37
+00:01:46,610 --> 00:01:50,780
+we can write this norm here as theta minus a transposed.
+
+38
+00:01:50,780 --> 00:01:54,860
+Now this is a row vector, due to the transpose,
+
+39
+00:01:54,860 --> 00:01:57,410
+times theta minus a, again.
+
+40
+00:01:57,410 --> 00:01:59,330
+And now this is a column vector, right?
+
+41
+00:01:59,330 --> 00:02:01,840
+
+
+42
+00:02:01,840 --> 00:02:04,720
+So this product here becomes a scalar,
+
+43
+00:02:04,720 --> 00:02:07,240
+which it's supposed to be because this is a cost
+
+44
+00:02:07,240 --> 00:02:08,030
+function.
+
+45
+00:02:08,030 --> 00:02:10,310
+Now, just for illustration purposes,
+
+46
+00:02:10,310 --> 00:02:13,930
+let's assume that theta and a are scalars.
+
+47
+00:02:13,930 --> 00:02:16,690
+If we try to draw this cost function here
+
+48
+00:02:16,690 --> 00:02:20,110
+as a function of a for a fixed value of theta,
+
+49
+00:02:20,110 --> 00:02:21,580
+it would look something like this.
+
+50
+00:02:21,580 --> 00:02:28,260
+
+
+51
+00:02:28,260 --> 00:02:31,220
+So let's assume that we have a theta here.
+
+52
+00:02:31,220 --> 00:02:35,630
+So we will have 0 loss of theta, and then the loss
+
+53
+00:02:35,630 --> 00:02:40,910
+will grow quite radically as a moves away from theta.
+
+54
+00:02:40,910 --> 00:02:42,590
+Now the interpretation of this is
+
+55
+00:02:42,590 --> 00:02:44,630
+that it's OK to make a small error,
+
+56
+00:02:44,630 --> 00:02:47,000
+as long as it's not too big.
+
+57
+00:02:47,000 --> 00:02:50,720
+So if a goes away too much from theta,
+
+58
+00:02:50,720 --> 00:02:53,540
+our loss will increase rapidly.
+
+59
+00:02:53,540 --> 00:02:56,960
+So before we derive the optimal estimator using this loss
+
+60
+00:02:56,960 --> 00:02:59,960
+function here, we should introduce some notation.
+
+61
+00:02:59,960 --> 00:03:03,800
+First, we'll let the theta bar be the expected value of theta
+
+62
+00:03:03,800 --> 00:03:05,270
+given y.
+
+63
+00:03:05,270 --> 00:03:08,750
+And second, we'll let P be the covariance matrix
+
+64
+00:03:08,750 --> 00:03:11,120
+of theta given y.
+
+65
+00:03:11,120 --> 00:03:13,340
+So there's a posterior covariance of theta
+
+66
+00:03:13,340 --> 00:03:14,590
+after observing y.
+
+67
+00:03:14,590 --> 00:03:17,930
+And it's, by definition, expressed like this.
+
+68
+00:03:17,930 --> 00:03:21,200
+Now, in order to derive the optimal estimator of theta,
+
+69
+00:03:21,200 --> 00:03:24,110
+it's useful to try to simplify the function that we're
+
+70
+00:03:24,110 --> 00:03:25,860
+trying to minimize.
+
+71
+00:03:25,860 --> 00:03:28,790
+So recall that we're interested in minimizing the posterior
+
+72
+00:03:28,790 --> 00:03:36,010
+expected loss, which is expected value of our cost
+
+73
+00:03:36,010 --> 00:03:41,340
+function conditioned on y.
+
+74
+00:03:41,340 --> 00:03:44,130
+Now, in this case, our loss function is this, right?
+
+75
+00:03:44,130 --> 00:03:47,220
+So if we insert this into our expression, we get--
+
+76
+00:03:47,220 --> 00:03:53,560
+
+
+77
+00:03:53,560 --> 00:03:57,570
+theta minus a transpose, theta minus a.
+
+78
+00:03:57,570 --> 00:04:00,700
+
+
+79
+00:04:00,700 --> 00:04:03,670
+Now, a useful strategy to find optimal a
+
+80
+00:04:03,670 --> 00:04:06,880
+is to simply take the gradient of this expression
+
+81
+00:04:06,880 --> 00:04:10,060
+here, with respect to a, and then set it to 0
+
+82
+00:04:10,060 --> 00:04:12,250
+and solve for a.
+
+83
+00:04:12,250 --> 00:04:14,920
+Although this is a perfectly fine strategy and something
+
+84
+00:04:14,920 --> 00:04:17,320
+that you might want to try yourself,
+
+85
+00:04:17,320 --> 00:04:19,690
+I personally prefer a different type of trick
+
+86
+00:04:19,690 --> 00:04:22,180
+in order to come up with a optimal solution.
+
+87
+00:04:22,180 --> 00:04:25,810
+We might call this trick, "To add an intelligent 0."
+
+88
+00:04:25,810 --> 00:04:29,350
+Now, this is just a trick that simplifies the calculations.
+
+89
+00:04:29,350 --> 00:04:33,160
+In this case here, we will add and subtract theta bar
+
+90
+00:04:33,160 --> 00:04:35,270
+in both of these terms here.
+
+91
+00:04:35,270 --> 00:04:36,850
+So we'll get something like this.
+
+92
+00:04:36,850 --> 00:04:41,420
+
+
+93
+00:04:41,420 --> 00:04:45,440
+And I argue that this will simplify our derivation.
+
+94
+00:04:45,440 --> 00:04:49,100
+So I'm simply taking this here, and then I'm
+
+95
+00:04:49,100 --> 00:04:53,270
+adding and subtracting theta bar in each term here.
+
+96
+00:04:53,270 --> 00:04:57,040
+So what happens now is that this part here
+
+97
+00:04:57,040 --> 00:04:58,750
+is a 0 mean random variable.
+
+98
+00:04:58,750 --> 00:05:02,120
+
+
+99
+00:05:02,120 --> 00:05:07,480
+And this part here is just deterministic value.
+
+100
+00:05:07,480 --> 00:05:09,670
+There's nothing random about this part.
+
+101
+00:05:09,670 --> 00:05:13,990
+As theta bar is just a vector, and a is another vector.
+
+102
+00:05:13,990 --> 00:05:15,780
+So this is deterministic.
+
+103
+00:05:15,780 --> 00:05:19,110
+That is, we have a 0 mean vector,
+
+104
+00:05:19,110 --> 00:05:22,410
+plus some deterministic vector, and then the transpose,
+
+105
+00:05:22,410 --> 00:05:24,420
+and then the product do the same thing.
+
+106
+00:05:24,420 --> 00:05:27,280
+What happens now is that we multiply these things together.
+
+107
+00:05:27,280 --> 00:05:29,730
+We will get one term, which is the 0
+
+108
+00:05:29,730 --> 00:05:31,155
+mean random vector squared.
+
+109
+00:05:31,155 --> 00:05:44,940
+
+
+110
+00:05:44,940 --> 00:05:48,440
+Now, note that this term here does not depend on a.
+
+111
+00:05:48,440 --> 00:05:50,540
+So from a minimization point of view,
+
+112
+00:05:50,540 --> 00:05:53,410
+this term does not really matter.
+
+113
+00:05:53,410 --> 00:05:56,260
+Anyway, we can see that it's almost the same thing
+
+114
+00:05:56,260 --> 00:05:58,540
+as the posterior covariance here,
+
+115
+00:05:58,540 --> 00:06:01,520
+but the transpose is in a different place.
+
+116
+00:06:01,520 --> 00:06:06,260
+So while this is a matrix, this will become a scalar.
+
+117
+00:06:06,260 --> 00:06:09,520
+If we take a trace of it, it is possible to prove
+
+118
+00:06:09,520 --> 00:06:12,100
+that we can still write this in terms of P,
+
+119
+00:06:12,100 --> 00:06:13,450
+if we take the trace of it.
+
+120
+00:06:13,450 --> 00:06:23,720
+So this term here can be simplified to the trace of P.
+
+121
+00:06:23,720 --> 00:06:26,120
+Now this is not important, but I mention it here
+
+122
+00:06:26,120 --> 00:06:27,560
+for completeness.
+
+123
+00:06:27,560 --> 00:06:30,800
+The next term would be, for instance, theta minus theta bar
+
+124
+00:06:30,800 --> 00:06:35,090
+times theta bar minus a, which becomes this term here.
+
+125
+00:06:35,090 --> 00:06:49,230
+
+
+126
+00:06:49,230 --> 00:06:51,120
+Now this is where it becomes interesting
+
+127
+00:06:51,120 --> 00:06:54,330
+because this is where the trick that we have done pays off.
+
+128
+00:06:54,330 --> 00:06:56,610
+Since the second part here is deterministic,
+
+129
+00:06:56,610 --> 00:06:59,370
+we can leave it outside the expected value here.
+
+130
+00:06:59,370 --> 00:07:03,270
+And since the expected value of theta is theta bar,
+
+131
+00:07:03,270 --> 00:07:04,700
+this is simply 0.
+
+132
+00:07:04,700 --> 00:07:06,510
+The expected value of this is 0.
+
+133
+00:07:06,510 --> 00:07:09,090
+
+
+134
+00:07:09,090 --> 00:07:11,850
+So we get 0 times this, which is also 0.
+
+135
+00:07:11,850 --> 00:07:14,260
+So this term will disappear.
+
+136
+00:07:14,260 --> 00:07:17,400
+Now we get a similar term when we multiply this
+
+137
+00:07:17,400 --> 00:07:19,710
+with this, which is also 0.
+
+138
+00:07:19,710 --> 00:07:21,910
+So we'll get another 0 here.
+
+139
+00:07:21,910 --> 00:07:26,670
+So the first three terms here does not actually depend on a.
+
+140
+00:07:26,670 --> 00:07:32,130
+However, the fourth term does, which is this times this.
+
+141
+00:07:32,130 --> 00:07:33,750
+But it's actually deterministic, which
+
+142
+00:07:33,750 --> 00:07:35,790
+means that taking the expected value
+
+143
+00:07:35,790 --> 00:07:37,740
+is trivial, as nothing happens.
+
+144
+00:07:37,740 --> 00:07:42,460
+So we get just these two multiply with each other.
+
+145
+00:07:42,460 --> 00:07:49,940
+So theta hat minus a, transpose, theta hat minus a.
+
+146
+00:07:49,940 --> 00:07:54,290
+Now, the posterior expected loss is the trace
+
+147
+00:07:54,290 --> 00:07:57,410
+of P plus this term here.
+
+148
+00:07:57,410 --> 00:08:01,880
+Now this term does not depend on a, but this term does.
+
+149
+00:08:01,880 --> 00:08:04,490
+As we would like to minimize with respect to a,
+
+150
+00:08:04,490 --> 00:08:06,410
+it's fairly easy to see that we can do this
+
+151
+00:08:06,410 --> 00:08:11,080
+by setting a equal to theta bar, which would make this 0.
+
+152
+00:08:11,080 --> 00:08:13,880
+So 0 times 0, which is 0.
+
+153
+00:08:13,880 --> 00:08:17,310
+And that's a best loss that we can have in this case.
+
+154
+00:08:17,310 --> 00:08:20,750
+It's also easy to show that this is a unique minimum.
+
+155
+00:08:20,750 --> 00:08:26,220
+So to conclude, our optimal estimator, theta hat,
+
+156
+00:08:26,220 --> 00:08:29,470
+which we get by finding the argument a
+
+157
+00:08:29,470 --> 00:08:32,000
+that minimize the expected posterior loss, so
+
+158
+00:08:32,000 --> 00:08:39,250
+minimum a of the posterior expected loss.
+
+159
+00:08:39,250 --> 00:08:50,470
+
+
+160
+00:08:50,470 --> 00:08:54,630
+And find that this is the posterior mean
+
+161
+00:08:54,630 --> 00:08:57,030
+of theta, which is theta bar.
+
+162
+00:08:57,030 --> 00:09:00,120
+Now this estimator is called the minimum mean square error
+
+163
+00:09:00,120 --> 00:09:01,280
+estimator--
+
+164
+00:09:01,280 --> 00:09:04,780
+now minimum, as we're minimizing something,
+
+165
+00:09:04,780 --> 00:09:08,740
+mean because we take the posterior mean, and squared
+
+166
+00:09:08,740 --> 00:09:12,790
+error because we had the quadratic loss of the error
+
+167
+00:09:12,790 --> 00:09:16,440
+between theta and our estimate.
+
+168
+00:09:16,440 --> 00:09:21,180
+Usually we denote this estimator as theta hat MMSE.
+
+169
+00:09:21,180 --> 00:09:24,360
+
+
+170
+00:09:24,360 --> 00:09:28,860
+So choosing the posterior mean as our estimate would make sure
+
+171
+00:09:28,860 --> 00:09:33,360
+that we on average has as low a squared error as possible.
+
+172
+00:09:33,360 --> 00:09:37,590
+So that's what the minimum mean squared error estimator does.
+
+173
+00:09:37,590 --> 00:09:39,660
+Another important type of loss function
+
+174
+00:09:39,660 --> 00:09:41,900
+that's used in the estimation problems
+
+175
+00:09:41,900 --> 00:09:47,070
+is the so-called 0-1 loss, which we are considering here.
+
+176
+00:09:47,070 --> 00:09:49,830
+Again, the setting is an estimation problem
+
+177
+00:09:49,830 --> 00:09:53,640
+where the column vector theta is in Rn.
+
+178
+00:09:53,640 --> 00:09:56,680
+Our 0-1 loss function can then be described like this.
+
+179
+00:09:56,680 --> 00:10:01,860
+So C of theta and a is minus the Dirac delta
+
+180
+00:10:01,860 --> 00:10:05,790
+function of theta minus a.
+
+181
+00:10:05,790 --> 00:10:08,010
+Now the name comes from the discrete case
+
+182
+00:10:08,010 --> 00:10:13,610
+whether we get a loss of minus 1 when a is equal to theta,
+
+183
+00:10:13,610 --> 00:10:16,000
+and 0 for all other values.
+
+184
+00:10:16,000 --> 00:10:18,270
+An interpretation of this is that we only
+
+185
+00:10:18,270 --> 00:10:22,230
+care about picking the exact correct value of theta,
+
+186
+00:10:22,230 --> 00:10:25,380
+and all other values are equally bad.
+
+187
+00:10:25,380 --> 00:10:27,270
+So again, if we try to illustrate
+
+188
+00:10:27,270 --> 00:10:29,820
+this for the continuous scalar case
+
+189
+00:10:29,820 --> 00:10:32,160
+where the 0-1 loss function is not really
+
+190
+00:10:32,160 --> 00:10:34,360
+a proper 0-1 function.
+
+191
+00:10:34,360 --> 00:10:36,060
+But the interpretation is the same.
+
+192
+00:10:36,060 --> 00:10:41,430
+
+
+193
+00:10:41,430 --> 00:10:46,190
+So if we have a fixed theta here, for example,
+
+194
+00:10:46,190 --> 00:10:52,060
+our loss as a function of a is 0 for all values not
+
+195
+00:10:52,060 --> 00:10:54,200
+equal to theta.
+
+196
+00:10:54,200 --> 00:11:01,700
+So we have 0 for all values not equal to theta.
+
+197
+00:11:01,700 --> 00:11:05,030
+Then, on the other hand, we get a minus infinity loss
+
+198
+00:11:05,030 --> 00:11:08,330
+when a is equal to theta.
+
+199
+00:11:08,330 --> 00:11:11,360
+So we have a Dirac delta spike here.
+
+200
+00:11:11,360 --> 00:11:13,970
+So this means that it's infinitely good
+
+201
+00:11:13,970 --> 00:11:17,780
+to set a equal to the true value of theta.
+
+202
+00:11:17,780 --> 00:11:20,630
+And note that if theta is different from a,
+
+203
+00:11:20,630 --> 00:11:22,390
+the loss is 0.
+
+204
+00:11:22,390 --> 00:11:25,910
+And independently on how big the difference is, it's still 0.
+
+205
+00:11:25,910 --> 00:11:28,400
+So we're basically saying here that we only really
+
+206
+00:11:28,400 --> 00:11:30,920
+care about guessing the correct value.
+
+207
+00:11:30,920 --> 00:11:34,850
+If it's incorrect, it's equally bad if it's just a bit off
+
+208
+00:11:34,850 --> 00:11:36,620
+or if it's really far off.
+
+209
+00:11:36,620 --> 00:11:38,420
+To get the optimal estimator, we can
+
+210
+00:11:38,420 --> 00:11:41,840
+start by looking at the posterior expected loss.
+
+211
+00:11:41,840 --> 00:11:45,750
+So the posterior expected loss is defined like this.
+
+212
+00:11:45,750 --> 00:11:48,500
+So if we replace this with our loss function,
+
+213
+00:11:48,500 --> 00:11:50,300
+we get this expression here, where
+
+214
+00:11:50,300 --> 00:11:53,210
+we get the expected value of minus delta of theta
+
+215
+00:11:53,210 --> 00:11:57,100
+minus a, condition on that we know y.
+
+216
+00:11:57,100 --> 00:12:01,060
+Now if we use a definition of the expected value on this,
+
+217
+00:12:01,060 --> 00:12:03,055
+it equates to this integral here where
+
+218
+00:12:03,055 --> 00:12:07,450
+we'll have minus the integral of our posterior distribution,
+
+219
+00:12:07,450 --> 00:12:11,140
+p of theta given y times our delta function of theta
+
+220
+00:12:11,140 --> 00:12:12,160
+minus a.
+
+221
+00:12:12,160 --> 00:12:14,680
+And then we integrate over theta.
+
+222
+00:12:14,680 --> 00:12:16,960
+Now, you might recall that as the delta function
+
+223
+00:12:16,960 --> 00:12:20,890
+is only non-zero, if theta is equal to a.
+
+224
+00:12:20,890 --> 00:12:23,620
+There is a rule that says that if you integrate over
+
+225
+00:12:23,620 --> 00:12:28,090
+a delta function like this, the result is the function here
+
+226
+00:12:28,090 --> 00:12:32,080
+evaluated at the value where the delta function is non-zero.
+
+227
+00:12:32,080 --> 00:12:34,840
+So what we simply get from this integral here is minus
+
+228
+00:12:34,840 --> 00:12:39,180
+the posterior distribution of theta given y, evaluated
+
+229
+00:12:39,180 --> 00:12:41,470
+at theta equal to a.
+
+230
+00:12:41,470 --> 00:12:44,230
+So the optimal estimator theta hat
+
+231
+00:12:44,230 --> 00:12:48,040
+is then argument a, which minimizes the posterior
+
+232
+00:12:48,040 --> 00:12:51,100
+distribution if theta is equal to a.
+
+233
+00:12:51,100 --> 00:12:53,020
+Now there's a minus sign here, so we
+
+234
+00:12:53,020 --> 00:12:56,500
+can replace minimization with maximization
+
+235
+00:12:56,500 --> 00:12:57,780
+and removing the minus sign.
+
+236
+00:12:57,780 --> 00:12:59,840
+So we get this, since it's the same thing
+
+237
+00:12:59,840 --> 00:13:03,790
+to minimize minus something as to maximize something.
+
+238
+00:13:03,790 --> 00:13:08,710
+Since we're merely evaluating this where theta is equal to a,
+
+239
+00:13:08,710 --> 00:13:11,350
+we can replace theta with a here.
+
+240
+00:13:11,350 --> 00:13:13,170
+And we get this final result here,
+
+241
+00:13:13,170 --> 00:13:17,320
+that the optimal estimator with respect to the 0-1 loss
+
+242
+00:13:17,320 --> 00:13:20,470
+is what we get when we find the theta that maximizes
+
+243
+00:13:20,470 --> 00:13:22,570
+the posterior distribution.
+
+244
+00:13:22,570 --> 00:13:25,000
+Now this estimator here is called
+
+245
+00:13:25,000 --> 00:13:29,460
+the maximum a posteriori estimator and often denoted,
+
+246
+00:13:29,460 --> 00:13:34,940
+theta hat MAP, like this.
+
+247
+00:13:34,940 --> 00:13:38,450
+We have now derived the two most famous Bayesian estimators,
+
+248
+00:13:38,450 --> 00:13:43,520
+namely the MMSE estimator and the MAP estimator.
+
+249
+00:13:43,520 --> 00:13:47,680
+Now here is a self-assessment question on this topic.
+
+250
+00:13:47,680 --> 00:13:54,199
+
+

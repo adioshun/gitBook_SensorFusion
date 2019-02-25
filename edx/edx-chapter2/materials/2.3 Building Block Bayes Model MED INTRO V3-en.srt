@@ -1,0 +1,1212 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:03,450
+In this video, we're going to talk about the basic building
+
+2
+00:00:03,450 --> 00:00:06,060
+blocks of Bayesian models.
+
+3
+00:00:06,060 --> 00:00:08,370
+It turns out that most Bayesian problems
+
+4
+00:00:08,370 --> 00:00:10,600
+have a similar structure.
+
+5
+00:00:10,600 --> 00:00:13,270
+It is, therefore, helpful to identify and name
+
+6
+00:00:13,270 --> 00:00:16,360
+these common components, such that we can more easily
+
+7
+00:00:16,360 --> 00:00:18,420
+express ourselves.
+
+8
+00:00:18,420 --> 00:00:20,190
+This will also help us to see how
+
+9
+00:00:20,190 --> 00:00:23,220
+we need to address a specific problem at hand.
+
+10
+00:00:23,220 --> 00:00:27,120
+We call these building blocks likelihood, priors,
+
+11
+00:00:27,120 --> 00:00:28,740
+and posteriors.
+
+12
+00:00:28,740 --> 00:00:30,810
+The general problem formulation is
+
+13
+00:00:30,810 --> 00:00:34,350
+that we're interested in an unknown parameter, theta,
+
+14
+00:00:34,350 --> 00:00:36,990
+which is in some parameter space, capital
+
+15
+00:00:36,990 --> 00:00:41,610
+theta, for which we observe some related data, y.
+
+16
+00:00:41,610 --> 00:00:43,890
+The type of parameter space that we have
+
+17
+00:00:43,890 --> 00:00:46,200
+will determine the type of problem that we have.
+
+18
+00:00:46,200 --> 00:00:48,970
+This could, for example, be estimation,
+
+19
+00:00:48,970 --> 00:00:51,990
+where theta can take any continuous value--
+
+20
+00:00:51,990 --> 00:00:54,240
+either scalar or a vector--
+
+21
+00:00:54,240 --> 00:00:56,940
+in which case the parameter space, capital theta,
+
+22
+00:00:56,940 --> 00:00:59,040
+is rn, for example.
+
+23
+00:00:59,040 --> 00:01:03,570
+Or, it could be detection, where capital theta is either
+
+24
+00:01:03,570 --> 00:01:08,730
+minus 1 or 1, indicating if we have detected something
+
+25
+00:01:08,730 --> 00:01:11,530
+or if we had not detected something.
+
+26
+00:01:11,530 --> 00:01:13,710
+The key assumption in all these problems
+
+27
+00:01:13,710 --> 00:01:16,590
+is that we assume that the observed data, y, is
+
+28
+00:01:16,590 --> 00:01:20,730
+distributed according to this known conditional distribution
+
+29
+00:01:20,730 --> 00:01:23,250
+where we express the observed data, y,
+
+30
+00:01:23,250 --> 00:01:27,030
+condition on the parameter of interest, theta.
+
+31
+00:01:27,030 --> 00:01:29,400
+For example, let's say y is an observation
+
+32
+00:01:29,400 --> 00:01:32,790
+from a radar that is measuring the distance to an object.
+
+33
+00:01:32,790 --> 00:01:36,300
+The theta is then the actual distance to the object.
+
+34
+00:01:36,300 --> 00:01:39,300
+With this model here, we describe the distribution
+
+35
+00:01:39,300 --> 00:01:42,840
+of the radar detection for the case when we know the distance
+
+36
+00:01:42,840 --> 00:01:43,980
+to the object.
+
+37
+00:01:43,980 --> 00:01:46,110
+That is, in the general setting, we
+
+38
+00:01:46,110 --> 00:01:48,510
+are describing how we expect observation
+
+39
+00:01:48,510 --> 00:01:50,790
+to behave for a situation when we
+
+40
+00:01:50,790 --> 00:01:53,940
+know the actual true value of the parameter of interest,
+
+41
+00:01:53,940 --> 00:01:55,740
+theta.
+
+42
+00:01:55,740 --> 00:01:58,500
+This is often far easier than trying to do it the other way
+
+43
+00:01:58,500 --> 00:02:02,040
+around, where we are describing the distribution of theta
+
+44
+00:02:02,040 --> 00:02:04,060
+when we condition on y.
+
+45
+00:02:04,060 --> 00:02:06,870
+Now we know the general problem formulation.
+
+46
+00:02:06,870 --> 00:02:10,860
+Let's look at two of the common components in a Bayesian model,
+
+47
+00:02:10,860 --> 00:02:12,660
+likelihood and prior.
+
+48
+00:02:12,660 --> 00:02:15,300
+We start by looking at the likelihood.
+
+49
+00:02:15,300 --> 00:02:17,610
+Since a time of inference or observation,
+
+50
+00:02:17,610 --> 00:02:21,780
+y, is observed and thus has a fixed value,
+
+51
+00:02:21,780 --> 00:02:25,800
+we often view p of y given theta as a function
+
+52
+00:02:25,800 --> 00:02:28,800
+of the unknown parameter that we're interested in,
+
+53
+00:02:28,800 --> 00:02:30,300
+and that is theta.
+
+54
+00:02:30,300 --> 00:02:32,700
+That is, we're typically interested in knowing
+
+55
+00:02:32,700 --> 00:02:34,620
+how likely different values of theta
+
+56
+00:02:34,620 --> 00:02:38,280
+are now that we have observed y.
+
+57
+00:02:38,280 --> 00:02:39,840
+To make it a bit more clear that we
+
+58
+00:02:39,840 --> 00:02:44,020
+view this as a function of theta and not y,
+
+59
+00:02:44,020 --> 00:02:48,640
+it's common that we use this notation instead.
+
+60
+00:02:48,640 --> 00:02:52,300
+So, L of theta given y, where L theta given y
+
+61
+00:02:52,300 --> 00:02:54,850
+is called a likelihood function.
+
+62
+00:02:54,850 --> 00:02:59,970
+We read this as the likelihood of theta, given y.
+
+63
+00:02:59,970 --> 00:03:01,720
+Note that we have switched the order here,
+
+64
+00:03:01,720 --> 00:03:04,750
+so, here we have y given theta, but here we
+
+65
+00:03:04,750 --> 00:03:07,260
+have theta given y--
+
+66
+00:03:07,260 --> 00:03:10,770
+to emphasize that we view this as a function of theta
+
+67
+00:03:10,770 --> 00:03:13,500
+and not a function of y.
+
+68
+00:03:13,500 --> 00:03:17,400
+Now, we also often speak of this density as our likelihood,
+
+69
+00:03:17,400 --> 00:03:19,440
+but then we should be clear that we
+
+70
+00:03:19,440 --> 00:03:21,790
+view this as a function of theta,
+
+71
+00:03:21,790 --> 00:03:26,280
+and that the likelihood is not a density with respect to theta.
+
+72
+00:03:26,280 --> 00:03:30,660
+For example, if we integrate this over all possible values
+
+73
+00:03:30,660 --> 00:03:33,180
+of theta, in general, this integral
+
+74
+00:03:33,180 --> 00:03:35,730
+would not be 1, which is a requirement for it
+
+75
+00:03:35,730 --> 00:03:37,850
+to be a proper density.
+
+76
+00:03:37,850 --> 00:03:41,070
+The other common component that we have in Bayesian statistics
+
+77
+00:03:41,070 --> 00:03:43,020
+is what we call a prior distribution
+
+78
+00:03:43,020 --> 00:03:46,020
+on theta, which is simply the probability
+
+79
+00:03:46,020 --> 00:03:49,900
+distribution of theta, p of theta, and nothing else.
+
+80
+00:03:49,900 --> 00:03:54,030
+Prior means earlier or before, and p of theta
+
+81
+00:03:54,030 --> 00:03:58,620
+describes what we know before making any observations--
+
+82
+00:03:58,620 --> 00:04:02,170
+what we know about theta before we do any observations.
+
+83
+00:04:02,170 --> 00:04:03,930
+If we return to our medical example,
+
+84
+00:04:03,930 --> 00:04:07,360
+where theta would be the disease of the patient, in this case,
+
+85
+00:04:07,360 --> 00:04:10,140
+the prior would be the distribution of the disease
+
+86
+00:04:10,140 --> 00:04:12,120
+in the general population.
+
+87
+00:04:12,120 --> 00:04:16,290
+That is, how relatively common different diseases are.
+
+88
+00:04:16,290 --> 00:04:18,149
+This information can, for example,
+
+89
+00:04:18,149 --> 00:04:21,180
+help us when the patient's symptoms are vague
+
+90
+00:04:21,180 --> 00:04:23,880
+and can fit many different diseases.
+
+91
+00:04:23,880 --> 00:04:27,650
+In a Bayesian setting, this prior information
+
+92
+00:04:27,650 --> 00:04:30,890
+is combined with the likelihood of the different diseases
+
+93
+00:04:30,890 --> 00:04:33,980
+given by our observations, to give us
+
+94
+00:04:33,980 --> 00:04:38,060
+what we call the posterior, which we will look at next.
+
+95
+00:04:38,060 --> 00:04:40,790
+One of the main objectives in Bayesian statistics
+
+96
+00:04:40,790 --> 00:04:44,640
+is to compute the posterior, or the posterior density,
+
+97
+00:04:44,640 --> 00:04:49,280
+which in this case, we write as p of theta given y.
+
+98
+00:04:49,280 --> 00:04:53,420
+So, posterior means after and p of theta given y
+
+99
+00:04:53,420 --> 00:04:57,710
+describes what we know about theta after observing y.
+
+100
+00:04:57,710 --> 00:04:59,840
+That is, it summarizes everything
+
+101
+00:04:59,840 --> 00:05:04,310
+we know about theta after our observation.
+
+102
+00:05:04,310 --> 00:05:06,740
+We can compute the posterior using Bayes rule
+
+103
+00:05:06,740 --> 00:05:09,440
+by rewriting it like this--
+
+104
+00:05:09,440 --> 00:05:16,380
+p of y given theta, times p of theta, divided by p of y.
+
+105
+00:05:16,380 --> 00:05:20,160
+We see that this here is the likelihood, right?
+
+106
+00:05:20,160 --> 00:05:21,690
+This here is the prior.
+
+107
+00:05:21,690 --> 00:05:24,390
+The normalization factor here, p of y,
+
+108
+00:05:24,390 --> 00:05:28,710
+is just a constant, as we have observed y we condition y here,
+
+109
+00:05:28,710 --> 00:05:30,480
+so it's a fixed value.
+
+110
+00:05:30,480 --> 00:05:34,110
+We're interested in this as a function of theta.
+
+111
+00:05:34,110 --> 00:05:37,680
+In many cases, we ignore this normalization factor here
+
+112
+00:05:37,680 --> 00:05:41,070
+and just write it as proportional to the likelihood,
+
+113
+00:05:41,070 --> 00:05:42,750
+times the prior.
+
+114
+00:05:42,750 --> 00:05:46,290
+Let's look at this using a small toy example.
+
+115
+00:05:46,290 --> 00:05:49,830
+We'll have a scalar theta and a scalar observation, y.
+
+116
+00:05:49,830 --> 00:05:52,470
+Theta could, for example, be the distance to an object
+
+117
+00:05:52,470 --> 00:05:55,740
+and y could be a measurement of that distance from a radar
+
+118
+00:05:55,740 --> 00:05:58,110
+sensor, for example.
+
+119
+00:05:58,110 --> 00:05:59,970
+So, anyway, we have a prior on theta
+
+120
+00:05:59,970 --> 00:06:02,886
+saying that theta should be around 4,
+
+121
+00:06:02,886 --> 00:06:04,260
+and then we have some uncertainty
+
+122
+00:06:04,260 --> 00:06:06,750
+regarding the exact value as indicated
+
+123
+00:06:06,750 --> 00:06:09,630
+by the spread of the prior here.
+
+124
+00:06:09,630 --> 00:06:13,110
+We have some spread here, which indicate
+
+125
+00:06:13,110 --> 00:06:15,120
+uncertainty in the exact value.
+
+126
+00:06:15,120 --> 00:06:17,370
+Additionally, we get observations on theta,
+
+127
+00:06:17,370 --> 00:06:21,960
+saying that theta should be around 6.
+
+128
+00:06:21,960 --> 00:06:25,350
+The most likely value of theta, according to our observation
+
+129
+00:06:25,350 --> 00:06:28,590
+alone, is 6, but we also have some uncertainty
+
+130
+00:06:28,590 --> 00:06:30,720
+in our measurement as the likelihood indicates
+
+131
+00:06:30,720 --> 00:06:36,120
+that it's fairly likely that the value is between 4 and 8.
+
+132
+00:06:36,120 --> 00:06:40,470
+Using Bayes' rule, we can find a posterior distribution of theta
+
+133
+00:06:40,470 --> 00:06:43,890
+given y that is considering both the prior information that we
+
+134
+00:06:43,890 --> 00:06:47,880
+have about probable values of theta as well as likely values
+
+135
+00:06:47,880 --> 00:06:50,910
+of theta given by our observation and the resulting
+
+136
+00:06:50,910 --> 00:06:52,080
+likelihood function.
+
+137
+00:06:52,080 --> 00:06:56,000
+We do this by multiplying the prior with the likelihood,
+
+138
+00:06:56,000 --> 00:06:58,110
+and we get this posterior density.
+
+139
+00:06:58,110 --> 00:07:01,230
+However, the posterior density is only proportional
+
+140
+00:07:01,230 --> 00:07:04,020
+to this product, so to get a proper probability
+
+141
+00:07:04,020 --> 00:07:08,070
+density we need to normalize by this proportionality constant.
+
+142
+00:07:08,070 --> 00:07:09,880
+There are several ways of doing this.
+
+143
+00:07:09,880 --> 00:07:13,110
+For example, as the posterior density is a proper density,
+
+144
+00:07:13,110 --> 00:07:17,070
+we can find a constant such that the integral over this product
+
+145
+00:07:17,070 --> 00:07:20,880
+becomes 1 over all possible values of theta,
+
+146
+00:07:20,880 --> 00:07:24,810
+because that's a requirement for this to be a proper density.
+
+147
+00:07:24,810 --> 00:07:28,500
+To summarize, the posterior is proportional to the likelihood
+
+148
+00:07:28,500 --> 00:07:29,940
+times the prior.
+
+149
+00:07:29,940 --> 00:07:33,480
+We multiply these two together, as a function of theta,
+
+150
+00:07:33,480 --> 00:07:36,150
+and then we get the posterior density.
+
+151
+00:07:36,150 --> 00:07:38,890
+We need to re-scale the posterior density,
+
+152
+00:07:38,890 --> 00:07:41,250
+such that it becomes a proper density.
+
+153
+00:07:41,250 --> 00:07:44,280
+Now that we have calculated the posterior density,
+
+154
+00:07:44,280 --> 00:07:48,090
+we can start to answer some interesting questions.
+
+155
+00:07:48,090 --> 00:07:50,970
+What is the most probable theta?
+
+156
+00:07:50,970 --> 00:07:54,540
+Well, if we look at the posterior in our example,
+
+157
+00:07:54,540 --> 00:07:56,700
+here we see that the peak of the posterior
+
+158
+00:07:56,700 --> 00:08:00,510
+is around theta equal to 5.2.
+
+159
+00:08:00,510 --> 00:08:03,510
+This is our most probable value for theta.
+
+160
+00:08:03,510 --> 00:08:06,330
+Here is a difference between what a Bayesian would do
+
+161
+00:08:06,330 --> 00:08:08,340
+and what a Frequentist would do.
+
+162
+00:08:08,340 --> 00:08:10,800
+Whereas a Bayesian would be interested in the most probable
+
+163
+00:08:10,800 --> 00:08:15,620
+value of theta, considering both the prior and the likelihood,
+
+164
+00:08:15,620 --> 00:08:19,770
+a Frequentist would instead be interested in the most likely
+
+165
+00:08:19,770 --> 00:08:23,820
+value of theta as given by the likelihood function.
+
+166
+00:08:23,820 --> 00:08:27,330
+The most likely value of theta would be around 6,
+
+167
+00:08:27,330 --> 00:08:33,360
+and this is called the maximum likelihood estimate, or MLE,
+
+168
+00:08:33,360 --> 00:08:36,809
+whereas the most probable value after observing y
+
+169
+00:08:36,809 --> 00:08:39,960
+is called a maximum a posteriori estimate,
+
+170
+00:08:39,960 --> 00:08:43,500
+or MAP for short, which is a Bayesian estimate.
+
+171
+00:08:43,500 --> 00:08:45,720
+We might also be interested in, what
+
+172
+00:08:45,720 --> 00:08:50,220
+is the probability that theta is in some set a?
+
+173
+00:08:50,220 --> 00:08:53,280
+Let's say that we have some set a here.
+
+174
+00:08:53,280 --> 00:08:55,530
+The probability that theta is in the set
+
+175
+00:08:55,530 --> 00:09:01,930
+is simply the integral of the posterior in this region here.
+
+176
+00:09:01,930 --> 00:09:04,129
+The area under this graph.
+
+177
+00:09:04,129 --> 00:09:06,170
+It's also common that we're interested in knowing
+
+178
+00:09:06,170 --> 00:09:09,170
+the posterior mean of theta, which in our example
+
+179
+00:09:09,170 --> 00:09:13,640
+here is the same as the most probable value of theta.
+
+180
+00:09:13,640 --> 00:09:16,290
+But this is not true in general.
+
+181
+00:09:16,290 --> 00:09:20,000
+In addition to all this, we can also formulate optimal decision
+
+182
+00:09:20,000 --> 00:09:20,780
+problems.
+
+183
+00:09:20,780 --> 00:09:23,810
+We want to minimize our expected cost
+
+184
+00:09:23,810 --> 00:09:26,420
+in a decision theoretic manner.
+
+185
+00:09:26,420 --> 00:09:29,210
+More on this in a later lecture.
+
+186
+00:09:29,210 --> 00:09:30,920
+Let's look at an example where we
+
+187
+00:09:30,920 --> 00:09:34,130
+use all these basic components to calculate the posterior
+
+188
+00:09:34,130 --> 00:09:35,510
+distribution.
+
+189
+00:09:35,510 --> 00:09:38,360
+In this example, we have a scalar parameter, theta,
+
+190
+00:09:38,360 --> 00:09:42,080
+for which we observe with some additive noise, v,
+
+191
+00:09:42,080 --> 00:09:44,390
+where in this case, v is 0 mean Gaussian
+
+192
+00:09:44,390 --> 00:09:46,640
+with standard deviation sigma.
+
+193
+00:09:46,640 --> 00:09:48,530
+This means that the likelihood is
+
+194
+00:09:48,530 --> 00:09:52,250
+a Gaussian density in y with mean theta
+
+195
+00:09:52,250 --> 00:09:55,340
+and standard deviation sigma.
+
+196
+00:09:55,340 --> 00:09:57,710
+Note that there is a slight difference in notation
+
+197
+00:09:57,710 --> 00:09:59,870
+here and here, where here we actually mean
+
+198
+00:09:59,870 --> 00:10:03,650
+the pdf is a function of y, and here we
+
+199
+00:10:03,650 --> 00:10:07,790
+are saying that v is distributed according to this Gaussian
+
+200
+00:10:07,790 --> 00:10:09,110
+distribution.
+
+201
+00:10:09,110 --> 00:10:11,360
+As you might remember, a Gaussian distribution
+
+202
+00:10:11,360 --> 00:10:13,790
+is proportional to this expression here.
+
+203
+00:10:13,790 --> 00:10:18,620
+We have e to the power of minus, y minus theta squared,
+
+204
+00:10:18,620 --> 00:10:20,900
+divided by 2 sigma squared.
+
+205
+00:10:20,900 --> 00:10:23,180
+To get equality here, there's just
+
+206
+00:10:23,180 --> 00:10:32,730
+this factor, 1 over the square root of 2 pi sigma squared.
+
+207
+00:10:32,730 --> 00:10:35,400
+As this does not depend on theta,
+
+208
+00:10:35,400 --> 00:10:38,430
+we can ignore it for now.
+
+209
+00:10:38,430 --> 00:10:42,135
+As a prior, we will use what is called a non-informative prior
+
+210
+00:10:42,135 --> 00:10:46,200
+on theta, where p of theta is just proportional to 1--
+
+211
+00:10:46,200 --> 00:10:47,520
+so, constant.
+
+212
+00:10:47,520 --> 00:10:50,700
+That is, with this prior we state that all values of theta
+
+213
+00:10:50,700 --> 00:10:53,880
+are equally probable.
+
+214
+00:10:53,880 --> 00:10:55,830
+We typically use this type of prior
+
+215
+00:10:55,830 --> 00:10:58,770
+when we do not have any good prior information regarding
+
+216
+00:10:58,770 --> 00:11:02,230
+typical values of theta, or when we want to let data
+
+217
+00:11:02,230 --> 00:11:05,160
+have more influence on our knowledge about theta.
+
+218
+00:11:05,160 --> 00:11:09,180
+With the problem setting here, what is the posterior?
+
+219
+00:11:09,180 --> 00:11:10,350
+Well, let's see.
+
+220
+00:11:10,350 --> 00:11:15,690
+We want to find the posterior, which is p of theta given y.
+
+221
+00:11:15,690 --> 00:11:19,020
+Using Bayes' rule and only considering those factors that
+
+222
+00:11:19,020 --> 00:11:28,130
+depend on theta, we can rewrite this as proportional to p of y
+
+223
+00:11:28,130 --> 00:11:34,350
+given theta, times p of theta.
+
+224
+00:11:34,350 --> 00:11:37,440
+Here, we have a likelihood times the prior.
+
+225
+00:11:37,440 --> 00:11:41,430
+If we insert our expression for the likelihood and the prior,
+
+226
+00:11:41,430 --> 00:11:42,060
+we get--
+
+227
+00:11:42,060 --> 00:11:51,220
+
+
+228
+00:11:51,220 --> 00:11:53,440
+Now, if we look at this expression here,
+
+229
+00:11:53,440 --> 00:11:56,050
+we see that it's actually proportional to
+
+230
+00:11:56,050 --> 00:12:00,900
+a Gaussian density, which is--
+
+231
+00:12:00,900 --> 00:12:06,080
+Gaussian density of theta with parameters
+
+232
+00:12:06,080 --> 00:12:11,510
+with mean y and standard deviation sigma squared.
+
+233
+00:12:11,510 --> 00:12:14,870
+We have that our posterior density is proportional
+
+234
+00:12:14,870 --> 00:12:18,490
+to this Gaussian density here.
+
+235
+00:12:18,490 --> 00:12:22,580
+As our posterior density has to be a proper density of theta,
+
+236
+00:12:22,580 --> 00:12:26,590
+by definition, these two must be equal.
+
+237
+00:12:26,590 --> 00:12:29,410
+That is, if we try to find a proportionality constant,
+
+238
+00:12:29,410 --> 00:12:32,930
+which makes this equality, the proportionality constant
+
+239
+00:12:32,930 --> 00:12:34,900
+will be 1.
+
+240
+00:12:34,900 --> 00:12:43,510
+To conclude, p, our posterior, p of theta given y
+
+241
+00:12:43,510 --> 00:12:49,230
+is, in this case, equal to this Gaussian distribution--
+
+242
+00:12:49,230 --> 00:12:57,130
+theta with mean y and variance sigma squared.
+
+243
+00:12:57,130 --> 00:13:00,630
+One can note that with this non-informative prior,
+
+244
+00:13:00,630 --> 00:13:05,830
+our posterior density has the same shape as our likelihood.
+
+245
+00:13:05,830 --> 00:13:08,440
+Intuitively this makes sense, as the only information
+
+246
+00:13:08,440 --> 00:13:11,640
+that we have about theta comes from the likelihood,
+
+247
+00:13:11,640 --> 00:13:15,910
+so we would not be able to do any better than the likelihood,
+
+248
+00:13:15,910 --> 00:13:17,650
+in this case.
+
+249
+00:13:17,650 --> 00:13:19,660
+If we try to illustrate this posterior,
+
+250
+00:13:19,660 --> 00:13:28,380
+we have the posterior of theta given y,
+
+251
+00:13:28,380 --> 00:13:31,740
+and this is a function of theta.
+
+252
+00:13:31,740 --> 00:13:36,130
+We see that the mean of this is at our observation y,
+
+253
+00:13:36,130 --> 00:13:39,490
+so we have a Gaussian around y where
+
+254
+00:13:39,490 --> 00:13:42,220
+the spread of this Gaussian is given
+
+255
+00:13:42,220 --> 00:13:46,070
+by the variance sigma squared.
+
+256
+00:13:46,070 --> 00:13:49,640
+What we basically had in our small example that we just did
+
+257
+00:13:49,640 --> 00:13:51,500
+was a Bayesian measurement update,
+
+258
+00:13:51,500 --> 00:13:54,900
+using an observation from a single sensor.
+
+259
+00:13:54,900 --> 00:13:56,780
+Now, suppose that we collect measurements
+
+260
+00:13:56,780 --> 00:13:58,460
+from two types of sensors--
+
+261
+00:13:58,460 --> 00:14:00,680
+let's call them y1 and y2.
+
+262
+00:14:00,680 --> 00:14:04,220
+This could, for example, be both from a radar sensor
+
+263
+00:14:04,220 --> 00:14:09,350
+and a camera that are independently
+
+264
+00:14:09,350 --> 00:14:14,000
+measuring the relative distance to this vehicle here.
+
+265
+00:14:14,000 --> 00:14:17,000
+Naturally, we would like to use both of these observations
+
+266
+00:14:17,000 --> 00:14:20,030
+to get a better understanding of the relative position
+
+267
+00:14:20,030 --> 00:14:21,620
+to this vehicle.
+
+268
+00:14:21,620 --> 00:14:25,220
+That is, we want to fuse the information from these sensors.
+
+269
+00:14:25,220 --> 00:14:29,030
+How would we go about doing this in a Bayesian setting?
+
+270
+00:14:29,030 --> 00:14:32,120
+Well, as always, we seek to calculate
+
+271
+00:14:32,120 --> 00:14:37,130
+the posterior distribution of theta, given our observations.
+
+272
+00:14:37,130 --> 00:14:40,040
+Instead of just having a single observation,
+
+273
+00:14:40,040 --> 00:14:42,460
+we instead have two observations--
+
+274
+00:14:42,460 --> 00:14:45,200
+one from the radar and one from the camera.
+
+275
+00:14:45,200 --> 00:14:47,990
+If we apply Bayes' rule to this expression
+
+276
+00:14:47,990 --> 00:14:50,410
+and ignoring the proportionality constant,
+
+277
+00:14:50,410 --> 00:14:54,560
+we can still decompose it as a prior times a likelihood,
+
+278
+00:14:54,560 --> 00:14:56,270
+but where the likelihood now depends
+
+279
+00:14:56,270 --> 00:14:58,610
+on both our observations.
+
+280
+00:14:58,610 --> 00:15:00,500
+In principle, there is no difference
+
+281
+00:15:00,500 --> 00:15:04,310
+between fusing observations for two or more sensors
+
+282
+00:15:04,310 --> 00:15:07,280
+and just making a measurement update from a single sensor.
+
+283
+00:15:07,280 --> 00:15:12,770
+We might as well call y1 and y2 as our single observation, y,
+
+284
+00:15:12,770 --> 00:15:15,290
+which is now then a vector, and we
+
+285
+00:15:15,290 --> 00:15:19,850
+end up with the same general expression as we had before.
+
+286
+00:15:19,850 --> 00:15:23,960
+How do we handle this joint likelihood?
+
+287
+00:15:23,960 --> 00:15:27,530
+It's often reasonable to assume that y1 and y2 are
+
+288
+00:15:27,530 --> 00:15:31,310
+conditionally independent if we know theta.
+
+289
+00:15:31,310 --> 00:15:34,820
+In this example here, if we actually know the distance
+
+290
+00:15:34,820 --> 00:15:38,090
+to this vehicle, also knowing the noisy distance
+
+291
+00:15:38,090 --> 00:15:42,110
+from the camera will not help us describing the measurements
+
+292
+00:15:42,110 --> 00:15:44,360
+from the radar and vise versa.
+
+293
+00:15:44,360 --> 00:15:48,470
+If this is the case, we can decompose this joint likelihood
+
+294
+00:15:48,470 --> 00:15:53,800
+condition on theta as two separate single sensor
+
+295
+00:15:53,800 --> 00:15:56,960
+likelihoods, one for each sensor.
+
+296
+00:15:56,960 --> 00:15:58,490
+I would encourage you to figure out
+
+297
+00:15:58,490 --> 00:16:01,970
+how you would do the measurement update in this case, where you
+
+298
+00:16:01,970 --> 00:16:04,250
+have to conditionally independent observations
+
+299
+00:16:04,250 --> 00:16:09,110
+on theta, so you have a likelihood looking like this.
+
+300
+00:16:09,110 --> 00:16:11,760
+We end this video with a self-assessment question
+
+301
+00:16:11,760 --> 00:16:13,970
+for you to think about.
+
+302
+00:16:13,970 --> 00:16:21,483
+
+

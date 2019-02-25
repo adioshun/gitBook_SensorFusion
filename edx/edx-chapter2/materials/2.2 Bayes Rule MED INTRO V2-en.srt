@@ -1,0 +1,796 @@
+0
+00:00:00,000 --> 00:00:00,680
+
+
+1
+00:00:00,680 --> 00:00:02,870
+In this video, we are going to introduce
+
+2
+00:00:02,870 --> 00:00:05,120
+one of the more important tools that
+
+3
+00:00:05,120 --> 00:00:07,370
+is needed to do Bayesian inference,
+
+4
+00:00:07,370 --> 00:00:09,290
+and that is Bayes' rule.
+
+5
+00:00:09,290 --> 00:00:11,870
+Additionally, we will show how we can apply it
+
+6
+00:00:11,870 --> 00:00:14,510
+in a simple toy example involving picking fruits
+
+7
+00:00:14,510 --> 00:00:15,620
+from an urn.
+
+8
+00:00:15,620 --> 00:00:18,830
+If you remember the three steps involved in a Bayesian method
+
+9
+00:00:18,830 --> 00:00:21,020
+that we discussed in the previous video,
+
+10
+00:00:21,020 --> 00:00:23,270
+this would relate to the second step--
+
+11
+00:00:23,270 --> 00:00:25,810
+the measurement update.
+
+12
+00:00:25,810 --> 00:00:27,550
+Here is our toy example, where we're
+
+13
+00:00:27,550 --> 00:00:31,090
+going to select a fruit from one of these urns.
+
+14
+00:00:31,090 --> 00:00:33,160
+We start by selecting from which urn we are
+
+15
+00:00:33,160 --> 00:00:34,930
+going to pick our fruit from--
+
+16
+00:00:34,930 --> 00:00:37,060
+either the blue urn or the red one--
+
+17
+00:00:37,060 --> 00:00:39,160
+and we do so with equal probability.
+
+18
+00:00:39,160 --> 00:00:42,820
+It's a 50% chance we'll pick the red one and a 50% chance
+
+19
+00:00:42,820 --> 00:00:44,200
+that we'll pick the blue one.
+
+20
+00:00:44,200 --> 00:00:46,450
+From whichever urn that we choose,
+
+21
+00:00:46,450 --> 00:00:48,520
+we pick a fruit without looking.
+
+22
+00:00:48,520 --> 00:00:50,470
+Simple enough, right?
+
+23
+00:00:50,470 --> 00:00:52,240
+The question that we would like to answer,
+
+24
+00:00:52,240 --> 00:00:54,730
+using Bayesian statistics, is that,
+
+25
+00:00:54,730 --> 00:00:57,970
+if we picked an orange, what is the probability that we
+
+26
+00:00:57,970 --> 00:01:00,670
+chose the red urn to pick from?
+
+27
+00:01:00,670 --> 00:01:02,890
+To answer this question, we should first
+
+28
+00:01:02,890 --> 00:01:06,010
+go through some Bayesian statistics.
+
+29
+00:01:06,010 --> 00:01:08,170
+Bayesian statistics is simple.
+
+30
+00:01:08,170 --> 00:01:09,860
+We only need two rules.
+
+31
+00:01:09,860 --> 00:01:12,580
+The first is called conditional probability,
+
+32
+00:01:12,580 --> 00:01:14,170
+or, the product rule.
+
+33
+00:01:14,170 --> 00:01:17,590
+It states that we can always decompose the joint probability
+
+34
+00:01:17,590 --> 00:01:21,820
+of two random variables as a product with two factors.
+
+35
+00:01:21,820 --> 00:01:25,570
+In this case, we have two random variables, y and theta.
+
+36
+00:01:25,570 --> 00:01:28,330
+The product rule then states that we can always
+
+37
+00:01:28,330 --> 00:01:31,720
+factorize this joint probability as the conditional probability
+
+38
+00:01:31,720 --> 00:01:35,800
+of y given theta, times the probability of theta.
+
+39
+00:01:35,800 --> 00:01:37,630
+Note that the order here does not matter,
+
+40
+00:01:37,630 --> 00:01:40,120
+and we can always factorize it in the other way around.
+
+41
+00:01:40,120 --> 00:01:42,630
+
+
+42
+00:01:42,630 --> 00:01:47,820
+We can factorize it as the probability of theta given y,
+
+43
+00:01:47,820 --> 00:01:49,440
+times the probability of y.
+
+44
+00:01:49,440 --> 00:01:54,840
+
+
+45
+00:01:54,840 --> 00:01:58,320
+The second rule is called the law of total probability,
+
+46
+00:01:58,320 --> 00:02:00,750
+or the sum rule, which states that we
+
+47
+00:02:00,750 --> 00:02:02,820
+can find the marginal distribution
+
+48
+00:02:02,820 --> 00:02:06,300
+of a random variable by summing the joint probability
+
+49
+00:02:06,300 --> 00:02:09,150
+over all possible outcomes of the random variable
+
+50
+00:02:09,150 --> 00:02:11,280
+that we're not interested in.
+
+51
+00:02:11,280 --> 00:02:13,950
+In this case here, we're interested in probability mass
+
+52
+00:02:13,950 --> 00:02:16,530
+function of a discrete random variable, y,
+
+53
+00:02:16,530 --> 00:02:18,960
+which you can find from the joint probability of y
+
+54
+00:02:18,960 --> 00:02:22,020
+and theta by summing this joint probability
+
+55
+00:02:22,020 --> 00:02:24,600
+over all possible values of theta.
+
+56
+00:02:24,600 --> 00:02:27,270
+This is also called marginalizing our theta,
+
+57
+00:02:27,270 --> 00:02:30,330
+as we are essentially removing the influence of theta
+
+58
+00:02:30,330 --> 00:02:33,870
+from the joint, to get a marginal distribution of just
+
+59
+00:02:33,870 --> 00:02:34,950
+y.
+
+60
+00:02:34,950 --> 00:02:37,470
+For continuous random variables, the summation
+
+61
+00:02:37,470 --> 00:02:39,900
+is exchanged with integration, but the concept
+
+62
+00:02:39,900 --> 00:02:41,400
+is all the same.
+
+63
+00:02:41,400 --> 00:02:44,370
+Bayes' rule, which we will be using extensively
+
+64
+00:02:44,370 --> 00:02:47,790
+in this course, is basically a consequence
+
+65
+00:02:47,790 --> 00:02:49,950
+of conditional probability.
+
+66
+00:02:49,950 --> 00:02:52,620
+Remember that conditional probability
+
+67
+00:02:52,620 --> 00:02:56,430
+allowed us to decompose the joint probability of y
+
+68
+00:02:56,430 --> 00:03:01,070
+and theta in two ways--
+
+69
+00:03:01,070 --> 00:03:03,420
+either as the probability of y given
+
+70
+00:03:03,420 --> 00:03:07,810
+theta, times the probability of theta, or the other way around.
+
+71
+00:03:07,810 --> 00:03:11,530
+As both of these express the same joint probability,
+
+72
+00:03:11,530 --> 00:03:13,240
+there must be an equal sign here.
+
+73
+00:03:13,240 --> 00:03:17,920
+If we consider this equality and divide both sides by p of y,
+
+74
+00:03:17,920 --> 00:03:20,680
+we basically get Bayes' rule.
+
+75
+00:03:20,680 --> 00:03:24,310
+Bayes' rule states that p of theta given y
+
+76
+00:03:24,310 --> 00:03:28,270
+can be written as p of y given theta, times p
+
+77
+00:03:28,270 --> 00:03:30,730
+of theta, divided by p of y.
+
+78
+00:03:30,730 --> 00:03:32,470
+Note that this gives us the ability
+
+79
+00:03:32,470 --> 00:03:35,050
+to switch conditional probabilities, in that we can
+
+80
+00:03:35,050 --> 00:03:37,870
+express the conditional probability of theta given
+
+81
+00:03:37,870 --> 00:03:40,540
+y in terms of the probability of y
+
+82
+00:03:40,540 --> 00:03:44,020
+given theta and some other factors here which are usually
+
+83
+00:03:44,020 --> 00:03:45,520
+fairly simple.
+
+84
+00:03:45,520 --> 00:03:48,130
+This is the main usage of Bayes' rule.
+
+85
+00:03:48,130 --> 00:03:51,010
+It allows us to express a relation of interest,
+
+86
+00:03:51,010 --> 00:03:54,910
+p of theta given y, so the probability of the quantity
+
+87
+00:03:54,910 --> 00:03:58,360
+of interest, theta, given our observation-- which, in our toy
+
+88
+00:03:58,360 --> 00:04:01,570
+example would be the probability that we have chosen
+
+89
+00:04:01,570 --> 00:04:03,840
+a particular urn, given that we observed
+
+90
+00:04:03,840 --> 00:04:05,800
+that we have picked an orange.
+
+91
+00:04:05,800 --> 00:04:08,170
+We can express this in terms of a relation that we know,
+
+92
+00:04:08,170 --> 00:04:11,110
+which is p of y given theta.
+
+93
+00:04:11,110 --> 00:04:13,510
+In our toy example, being the probability
+
+94
+00:04:13,510 --> 00:04:15,580
+of picking a certain fruit, given
+
+95
+00:04:15,580 --> 00:04:18,279
+that we know which urn we pick from,
+
+96
+00:04:18,279 --> 00:04:21,430
+we should also note that the factor in our denominator,
+
+97
+00:04:21,430 --> 00:04:25,000
+p of y, can be found using the law of total probability
+
+98
+00:04:25,000 --> 00:04:26,110
+like this.
+
+99
+00:04:26,110 --> 00:04:32,040
+Express it in terms of these factors here.
+
+100
+00:04:32,040 --> 00:04:34,740
+Let's use this to solve our toy example.
+
+101
+00:04:34,740 --> 00:04:37,450
+We let theta be the quantity of interest--
+
+102
+00:04:37,450 --> 00:04:40,140
+which in this case is the color of the urn that we picked
+
+103
+00:04:40,140 --> 00:04:41,160
+our fruit from--
+
+104
+00:04:41,160 --> 00:04:44,250
+where r indicates that we picked from a red run
+
+105
+00:04:44,250 --> 00:04:46,160
+and b that we picked from the blue.
+
+106
+00:04:46,160 --> 00:04:50,550
+Further, we let y be our observation, which in this case
+
+107
+00:04:50,550 --> 00:04:52,440
+is which fruit we picked--
+
+108
+00:04:52,440 --> 00:04:55,860
+o as an orange and a for an apple.
+
+109
+00:04:55,860 --> 00:04:58,260
+If we remember, the question is, if we
+
+110
+00:04:58,260 --> 00:05:00,180
+know that we picked an orange--
+
+111
+00:05:00,180 --> 00:05:04,770
+so, y equals to o--
+
+112
+00:05:04,770 --> 00:05:07,140
+what is the probability that we picked
+
+113
+00:05:07,140 --> 00:05:09,840
+the orange from the red urn--
+
+114
+00:05:09,840 --> 00:05:15,540
+which in this notation would mean that theta equals r.
+
+115
+00:05:15,540 --> 00:05:17,790
+If we express this mathematically,
+
+116
+00:05:17,790 --> 00:05:21,090
+we would like to calculate the conditional probability
+
+117
+00:05:21,090 --> 00:05:26,400
+that theta equals r, given that y equals o,
+
+118
+00:05:26,400 --> 00:05:28,590
+which we write like this.
+
+119
+00:05:28,590 --> 00:05:36,960
+Probability of theta equals r, given that y equals o.
+
+120
+00:05:36,960 --> 00:05:39,810
+
+
+121
+00:05:39,810 --> 00:05:43,060
+We are not able to calculate this probability directly
+
+122
+00:05:43,060 --> 00:05:45,580
+from what we know, however, without making
+
+123
+00:05:45,580 --> 00:05:49,810
+any observations we know that there is a 50% chance
+
+124
+00:05:49,810 --> 00:05:51,890
+that we have chosen the red urn.
+
+125
+00:05:51,890 --> 00:05:56,350
+The probability of theta being r is equal to one half.
+
+126
+00:05:56,350 --> 00:05:59,500
+Also, if we know that we picked the fruit from the red urn,
+
+127
+00:05:59,500 --> 00:06:02,560
+we can calculate the probability of picking orange,
+
+128
+00:06:02,560 --> 00:06:06,160
+as we see that there are six oranges in the red urn and two
+
+129
+00:06:06,160 --> 00:06:07,390
+apples.
+
+130
+00:06:07,390 --> 00:06:10,450
+The probability of picking an orange from the red urn
+
+131
+00:06:10,450 --> 00:06:13,870
+would be 6/8, or 3/4.
+
+132
+00:06:13,870 --> 00:06:19,120
+Mathematically, we would write this as probability of y
+
+133
+00:06:19,120 --> 00:06:25,810
+being equal to orange, condition on we picked from the red urn,
+
+134
+00:06:25,810 --> 00:06:28,990
+and this is 3/4.
+
+135
+00:06:28,990 --> 00:06:32,650
+How can we use this to express the probability
+
+136
+00:06:32,650 --> 00:06:34,250
+that we're interested in?
+
+137
+00:06:34,250 --> 00:06:37,600
+Well, if we use Bayes' rule, we can reverse the conditioning
+
+138
+00:06:37,600 --> 00:06:41,230
+here so that we get a term where these two factors have switched
+
+139
+00:06:41,230 --> 00:06:44,950
+places, which is exactly what we have right here.
+
+140
+00:06:44,950 --> 00:06:46,180
+Let's try this out.
+
+141
+00:06:46,180 --> 00:06:47,770
+Using Bayes' rule, we get--
+
+142
+00:06:47,770 --> 00:06:55,730
+
+
+143
+00:06:55,730 --> 00:06:58,950
+So, we see that we get this factor here,
+
+144
+00:06:58,950 --> 00:07:00,560
+which is the probability that we pick
+
+145
+00:07:00,560 --> 00:07:05,300
+an orange if we know that we choose from the red urn--
+
+146
+00:07:05,300 --> 00:07:07,640
+which we know to be 3/4--
+
+147
+00:07:07,640 --> 00:07:09,620
+and this factor, which is the probability
+
+148
+00:07:09,620 --> 00:07:12,050
+that we have chosen the red urn without making
+
+149
+00:07:12,050 --> 00:07:13,400
+any observations.
+
+150
+00:07:13,400 --> 00:07:16,590
+This is one half, and then we get this factor here,
+
+151
+00:07:16,590 --> 00:07:19,970
+which is a marginal probability of choosing an orange.
+
+152
+00:07:19,970 --> 00:07:22,580
+We know this one, we know this one--
+
+153
+00:07:22,580 --> 00:07:24,410
+how can we calculate this one?
+
+154
+00:07:24,410 --> 00:07:26,030
+We can use one of the rules that we
+
+155
+00:07:26,030 --> 00:07:28,910
+know, the law of total probability, which
+
+156
+00:07:28,910 --> 00:07:36,780
+states that the marginal p of y equal to orange--
+
+157
+00:07:36,780 --> 00:07:39,450
+the marginal probability that we pick an orange--
+
+158
+00:07:39,450 --> 00:07:42,780
+is the probability of picking orange from the red urn, which
+
+159
+00:07:42,780 --> 00:07:48,850
+is expressed by the joint probability,
+
+160
+00:07:48,850 --> 00:07:51,970
+plus the joint probability that we have picked
+
+161
+00:07:51,970 --> 00:07:53,170
+an orange from the blue urn.
+
+162
+00:07:53,170 --> 00:08:01,680
+
+
+163
+00:08:01,680 --> 00:08:04,710
+Now we can calculate these using the product rule, which
+
+164
+00:08:04,710 --> 00:08:08,340
+means that we decompose these into two factors which
+
+165
+00:08:08,340 --> 00:08:11,610
+are similar to the decomposition here.
+
+166
+00:08:11,610 --> 00:08:13,280
+For the first, we get the probability
+
+167
+00:08:13,280 --> 00:08:15,060
+of picking an orange--
+
+168
+00:08:15,060 --> 00:08:19,860
+given that we're picking from the red urn, which is 3/4--
+
+169
+00:08:19,860 --> 00:08:23,370
+times the probability that we're picking from a red urn, which
+
+170
+00:08:23,370 --> 00:08:24,060
+is one half.
+
+171
+00:08:24,060 --> 00:08:26,730
+
+
+172
+00:08:26,730 --> 00:08:28,810
+Similarly, for the second term, we
+
+173
+00:08:28,810 --> 00:08:31,990
+get the probability of picking an orange, given that we
+
+174
+00:08:31,990 --> 00:08:35,659
+are picking from the blue urn--
+
+175
+00:08:35,659 --> 00:08:38,299
+as in the blue urn, there are only one orange
+
+176
+00:08:38,299 --> 00:08:39,710
+and four fruits in total--
+
+177
+00:08:39,710 --> 00:08:43,340
+times the probability of picking the red urn, which is one half,
+
+178
+00:08:43,340 --> 00:08:45,210
+again.
+
+179
+00:08:45,210 --> 00:08:50,252
+If we sum this up we see that this becomes one half.
+
+180
+00:08:50,252 --> 00:08:51,960
+When you put it all together to calculate
+
+181
+00:08:51,960 --> 00:08:55,290
+the probability that we have chosen the red urn--
+
+182
+00:08:55,290 --> 00:08:57,910
+given that we observe that we pick an orange--
+
+183
+00:08:57,910 --> 00:08:59,970
+we see that this is the probability
+
+184
+00:08:59,970 --> 00:09:02,700
+of picking an orange from the red urn, which
+
+185
+00:09:02,700 --> 00:09:07,020
+is 3/4, times the probability that we are picking
+
+186
+00:09:07,020 --> 00:09:11,980
+from the blue urn, which is one half, divided
+
+187
+00:09:11,980 --> 00:09:15,490
+by the marginal probability that we are picking an orange,
+
+188
+00:09:15,490 --> 00:09:19,360
+which we have calculated using the law of total probability
+
+189
+00:09:19,360 --> 00:09:23,450
+and conditional probability, to be one half.
+
+190
+00:09:23,450 --> 00:09:27,120
+If we solve this, we see that these cancel out
+
+191
+00:09:27,120 --> 00:09:31,760
+and we get the probability to 3/4.
+
+192
+00:09:31,760 --> 00:09:35,090
+The probability that we picked a fruit from the red urn,
+
+193
+00:09:35,090 --> 00:09:38,330
+given that we picked an orange, is 3/4.
+
+194
+00:09:38,330 --> 00:09:41,750
+We use Bayes' rule to calculate the conditional probability
+
+195
+00:09:41,750 --> 00:09:44,420
+using terms that we could more easily calculate,
+
+196
+00:09:44,420 --> 00:09:48,290
+or express, using conditional probability and the law
+
+197
+00:09:48,290 --> 00:09:50,860
+of total probability.
+
+198
+00:09:50,860 --> 00:09:55,648
+
+

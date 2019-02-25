@@ -1,0 +1,772 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:02,200
+In the previous videos, we learned
+
+2
+00:00:02,200 --> 00:00:05,070
+that Bayesian statistics can be used to solve
+
+3
+00:00:05,070 --> 00:00:07,050
+almost any decision problem.
+
+4
+00:00:07,050 --> 00:00:11,310
+We also learned how to summarize what we know in a posterior
+
+5
+00:00:11,310 --> 00:00:12,360
+distribution.
+
+6
+00:00:12,360 --> 00:00:16,020
+In this video, we will discuss how to make decisions.
+
+7
+00:00:16,020 --> 00:00:19,020
+So given that we have all these uncertainties,
+
+8
+00:00:19,020 --> 00:00:21,680
+how can we then make a decision?
+
+9
+00:00:21,680 --> 00:00:24,240
+And more specifically, we will discuss
+
+10
+00:00:24,240 --> 00:00:27,240
+how we can use the Bayesian framework to make
+
+11
+00:00:27,240 --> 00:00:29,290
+optimal decisions.
+
+12
+00:00:29,290 --> 00:00:33,150
+So let's discuss the Bayesian Decision Principle.
+
+13
+00:00:33,150 --> 00:00:37,530
+The question here is how can we use p of theta given y
+
+14
+00:00:37,530 --> 00:00:39,570
+to make decisions.
+
+15
+00:00:39,570 --> 00:00:41,610
+Examples of decision problems can
+
+16
+00:00:41,610 --> 00:00:45,480
+be how to control a self-driving vehicle, for example.
+
+17
+00:00:45,480 --> 00:00:48,870
+That is decide on appropriate acceleration, braking,
+
+18
+00:00:48,870 --> 00:00:53,250
+and steering input in order to safely and efficiently navigate
+
+19
+00:00:53,250 --> 00:00:56,130
+a current traffic situation.
+
+20
+00:00:56,130 --> 00:00:58,770
+It can also be how to invest money,
+
+21
+00:00:58,770 --> 00:01:02,730
+both if you're running a company or as a private person.
+
+22
+00:01:02,730 --> 00:01:05,940
+We can also look at selecting medicine to give to a patient
+
+23
+00:01:05,940 --> 00:01:09,510
+if you're a doctor, or what estimate to give a parameter
+
+24
+00:01:09,510 --> 00:01:13,530
+vector that could represent temperature or distance
+
+25
+00:01:13,530 --> 00:01:16,170
+or any other quantity of interest.
+
+26
+00:01:16,170 --> 00:01:19,260
+So the basic principle of Bayesian Decision Theory
+
+27
+00:01:19,260 --> 00:01:20,250
+is simple.
+
+28
+00:01:20,250 --> 00:01:21,580
+It can be summarized like this.
+
+29
+00:01:21,580 --> 00:01:25,210
+So we want to minimize the expected loss.
+
+30
+00:01:25,210 --> 00:01:27,000
+Or more specifically, we want to minimize
+
+31
+00:01:27,000 --> 00:01:30,720
+the posterior expected loss which is how this posterior
+
+32
+00:01:30,720 --> 00:01:32,600
+distribution comes to play.
+
+33
+00:01:32,600 --> 00:01:35,040
+An alternative and equivalent formulation
+
+34
+00:01:35,040 --> 00:01:39,300
+is to use what's called utility instead.
+
+35
+00:01:39,300 --> 00:01:44,190
+So since we can replace loss with utility and minimization
+
+36
+00:01:44,190 --> 00:01:48,450
+with maximization, so instead of minimizing expected loss,
+
+37
+00:01:48,450 --> 00:01:52,020
+we can maximize the expected utility.
+
+38
+00:01:52,020 --> 00:01:54,120
+So this is simple enough, right?
+
+39
+00:01:54,120 --> 00:01:56,010
+But there are some pieces missing here
+
+40
+00:01:56,010 --> 00:01:57,840
+that we haven't really discussed.
+
+41
+00:01:57,840 --> 00:02:01,410
+And that is what a loss function is.
+
+42
+00:02:01,410 --> 00:02:04,210
+We will do this in this example.
+
+43
+00:02:04,210 --> 00:02:06,330
+So suppose there is a student who
+
+44
+00:02:06,330 --> 00:02:09,180
+wants to decide whether to take a course or not.
+
+45
+00:02:09,180 --> 00:02:12,120
+In this example, let's suppose that we have some posterior
+
+46
+00:02:12,120 --> 00:02:14,970
+distribution of the quality of the course,
+
+47
+00:02:14,970 --> 00:02:17,470
+having spoken to other students who have taken the course,
+
+48
+00:02:17,470 --> 00:02:20,610
+for instance, and taking our prior knowledge about the topic
+
+49
+00:02:20,610 --> 00:02:21,660
+into account.
+
+50
+00:02:21,660 --> 00:02:24,660
+Based on this, we find that the probability
+
+51
+00:02:24,660 --> 00:02:28,950
+that a course is good is 0.3, that a course is
+
+52
+00:02:28,950 --> 00:02:34,880
+fair is also 0.3, and that the course is bad is 0.4.
+
+53
+00:02:34,880 --> 00:02:37,070
+So the students that also designed a loss
+
+54
+00:02:37,070 --> 00:02:41,660
+function saying that if he or she takes the course
+
+55
+00:02:41,660 --> 00:02:44,120
+and it's good, there is zero loss.
+
+56
+00:02:44,120 --> 00:02:46,250
+So this is a good thing.
+
+57
+00:02:46,250 --> 00:02:48,740
+If he or she takes a course and it's fair,
+
+58
+00:02:48,740 --> 00:02:50,690
+there is a loss of 5.
+
+59
+00:02:50,690 --> 00:02:53,630
+And if the course is bad, it's a loss of 30.
+
+60
+00:02:53,630 --> 00:02:55,910
+Similarly, there is a loss associated
+
+61
+00:02:55,910 --> 00:03:00,800
+with not taking the course if it's good, fair, or bad.
+
+62
+00:03:00,800 --> 00:03:04,160
+The question is then, according to this posterior distribution
+
+63
+00:03:04,160 --> 00:03:06,560
+regarding the quality of the course
+
+64
+00:03:06,560 --> 00:03:11,210
+and this loss function here, should he or she then
+
+65
+00:03:11,210 --> 00:03:12,590
+take the course or not.
+
+66
+00:03:12,590 --> 00:03:15,530
+From an optimal decision theoretic point of view,
+
+67
+00:03:15,530 --> 00:03:17,930
+the student should make the decision that has the lowest
+
+68
+00:03:17,930 --> 00:03:20,480
+expected posterior loss.
+
+69
+00:03:20,480 --> 00:03:23,000
+So the student should decide to take the course
+
+70
+00:03:23,000 --> 00:03:25,280
+if the expected loss of taking the course
+
+71
+00:03:25,280 --> 00:03:29,450
+is less than the expected loss of not taking the course,
+
+72
+00:03:29,450 --> 00:03:30,750
+and vice versa.
+
+73
+00:03:30,750 --> 00:03:34,190
+So the expected loss for a specific decision
+
+74
+00:03:34,190 --> 00:03:38,150
+is what you get if you multiply the posterior probability
+
+75
+00:03:38,150 --> 00:03:40,040
+with the corresponding loss.
+
+76
+00:03:40,040 --> 00:03:44,120
+So 0.3 times 0 and so forth.
+
+77
+00:03:44,120 --> 00:03:49,710
+And then we sum these up to get the posterior expected loss.
+
+78
+00:03:49,710 --> 00:03:52,780
+So let's look at the expected loss for taking the course.
+
+79
+00:03:52,780 --> 00:03:59,100
+
+
+80
+00:03:59,100 --> 00:04:08,870
+So we have 0.3 times 0 if the course is good
+
+81
+00:04:08,870 --> 00:04:22,180
+plus 0.3 times 5 if the course is fair and 0.4 times 30
+
+82
+00:04:22,180 --> 00:04:23,830
+if the course is bad.
+
+83
+00:04:23,830 --> 00:04:29,540
+If we sum all of this up, we get an expected loss of 10.5
+
+84
+00:04:29,540 --> 00:04:31,320
+for taking the course.
+
+85
+00:04:31,320 --> 00:04:39,930
+Now if you look at the expected cost for not taking the course,
+
+86
+00:04:39,930 --> 00:04:55,690
+we have 0.3 times 20 plus 0.3 times 5 plus 0.4 times 0.
+
+87
+00:04:55,690 --> 00:05:02,500
+Now if we sum all these up, we get an expected loss of 7.5
+
+88
+00:05:02,500 --> 00:05:04,150
+for not taking the course.
+
+89
+00:05:04,150 --> 00:05:06,910
+So we have now computed the expected loss
+
+90
+00:05:06,910 --> 00:05:09,740
+for the two possible decisions.
+
+91
+00:05:09,740 --> 00:05:12,440
+If the students choose to attend the course,
+
+92
+00:05:12,440 --> 00:05:17,470
+then we get an expected loss of 10.5.
+
+93
+00:05:17,470 --> 00:05:18,850
+On the other hand, if the student
+
+94
+00:05:18,850 --> 00:05:21,160
+decides not to take the course, we
+
+95
+00:05:21,160 --> 00:05:25,190
+get expected loss that sums up to 7.5.
+
+96
+00:05:25,190 --> 00:05:28,420
+So the conclusion here is that the student should not
+
+97
+00:05:28,420 --> 00:05:30,670
+attend this course.
+
+98
+00:05:30,670 --> 00:05:33,370
+Now of course, this toy example has
+
+99
+00:05:33,370 --> 00:05:35,920
+nothing to do with this particular course
+
+100
+00:05:35,920 --> 00:05:40,470
+and that you should all probably still attend this course.
+
+101
+00:05:40,470 --> 00:05:42,630
+Now let us see if we can introduce some more
+
+102
+00:05:42,630 --> 00:05:45,600
+mathematical notation for this.
+
+103
+00:05:45,600 --> 00:05:48,850
+We often study loss functions instead of utility.
+
+104
+00:05:48,850 --> 00:05:53,340
+So we have a loss function C of theta
+
+105
+00:05:53,340 --> 00:05:56,400
+where theta is the quantity that we're interested in
+
+106
+00:05:56,400 --> 00:05:59,040
+and where a denotes the decision which
+
+107
+00:05:59,040 --> 00:06:01,680
+is dependent on the outcome of theta.
+
+108
+00:06:01,680 --> 00:06:03,900
+So in the example that we just studied,
+
+109
+00:06:03,900 --> 00:06:06,180
+theta was the quality of the course
+
+110
+00:06:06,180 --> 00:06:09,660
+and a was the decision if the student should take the course
+
+111
+00:06:09,660 --> 00:06:10,800
+or not.
+
+112
+00:06:10,800 --> 00:06:13,740
+Now in this course, the decision that we want to make
+
+113
+00:06:13,740 --> 00:06:17,340
+relates to choosing an estimate of theta.
+
+114
+00:06:17,340 --> 00:06:20,250
+So if theta is, for example, the distance to an object
+
+115
+00:06:20,250 --> 00:06:23,220
+that we're interested in, then our estimate
+
+116
+00:06:23,220 --> 00:06:27,240
+is the distance that minimizes our expected posterior loss.
+
+117
+00:06:27,240 --> 00:06:30,300
+So to emphasize that we're actually
+
+118
+00:06:30,300 --> 00:06:33,710
+making a decision on theta, we usually
+
+119
+00:06:33,710 --> 00:06:36,980
+denote our decision as theta-hat, which
+
+120
+00:06:36,980 --> 00:06:40,440
+is then our estimate of theta.
+
+121
+00:06:40,440 --> 00:06:42,800
+Now in this context, the optimal decision
+
+122
+00:06:42,800 --> 00:06:46,410
+can in mathematical terms be described like this.
+
+123
+00:06:46,410 --> 00:06:48,860
+So we would like to find a theta-hat that
+
+124
+00:06:48,860 --> 00:06:53,030
+minimizes the posterior expected loss, which we can express
+
+125
+00:06:53,030 --> 00:06:55,670
+like finding the argument a which
+
+126
+00:06:55,670 --> 00:06:59,960
+minimizes the posterior expected loss, like this.
+
+127
+00:06:59,960 --> 00:07:03,620
+You should note that we condition on data here.
+
+128
+00:07:03,620 --> 00:07:07,990
+So y is given and fixed.
+
+129
+00:07:07,990 --> 00:07:10,120
+But theta is random.
+
+130
+00:07:10,120 --> 00:07:13,120
+We have uncertainty regarding theta.
+
+131
+00:07:13,120 --> 00:07:16,080
+We should also note that in an estimation problem,
+
+132
+00:07:16,080 --> 00:07:19,450
+theta is continuous so the expectation can
+
+133
+00:07:19,450 --> 00:07:21,730
+be calculated like this.
+
+134
+00:07:21,730 --> 00:07:23,800
+Now here is a self-assessment question
+
+135
+00:07:23,800 --> 00:07:26,430
+about making an optimal Bayesian decision.
+
+136
+00:07:26,430 --> 00:07:32,580
+
+
+137
+00:07:32,580 --> 00:07:35,850
+My final remark in this video is something which is actually
+
+138
+00:07:35,850 --> 00:07:37,740
+beyond the scope of what I hope for you
+
+139
+00:07:37,740 --> 00:07:39,090
+to learn in this course.
+
+140
+00:07:39,090 --> 00:07:41,580
+But I'm including it since I think that some of you
+
+141
+00:07:41,580 --> 00:07:43,170
+might find it interesting.
+
+142
+00:07:43,170 --> 00:07:46,110
+Also, we have touched upon most of this previously
+
+143
+00:07:46,110 --> 00:07:46,850
+here and there.
+
+144
+00:07:46,850 --> 00:07:49,470
+So it might be good with a bit of a summary.
+
+145
+00:07:49,470 --> 00:07:52,170
+So like I said, there are two main frameworks
+
+146
+00:07:52,170 --> 00:07:53,760
+for making decisions.
+
+147
+00:07:53,760 --> 00:07:56,910
+It's the Bayesian framework and the Frequentist framework.
+
+148
+00:07:56,910 --> 00:07:59,030
+So in the Bayesian framework, uncertainties
+
+149
+00:07:59,030 --> 00:08:01,350
+in the parameter of interest theta
+
+150
+00:08:01,350 --> 00:08:03,900
+are described stochastically which
+
+151
+00:08:03,900 --> 00:08:07,910
+means that theta is modeled as random,
+
+152
+00:08:07,910 --> 00:08:09,530
+whereas in the Frequentist setting,
+
+153
+00:08:09,530 --> 00:08:14,840
+theta is fixed and unknown and thus theta is deterministic.
+
+154
+00:08:14,840 --> 00:08:18,440
+Now a very common example of an estimator in the Frequentist
+
+155
+00:08:18,440 --> 00:08:21,680
+framework is what's called a maximum likelihood
+
+156
+00:08:21,680 --> 00:08:26,330
+estimator, where the estimate is simply the value of theta that
+
+157
+00:08:26,330 --> 00:08:30,140
+maximizes the likelihood after observing the data y.
+
+158
+00:08:30,140 --> 00:08:32,480
+If you compare that to the Bayesian framework,
+
+159
+00:08:32,480 --> 00:08:34,925
+the corresponding estimator is the maximum
+
+160
+00:08:34,925 --> 00:08:39,200
+a posteriori estimator, which finds the theta that maximizes
+
+161
+00:08:39,200 --> 00:08:41,450
+the posterior distribution, which
+
+162
+00:08:41,450 --> 00:08:44,690
+is the product of the prior times the likelihood
+
+163
+00:08:44,690 --> 00:08:46,730
+after observing the data y.
+
+164
+00:08:46,730 --> 00:08:50,720
+So lastly, when it comes to optimality in the Bayesian
+
+165
+00:08:50,720 --> 00:08:54,590
+framework, we make decisions conditioned on the observation
+
+166
+00:08:54,590 --> 00:08:59,090
+y and take the expected value over the parameter theta.
+
+167
+00:08:59,090 --> 00:09:01,280
+In the Frequentist setting, on the other hand,
+
+168
+00:09:01,280 --> 00:09:03,170
+theta is deterministic.
+
+169
+00:09:03,170 --> 00:09:05,720
+So there is no way we can average over theta.
+
+170
+00:09:05,720 --> 00:09:08,540
+Instead we study performance by averaging over
+
+171
+00:09:08,540 --> 00:09:10,940
+y for fixed thetas.
+
+172
+00:09:10,940 --> 00:09:13,190
+What we're saying here is that our estimator
+
+173
+00:09:13,190 --> 00:09:16,160
+should be good on average for many different data.
+
+174
+00:09:16,160 --> 00:09:17,960
+While over here, we are conditioned
+
+175
+00:09:17,960 --> 00:09:20,050
+on a specific set of data y.
+
+176
+00:09:20,050 --> 00:09:23,660
+So there is quite a difference in the optimality criterion
+
+177
+00:09:23,660 --> 00:09:25,310
+for the two frameworks.
+
+178
+00:09:25,310 --> 00:09:27,440
+We should also note the following things.
+
+179
+00:09:27,440 --> 00:09:30,920
+Most Bayesians also study Frequentist performance.
+
+180
+00:09:30,920 --> 00:09:33,410
+So people who tend to use Bayesian framework
+
+181
+00:09:33,410 --> 00:09:36,980
+may also be interested in evaluating their estimators
+
+182
+00:09:36,980 --> 00:09:40,070
+in this sense here, where we fix the parameters
+
+183
+00:09:40,070 --> 00:09:44,000
+and study how it performs on average over many sets of data.
+
+184
+00:09:44,000 --> 00:09:46,430
+Also, there are many problems where Frequentists
+
+185
+00:09:46,430 --> 00:09:50,900
+agree that the parameters may be random in some situations.
+
+186
+00:09:50,900 --> 00:09:53,199
+For example, in optimal filtering,
+
+187
+00:09:53,199 --> 00:09:54,740
+which we will look at in this course,
+
+188
+00:09:54,740 --> 00:09:57,920
+most people agree that the parameters are actually
+
+189
+00:09:57,920 --> 00:10:00,140
+random and not deterministic.
+
+190
+00:10:00,140 --> 00:10:03,470
+So this could be, for example, the motion of vehicles
+
+191
+00:10:03,470 --> 00:10:05,980
+that we discussed earlier.
+
+192
+00:10:05,980 --> 00:10:10,312
+
+
