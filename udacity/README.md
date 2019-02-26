@@ -15,8 +15,8 @@ Meet the team at Mercedes who will help you track objects in real-time with Sens
 ###  LESSON 2 : Kalman Filters
 Learn from the best! Sebastian Thrun will walk you through the usage and concepts of a Kalman Filter using Python.
 
-- [Sensor Fusion and Object Tracking using an Extended Kalman Filter Algorithm — Part 1](https://medium.com/@mithi/object-tracking-and-fusing-sensor-measurements-using-the-extended-kalman-filter-algorithm-part-1-f2158ef1e4f0) 
-- [Sensor Fusion and Object Tracking using an Extended Kalman Filter Algorithm — Part 2](https://medium.com/@mithi/sensor-fusion-and-object-tracking-using-an-extended-kalman-filter-algorithm-part-2-cd20801fbeff)
+- [Sensor Fusion and Object Tracking using an Extended Kalman Filter Algorithm — Part 1](https://medium.com/@mithi/object-tracking-and-fusing-sensor-measurements-using-the-extended-kalman-filter-algorithm-part-1-f2158ef1e4f0) : mithi
+- [Sensor Fusion and Object Tracking using an Extended Kalman Filter Algorithm — Part 2](https://medium.com/@mithi/sensor-fusion-and-object-tracking-using-an-extended-kalman-filter-algorithm-part-2-cd20801fbeff) : mithi
 
 - [Sensor Fusion Algorithms For Autonomous Driving: Part 1 — The Kalman filter and Extended Kalman Filter](https://medium.com/@wilburdes/sensor-fusion-algorithms-for-autonomous-driving-part-1-the-kalman-filter-and-extended-kalman-a4eab8a833dd)
 
