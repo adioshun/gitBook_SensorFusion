@@ -67,6 +67,12 @@
 
 * [README](KB-inPython/README.md)
 
+## balzer82's Kalman Filter in python 
+
+* [README](balzer82/README.md)
+
+
+
 ## Devices
 
 * [Radar](radar.md)
