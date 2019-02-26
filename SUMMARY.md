@@ -27,7 +27,7 @@
   * [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
   * [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
 
-## 칼만필터 
+## 칼만필터
 
 * [Object Tracking-KalmanFilter](https://legacy.gitbook.com/book/adioshun/object-tracking/edit#/edit/master/kalmanfilter/README.md?_k=msok43)
 
@@ -60,7 +60,7 @@
 
 * [README](udacity/README.md)
 * [code](udacity/code/README.md)
-  * [matlab](udacity/code/matlab.m)
+  * [matlab](udacity/code/matlab.md)
 
 ## Kalman and Bayesian Filters in Python
 
