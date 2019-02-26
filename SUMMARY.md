@@ -62,6 +62,7 @@
 * [code](udacity/code/README.md)
   * [matlab](udacity/code/matlab.md)
   * [python\(@mithi\)](udacity/code/python.md)
+* [Utilities](udacity/utilities.md)
 
 ## Kalman and Bayesian Filters in Python
 
