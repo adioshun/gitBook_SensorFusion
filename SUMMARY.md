@@ -59,6 +59,8 @@
 ## Udacity
 
 * [README](udacity/README.md)
+* [code](udacity/code/README.md)
+  * [matlab](udacity/code/matlab.m)
 
 ## Kalman and Bayesian Filters in Python
 
