@@ -2,6 +2,7 @@
 
 - [깃허브](https://github.com/datascopeanalytics/sensor_fusion)
 
+
 ## 1. What is this sensor fusion thing?
 
 자전거 타기를 예로 실생활에서 발생 하는 센서 퓨전 예시 언급 

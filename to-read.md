@@ -71,6 +71,10 @@
 
 - ~~[Expert Advice: Sensor Fusion for Highly Automated Driving](http://gpsworld.com/expert-advice-sensor-fusion-for-highly-automated-driving/)~~: GNSS관련, 구체적 내용 없음
 
+- ~~[Sensor Fusion Tutorial](https://datascopeanalytics.com/blog/sensor-fusion-tutorial/)~~
+
+
+
 - [Particle Filter Implementation](https://medium.com/@andrew.d.wilkie/self-driving-car-engineer-diary-9-898f075e888c): 하단
 
 - 추천 : [Tracking pedestrians for self driving cars](https://medium.com/towards-data-science/tracking-pedestrians-for-self-driving-cars-ccf588acd170)
@@ -78,7 +82,7 @@
 
 - [Object tracking with LIDAR, Radar, sensor fusion and Extended Kalman Filter](http://www.coldvision.io/2017/04/15/object-tracking-with-lidar-radar-sensor-fusion-and-extended-kalman-filter/): post
 
-- Sensor Fusion Algorithms For Autonomous Driving
+
 - [Part 1 — The Kalman filter and Extended Kalman Filter](https://medium.com/@wilburdes/sensor-fusion-algorithms-for-autonomous-driving-part-1-the-kalman-filter-and-extended-kalman-a4eab8a833dd)
 
 - [Sensor Fusion with Kalman Filter (1/2)](https://winfriedauner.de/projects/extended_kalman/)
@@ -86,6 +90,10 @@
 - [Sensor Fusion with Kalman Filter (2/2)](https://winfriedauner.de/projects/unscented)
 
 - [Sensor Fusion](http://www.towardsautonomy.com/sensor_fusion)
+
+- [Sensor Fusion — Part 1: Kalman Filter basics](https://towardsdatascience.com/sensor-fusion-part-1-kalman-filter-basics-4692a653a74c)
+
+- [Sensor Fusion — Part 2: Kalman Filter Code](https://towardsdatascience.com/sensor-fusion-part-2-kalman-filter-code-78b82c63dcd)
 
 - [Udacity carnd2 Sensor Fusion, Extended Karman Filter (English)](https://hk.saowen.com/a/cfd402f9504a2c6390b7ca1e4e91d271de65281f5f4d405ae06b94484463e6ae)
 

@@ -3,20 +3,19 @@
 ## 센서 퓨전
 
 * [README](README.md)
-* [TO-READ](to-read.md)
+* [References](to-read.md)
 * [Mind\_map](https://mind42.com/mindmap/9ff131a4-af98-426a-b9b3-e27e5c9b63b7)
 
-## Post(Article)
+## Post\(Article\)
 
 * [README.md](post/README.md)
 * [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
 * [Sensor Fusion Tutorial](post/SensorFusionTutorial.md)
 * [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
 
-
 ## Paper
 
-* [README](paper/README.md) 
+* [README](paper/README.md)
 * [FusionNet2016\(100%\)](paper/fusionnet-2016.md)
 * [DeepSlideingShape2016\(70%\)](paper/deepslideingshape-2016.md)
 * [FuseNe2016\(50%\)](paper/fusene2016.md)
@@ -29,13 +28,11 @@
 * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
 * [Asynchronous\_Data\_fusion](paper/asynchronousdata-fusion.md)
 
-## Implementation 
+## Implementation
 
 * [README](implementation/README.md)
 * [pyKalman](implementation/pykalman.md)
-* [MV3D(??이게 왜 여기에)](implementation/mv3d.md)
-
-
+* [MV3D\(??이게 왜 여기에\)](implementation/mv3d.md)
 
 ## 칼만필터
 
@@ -78,18 +75,16 @@
 
 * [README](KB-inPython/README.md)
 
-## balzer82's Kalman Filter in python 
+## balzer82's Kalman Filter in python
 
 * [README](balzer82/README.md)
 
-
 ## Pose Estimation
+
 * [README](pose-estimation/README.md)
 * [3D Pose Estimation](pose-estimation/3d-pose-estimation.md)
 * [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
 * [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
-
-
 
 ## Devices
 
