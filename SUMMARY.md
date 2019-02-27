@@ -31,10 +31,6 @@
 * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
 * [Asynchronous\_Data\_fusion](paper/asynchronousdata-fusion.md)
 
-## Implementation
-
-* [MV3D\(??이게 왜 여기에\)](implementation/mv3d.md)
-
 
 ## edx
 
