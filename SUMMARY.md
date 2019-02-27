@@ -6,7 +6,11 @@
 * [TO-READ](to-read.md)
 * [Mind\_map](https://mind42.com/mindmap/9ff131a4-af98-426a-b9b3-e27e5c9b63b7)
 
-## Articles
+## Post(Article)
+
+* [README.md](post/README.md)
+* [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
+* [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
 
 
 ## Paper
@@ -29,9 +33,7 @@
 
 * [Implementation \(미분류\)](implementation.md)
   * [MV3D](implementation/mv3d.md)
-* [Post \(미분류\)](post.md)
-  * [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
-  * [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
+
 * [Pose Estimation](pose-estimation.md)
   * [3D Pose Estimation](pose-estimation/3d-pose-estimation.md)
   * [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
