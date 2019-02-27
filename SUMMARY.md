@@ -5,9 +5,7 @@
 * [README](README.md)
 * [References](to-read.md)
 * [Mind\_map](https://mind42.com/mindmap/9ff131a4-af98-426a-b9b3-e27e5c9b63b7)
-* [Object Tracking-KalmanFilter](https://legacy.gitbook.com/book/adioshun/kalmanfilter/details)
-
-
+* [KalmanFilter](https://legacy.gitbook.com/book/adioshun/kalmanfilter/details)
 
 ## Post\(Article\)
 
@@ -29,7 +27,6 @@
 * [TutleBot2017](paper/tutlebot2017.md)
 * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
 * [Asynchronous\_Data\_fusion](paper/asynchronousdata-fusion.md)
-
 
 ## edx
 
