@@ -30,8 +30,6 @@
 
 ## Implementation
 
-* [README](implementation/README.md)
-* [pyKalman](implementation/pykalman.md)
 * [MV3D\(??이게 왜 여기에\)](implementation/mv3d.md)
 
 ## 칼만필터
