@@ -34,10 +34,7 @@
 * [Implementation \(미분류\)](implementation.md)
   * [MV3D](implementation/mv3d.md)
 
-* [Pose Estimation](pose-estimation.md)
-  * [3D Pose Estimation](pose-estimation/3d-pose-estimation.md)
-  * [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
-  * [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
+
 
 ## 칼만필터
 
@@ -83,6 +80,13 @@
 ## balzer82's Kalman Filter in python 
 
 * [README](balzer82/README.md)
+
+
+## Pose Estimation
+* [README](pose-estimation/README.md)
+* [3D Pose Estimation](pose-estimation/3d-pose-estimation.md)
+* [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
+* [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
 
 
 
