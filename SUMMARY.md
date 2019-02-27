@@ -27,7 +27,6 @@
 * [VANET\_3D2017\(50%\)](paper/vanet3d2017.md)
 * [Lidar\_Vision2014](paper/lidarvision2014.md)
 * [TutleBot2017](paper/tutlebot2017.md)
-* [MV3D2017\(70%\)](paper/mv3d2017.md)
 * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
 * [Asynchronous\_Data\_fusion](paper/asynchronousdata-fusion.md)
 
