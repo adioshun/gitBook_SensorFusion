@@ -5,6 +5,9 @@
 * [README](README.md)
 * [References](to-read.md)
 * [Mind\_map](https://mind42.com/mindmap/9ff131a4-af98-426a-b9b3-e27e5c9b63b7)
+* [Object Tracking-KalmanFilter](https://legacy.gitbook.com/book/adioshun/kalmanfilter/details)
+
+
 
 ## Post\(Article\)
 
@@ -32,9 +35,6 @@
 
 * [MV3D\(??이게 왜 여기에\)](implementation/mv3d.md)
 
-## 칼만필터
-
-* [Object Tracking-KalmanFilter](https://legacy.gitbook.com/book/adioshun/object-tracking/edit#/edit/master/kalmanfilter/README.md?_k=msok43)
 
 ## edx
 
