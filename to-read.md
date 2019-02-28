@@ -85,15 +85,15 @@
 
 - [Part 1 — The Kalman filter and Extended Kalman Filter](https://medium.com/@wilburdes/sensor-fusion-algorithms-for-autonomous-driving-part-1-the-kalman-filter-and-extended-kalman-a4eab8a833dd)
 
-- [Sensor Fusion with Kalman Filter (1/2)](https://winfriedauner.de/projects/extended_kalman/)
+- [Sensor Fusion with Kalman Filter (1/2)](https://winfriedauner.de/projects/extended_kalman/) : exKalman with UDACITY data 
 
-- [Sensor Fusion with Kalman Filter (2/2)](https://winfriedauner.de/projects/unscented)
+- [Sensor Fusion with Kalman Filter (2/2)](https://winfriedauner.de/projects/unscented) : exKalman with UDACITY data 
 
 - [Sensor Fusion](http://www.towardsautonomy.com/sensor_fusion)
 
-- [Sensor Fusion — Part 1: Kalman Filter basics](https://towardsdatascience.com/sensor-fusion-part-1-kalman-filter-basics-4692a653a74c)
+- ~~[Sensor Fusion — Part 1: Kalman Filter basics](https://towardsdatascience.com/sensor-fusion-part-1-kalman-filter-basics-4692a653a74c)~~
 
-- [Sensor Fusion — Part 2: Kalman Filter Code](https://towardsdatascience.com/sensor-fusion-part-2-kalman-filter-code-78b82c63dcd)
+- ~~[Sensor Fusion — Part 2: Kalman Filter Code](https://towardsdatascience.com/sensor-fusion-part-2-kalman-filter-code-78b82c63dcd)~~
 
 - [Udacity carnd2 Sensor Fusion, Extended Karman Filter (English)](https://hk.saowen.com/a/cfd402f9504a2c6390b7ca1e4e91d271de65281f5f4d405ae06b94484463e6ae)
 
