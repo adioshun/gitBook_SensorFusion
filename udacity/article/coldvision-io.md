@@ -59,6 +59,10 @@ Radar의 출력은 거리, angle, 속도 이다. `The Radar sensor output is def
 - The range rate, ρ˙, is the projection of the velocity, v, onto the line, L.
 
 
+퓨전을 
+
+To be able to fuse Radar measurements defined in the polar coordinate system with the LIDAR measurements defined in the cartesian coordinate system, one of the measurements must be transformed.
+
 
 
 
