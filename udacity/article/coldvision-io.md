@@ -59,9 +59,56 @@ Radar의 출력은 거리, angle, 속도 이다. `The Radar sensor output is def
 - The range rate, ρ˙, is the projection of the velocity, v, onto the line, L.
 
 
-퓨전을 
+퓨전을 위해 두 센서의 정보를 통일 해야 한다. `To be able to fuse Radar measurements defined in the polar coordinate system with the LIDAR measurements defined in the cartesian coordinate system, one of the measurements must be transformed.`
 
-To be able to fuse Radar measurements defined in the polar coordinate system with the LIDAR measurements defined in the cartesian coordinate system, one of the measurements must be transformed.
+
+본 프로젝트에서는 Lidar값을 변경(cartesian -> polar) 하였다. `In this project the LIDAR measurements are transformed from the cartesian into the polar coordinate system using this formula:`
+
+![](http://www.coldvision.io/wp-content/uploads/2017/04/object_tracking_rada_measurements_transform.png)
+
+
+### 4.4 Overview of the Kalman Filter Algorithm Map
+
+
+![](http://www.coldvision.io/wp-content/uploads/2017/04/object_tracking_general_flow-1024x632.png)
+
+The Kalman Filter algorithm will go through the following steps:
+
+#### A. first measurement 
+
+the filter will receive initial measurements of the bicycle’s position relative to the car. 
+
+These measurements will come from a radar or lidar sensor.
+
+#### B. initialize state and covariance matrices 
+
+the filter will initialize the bicycle’s position based on the first measurement.
+
+then the car will receive another sensor measurement after a time period Δt.
+
+
+#### C. predict 
+
+the algorithm will predict where the bicycle will be after time Δt. 
+
+One basic way to predict the bicycle location after Δt is to assume the bicycle’s velocity is constant; thus the bicycle will have moved velocity * Δt. 
+
+In the extended Kalman filter lesson, we will assume the velocity is constant; in the unscented Kalman filter lesson, we will introduce a more complex motion model.
+
+#### D. update 
+
+the filter compares the “predicted” location with what the sensor measurement says. 
+
+The predicted location and the measured location are combined to give an updated location. 
+
+The Kalman filter will put more weight on either the predicted location or the measured location depending on the uncertainty of each value.
+
+
+#### E. 
+
+then the car will receive another sensor measurement after a time period Δt. 
+
+The algorithm then does another predict and update step.
 
 
 
