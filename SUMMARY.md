@@ -14,7 +14,6 @@
 * [Sensor Fusion Tutorial](post/SensorFusionTutorial.md)
 * [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
 
-
 ## Paper
 
 * [README](paper/README.md)
@@ -58,6 +57,7 @@
 
 * [README](udacity/README.md)
 * [Article](udacity/article/README.md)
+  * [coldvision-io](udacity/article/coldvision-io.md)
 * [code](udacity/code/README.md)
   * [matlab](udacity/code/matlab.md)
   * [python\(@mithi\)](udacity/code/python.md)
