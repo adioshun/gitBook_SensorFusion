@@ -94,4 +94,7 @@ void KalmanFilter::update(
 
 
 
-# acceleration noise (ax, ay)
+##### E.  acceleration noise (ax, ay)
+
+
+
