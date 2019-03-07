@@ -58,6 +58,7 @@
 * [README](udacity/README.md)
 * [Article](udacity/article/README.md)
   * [coldvision-io](udacity/article/coldvision-io.md)
+  * [Mithi](udacity/article/mithi.md)
 * [code](udacity/code/README.md)
   * [matlab](udacity/code/matlab.md)
   * [python\(@mithi\)](udacity/code/python.md)
