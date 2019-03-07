@@ -1,7 +1,5 @@
 # Sensor Fusion and Object Tracking using an Extended Kalman Filter Algorithm
 
-> ex-kalman은 H, F만 빼고는 기본 칼만과 같다. 본 예시에서는 고정 속도 모델을 사용하였기 때문에 F도 같다. `The extended Kalman filter is almost the same as a basic Kalman filter except the H, and F are different. However, in this case, since I‘m assuming a constant velocity model which is linear, the F is the same.`
-
 ## [Part 1](https://medium.com/@mithi/object-tracking-and-fusing-sensor-measurements-using-the-extended-kalman-filter-algorithm-part-1-f2158ef1e4f0)
 
 This algorithm is a recursive two-step process: 
@@ -178,6 +176,10 @@ This K is the weight given to vector y.
 The intuition for the Kalman gain K here is that the state is updated based on a weighted average of the predicted state and the state based on the current measurement, a lower weight is given to that with a higher uncertainty.
 
 
+
+## [part 2](https://medium.com/@mithi/sensor-fusion-and-object-tracking-using-an-extended-kalman-filter-algorithm-part-2-cd20801fbeff)
+
+ex-kalman은 H, F만 빼고는 기본 칼만과 같다. 본 예시에서는 고정 속도 모델을 사용하였기 때문에 F도 같다. `The extended Kalman filter is almost the same as a basic Kalman filter except the H, and F are different. However, in this case, since I‘m assuming a constant velocity model which is linear, the F is the same.`
 
 
 
