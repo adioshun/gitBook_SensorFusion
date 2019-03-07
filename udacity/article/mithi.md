@@ -189,4 +189,90 @@ I can’t use a non-linear extraction matrix H for the non-linear radar measurem
 
 ![](https://cdn-images-1.medium.com/max/600/1*hviX2dTLm4aBDu1ycP3mXQ.png)
 
+![](https://cdn-images-1.medium.com/max/400/1*RwnmUJ18LK9gJMLjEXvfjg.png)
 
+![](https://cdn-images-1.medium.com/max/400/1*SfjvEsreL-nbmLEGt1RhcA.png)
+
+
+```c
+vector<DataPoint> measurements = get_sensor_measurements_history();
+FusionEKF fusionEKF;
+
+for (int i = 0; i < measurements.size(); ++i){
+
+  fusionEKF.process(measurements[i]);
+  
+  cout << " timestamp: " << measurements[i].get_timestamp() 
+       << " state: " << fusionEKF.get() << endl;
+}
+```
+
+In essence, I want to take any sensor measurement (be it from a lidar or radar) and output a state estimate.
+
+First, I’d have to instantiate a `FusionEKF` object.
+
+```c
+
+FusionEKF::FusionEKF(){
+
+  this->initialized = false;
+
+  this->lidar_R = MatrixXd(this->lidar_n, this->lidar_n);
+  this->radar_R = MatrixXd(this->radar_n, this->radar_n);
+  this->lidar_H = MatrixXd(this->lidar_n, this->n);
+
+  this->P = MatrixXd(this->n, this->n);
+  this->F = MatrixXd::Identity(this->n, this->n);
+  this->Q = MatrixXd::Zero(this->n, this->n);
+
+  this->lidar_R << 0.0225, 0.0,
+                   0.0, 0.0225;
+
+  this->radar_R  << 0.09, 0.0, 0.0,
+                    0.0, 0.0009, 0,
+                    0.0, 0.0, 0.09;
+
+  this->lidar_H << 1.0, 0.0, 0.0, 0.0,
+                   0.0, 1.0, 0.0, 0.0;
+
+  this->P << 1.0, 0.0, 0.0, 0.0,
+             0.0, 1.0, 0.0, 0.0,
+             0.0, 0.0, 1000.0, 0.0,
+             0.0, 0.0, 0.0, 1000.0;
+}
+
+void FusionEKF::start(const DataPoint& data){
+
+  this->timestamp = data.get_timestamp();
+  VectorXd x = data.get_state();
+  this->KF.start(this->n, x, this->P, this->F, this->Q);
+  this->initialized = true;
+}
+
+void FusionEKF::process(const DataPoint& data){
+  this->initialized ? this->compute(data) : this->start(data);
+}
+```
+
+초기화 
+- I have initialized F and lidar_H based on what was discussed in part 1
+
+- P is an initial guess of the state covariance
+  - I initialized the covariances of the velocity components to be quite high 
+  - which means I have no idea at all how it’s going to move
+
+
+Moving on, FusionEKF::process(DataPoint& data) is also pretty straight forward
+
+- 센서 정보 수신시 `kalmanFilter kf`오브젝트 초기화 `If I am receiving the first sensor measurement, I’ll be initializing theKalmanFilter KF object`
+
+- The DataPoint class takes care of converting the measurement to a “state” format. 
+
+- 첫번째 메시지가 아니면 `If this isn’t the first sensor measurement I’ve received `
+  - then I’ll be computing for the most updated state x and state covariance P based on this sensor measurement.
+  
+  
+
+#### compute()
+
+There’s a lot more going on in this compute() function. Computing the state x, as stated many times before, consists of a prediction step followed by an update step.
