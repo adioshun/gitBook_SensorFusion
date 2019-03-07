@@ -335,4 +335,6 @@ Here in this step, trivial to say, I also update the current timestamp.
 
 업데이트 파라미터는 센서 데이터의 출처(lidar OR radar)에 따라 다르다. `The update parameters for this Kalman Filter is based on where the sensor data is from a lidar or radar.`
 
-Hx is just the predicted measurement if the predicted state x we’re correct. The lidar has been discussed in Part 1
+`Hx` is just the predicted measurement if the predicted state x we’re correct. 
+
+The lidar has been discussed in Part 1
