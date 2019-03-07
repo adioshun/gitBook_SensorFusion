@@ -185,7 +185,7 @@ ex-kalman은 H, F만 빼고는 기본 칼만과 같다. 본 예시에서는 고�
 ![](https://cdn-images-1.medium.com/max/800/1*2rIqwE1mqWw_OzdW7pLS9A.png)
 
 
-
+I can’t use a non-linear extraction matrix H for the non-linear radar measurements because the gaussian noise present in the state estimation will not be gaussian anymore which breaks our postulate. So I’d have to estimate a linear extraction matrix H
 
 
 
