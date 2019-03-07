@@ -90,4 +90,8 @@ void KalmanFilter::update(
  - need a model of how the system behaves (고정 속도)
  - I use this model to get the updated x given the elapsed time dt .
  
- 
+#### D. process noise covariance matrix Q
+
+
+
+# acceleration noise (ax, ay)
