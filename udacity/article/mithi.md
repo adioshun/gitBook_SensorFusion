@@ -53,18 +53,41 @@ void KalmanFilter::update(
  
  ![](https://cdn-images-1.medium.com/max/800/1*LcP_LQkH66uy6pg0BzogPQ.png)
  
- - x : 현 상태 (x,y,vx,vy)
- - P : 현 상태의 불확실성 
-     - 현 상태가 n=4이므로 p = nxn = 4x4 
-     - 값(위치) 변화가 크면 불확실성이 높고, 값 변화가 없으면 covariance=0 
+ ### 1.1 predict 
+ 
+ #### A.  Estimate of the state X
+ 
+ - 현 상태 
+ 
+ - x,y,vx,vy
+ 
+ 
+ #### B. process or state covariance matrix P
+ 
+ - 현 상태의 불확실성 
+  - 현 상태가 n=4이므로 p = nxn = 4x4 
+ - 값(위치) 변화가 크면 불확실성이 높고, 값 변화가 없으면 covariance=0 
 
 ![](https://cdn-images-1.medium.com/max/800/1*VZnRCoyB1GODH_sV6HArdg.png)
  
+ ### 2.2 Update 
  
- - z : 측정 정보(Sensor measurement)
- - R : 측정 정보의 불확실성 
-     - R_{lidar} : 측정 정보가 m=2 이므로 
+ #### A. measurements z
+ 
+ - 측정 정보(Sensor measurement)
  
  
+ #### B. covariance matrix of these measurements R
+
+ - 측정 정보의 불확실성 
+     - R_{lidar} : 측정 정보가 m=2 이므로 2x2
+     - R_{radar} : 측정정보가 m=3 이므로 3x3
+     
+#### C. update matrix (aka state transition matrix) F
+ 
+ - used to predict the value of the next x and P
+ - It’s an n x n = 4 x 4 matrix
+ - need a model of how the system behaves (고정 속도)
+ - I use this model to get the updated x given the elapsed time dt .
  
  
