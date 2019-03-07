@@ -3,6 +3,7 @@
 ## 센서 퓨전
 
 * [README](README.md)
+* [Intro](intro.md)
 * [References](to-read.md)
 * [Mind\_map](https://mind42.com/mindmap/9ff131a4-af98-426a-b9b3-e27e5c9b63b7)
 * [KalmanFilter](https://legacy.gitbook.com/book/adioshun/kalmanfilter/details)
