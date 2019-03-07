@@ -182,7 +182,7 @@ The intuition for the Kalman gain K here is that the state is updated based on a
 ex-kalman은 H, F만 빼고는 기본 칼만과 같다. 본 예시에서는 고정 속도 모델을 사용하였기 때문에 F도 같다. `The extended Kalman filter is almost the same as a basic Kalman filter except the H, and F are different. However, in this case, since I‘m assuming a constant velocity model which is linear, the F is the same.`
 
 
-
+![](https://cdn-images-1.medium.com/max/800/1*2rIqwE1mqWw_OzdW7pLS9A.png)
 
 
 
