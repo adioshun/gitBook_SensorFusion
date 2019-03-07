@@ -337,4 +337,21 @@ Here in this step, trivial to say, I also update the current timestamp.
 
 `Hx` is just the predicted measurement if the predicted state x we’re correct. 
 
+
+#### A. Lidar
+
 The lidar has been discussed in Part 1
+
+#### B. Radar 
+
+레이터는 H를 선형화 하여야 한다. `For the radar, I’d have to linearize the extraction matrix H as mentioned several times before. `
+
+선형화를 위한 계산법 `To linearize,`
+-  I compute what is called a Jacobian matrix 
+- this is based on first-order partial derivatives of the function that converts cartesian to polar. 
+
+The value of this Jacobian is based on what the state is if the radar sensor measurement is correct.
+
+![](https://cdn-images-1.medium.com/max/800/1*szHx4zCzSB03sMWonThHVQ.png)
+
+Apparently, that’s how simple implementing an extended Kalman Filter is for this particular case. :P
