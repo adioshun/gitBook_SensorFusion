@@ -1,5 +1,7 @@
 # Sensor Fusion and Object Tracking using an Extended Kalman Filter Algorithm
 
+> ex-kalman은 H, F만 빼고는 기본 칼만과 같다. 본 예시에서는 고정 속도 모델을 사용하였기 때문에 F도 같다. `The extended Kalman filter is almost the same as a basic Kalman filter except the H, and F are different. However, in this case, since I‘m assuming a constant velocity model which is linear, the F is the same.`
+
 ## [Part 1](https://medium.com/@mithi/object-tracking-and-fusing-sensor-measurements-using-the-extended-kalman-filter-algorithm-part-1-f2158ef1e4f0)
 
 This algorithm is a recursive two-step process: 
@@ -90,11 +92,99 @@ void KalmanFilter::update(
  - need a model of how the system behaves (고정 속도)
  - I use this model to get the updated x given the elapsed time dt .
  
+ ```c
+ /*
+  px` = px + vx * dt
+  py` = py + vy * dt
+  vx` = vx 
+  vy` = vy 
+
+  |px`|     | 1  0 dt  0 |   | px |
+  |py`|  =  | 0  1  0 dt | * | py |
+  |vx`|     | 0  0  1  0 |   | vx |
+  |vy`|     | 0  0  0  1 |   | yz |
+
+   x` = F * x
+*/
+
+void KalmanFilter::updateF(const double dt){
+  // this->F = MatrixXd::Identity(this->n, this->n);
+  this->F(0, 2) = dt;
+  this->F(1, 3) = dt;
+}
+
+void KalmanFilter::setQ(const MatrixXd& Qin){
+  this->Q = Qin;
+}
+```
+ 
+ 
 #### D. process noise covariance matrix Q
 
 
 
-##### E.  acceleration noise (ax, ay)
+#### E.  acceleration noise (ax, ay)
+
+
+#### F.  extraction matrix H 
+
+- used to extract the theoretical sensor readings `Hx`
+
+- The extraction matrix has 
+ - m = 2 rows which is the number of **sensor measurements** and 
+ - n = 4 columns which is the number of **state elements**
+ 
+ ```python 
+ Hx = H * predicted_x = predicted_z 
+
+lidar_px = px = 1 * px + 0 * py + 0 * vx + 0 * vy
+lidar_py = py = 0 * px + 1 * py + 0 * vx + 0 * vy 
+
+"""
+| lidar_px | = | 1 0 0 0 | * | px |
+| lidar_py |   | 0 1 0 0 |   | py |
+                             | vx |
+                             | vy |
+lidar_H =  | 1 0 0 0 |
+           | 0 1 0 0 |
+ """
+ ```
+ 
+ 위 h는 polar corrd인 radar에 적용 할순 없다. 이 때문에 비선형이고 ex-kalman을 사용한다. `Unfortunately, it’s not as straightforward for the radar sensor since it is in polar coordinates. This makes the extraction non-linear (which is why this project is an extended Kalman filter as opposed to a simple Kalman filter). `
+ 
+비 선형성을 선형선으로 하기 위해 `Jacobian`을 사용하여 H를 estimate한다. 
+
+##### G. Innovation Covariance S
+
+combines the covariance of 
+- the state P, 
+- the covariance of the measurements R 
+- taking into account the extraction matrix H
+
+
+This seems to be the covariance for vector y which is just the difference between the predicted measurement and actual measurement.
+
+  
+S is factored in to compute the optimal Kalman gain K 
+
+Kalman gain K contains information on 
+- how much weight to place on the current `prediction x` and current `observed measurement z`
+- that will **result the final fused updated** `state vector x` and `process covariance matrix P`.
+
+
+
+This K is the weight given to vector y. 
+
+The intuition for the Kalman gain K here is that the state is updated based on a weighted average of the predicted state and the state based on the current measurement, a lower weight is given to that with a higher uncertainty.
+
+
+
+
+
+
+
+
+
 
 
 
