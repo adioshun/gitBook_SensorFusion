@@ -273,6 +273,66 @@ Moving on, FusionEKF::process(DataPoint& data) is also pretty straight forward
   
   
 
-#### compute()
+### 2.1 compute()
 
 There’s a lot more going on in this compute() function. Computing the state x, as stated many times before, consists of a prediction step followed by an update step.
+
+```c
+void FusionEKF::compute(const DataPoint& data){
+
+  /**************************************************************************
+   * PREDICTION STEP
+   **************************************************************************/
+  const double dt = (data.get_timestamp() - this->timestamp) / 1.e6;
+  this->timestamp = data.get_timestamp();
+
+  this->updateQ(dt);
+  this->KF.updateF(dt);
+  this->KF.predict();
+
+  /**************************************************************************
+   * UPDATE STEP
+   **************************************************************************/
+  const VectorXd z = data.get();
+  const VectorXd x = this->KF.get();
+
+  VectorXd Hx;
+  MatrixXd R;
+  MatrixXd H;
+
+  if (data.get_type() == DataPointType::RADAR){
+
+    VectorXd s = data.get_state();
+    H = calculate_jacobian(s);
+    Hx = convert_cartesian_to_polar(x);
+    R =  this->radar_R;
+
+  } else if (data.get_type() == DataPointType::LIDAR){
+
+    H = this->lidar_H;
+    Hx = this->lidar_H * x;
+    R = this->lidar_R;
+  }
+
+  this->KF.update(z, H, Hx, R);
+}
+```
+
+### 2.2 Prediction step 
+
+시간 경과(dt)를 기반으로 현재의 Q와 F를 계산하여 kalman 필터 prediction()함수에서 사용한다. `In the prediction step, I get the elapse time dt and use that to compute for the current Q and F that’s used in this Kalman Filter’s predict() function. `
+
+
+- Q는 아래 공식으로 구한다 `The Q is based on the formula below which you can see the derivation here. `[[상세]](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58b461d5_sensor-fusion-ekf-reference/sensor-fusion-ekf-reference.pdf)
+
+- ax와 ay는 경험에 위해 설정 된다. `The value of the variances sigma_squared_ax, sigma_squared_ay (on the code it’s ax, ay for brevity) are based on experimentation.` 
+
+Here in this step, trivial to say, I also update the current timestamp.
+
+![](https://cdn-images-1.medium.com/max/800/1*hRRYr-OItygf1ePYQX1YIA.png)
+
+### 2.3 Update step 
+
+업데이트 파라미터는 센서 데이터의 출처(lidar OR radar)에 따라 다르다. `The update parameters for this Kalman Filter is based on where the sensor data is from a lidar or radar.`
+
+Hx is just the predicted measurement if the predicted state x we’re correct. The lidar has been discussed in Part 1
