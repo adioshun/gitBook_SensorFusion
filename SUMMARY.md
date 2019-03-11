@@ -50,8 +50,11 @@
   * [3-3-Conditional independencies in state space models](edx/edx-chapter3/3-3-conditional-independencies-in-state-space-models.md)
   * [3-4-Optimal filtering](edx/edx-chapter3/3-4-optimal-filtering.md)
 * [EDX-Chapter4](edx/edx-chapter4.md)
+  * 4-1-Kalman filter
 * [EDX-Chapter5](edx/edx-chapter5.md)
+  * 5-1-Designing a motion model, an Introduction
 * [EDX-Chapter6](edx/edx-chapter6.md)
+  * 6-1- Nonlinear Filter
 * [EDX-Chapter7](edx/edx-chapter7.md)
 
 ## Kalman and Bayesian Filters in Python
