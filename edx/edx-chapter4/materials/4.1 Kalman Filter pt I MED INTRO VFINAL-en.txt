@@ -1,0 +1,89 @@
+
+Well, now it's time that we take the theory that we have learned
+so far and put it to use in our first filter,
+the Kalman filter.
+As we will see, the Kalman filter
+is important, as it's one of the few filters that is actually
+able to solve the filtering equations exactly,
+at least under certain modeling assumptions.
+However, this is not the only reason
+why it's important to understand the Kalman filter.
+As we will see in later parts of the course,
+it's also the basis for many other filters
+that can handle more general settings
+by finding approximative solutions to our filtering
+equations.
+So remember that we divided the filtering problem
+into two parts--
+the prediction step and an update step.
+Where we in the prediction step, calculated
+the predicted distribution.
+That is, the distribution of xk given measurements up to time k
+minus 1, by solving this Chapman-Kolmogorov integral,
+like this.
+While in the update step, we calculated this posterior
+distribution.
+That is, the distribution of xk given measurements
+up to time k in this case.
+We do this by solving the product
+between the likelihood, expressed
+like this, and the prior.
+With the prior in this case is the predicted density
+that we calculated in the previous step.
+Note that the filtering equations that we see here
+are general in the sense that they can solve any filtering
+problem with any underlying model assumptions.
+However, in many situations, this integral
+here is difficult to compute.
+And when we try to calculate this posterior density
+by solving this product, we typically
+end up with a completely different density family
+than we started with.
+So, unfortunately, there are very few examples
+where this posterior density has an analytical expression.
+There is, though, one important model family
+for which this is possible.
+And that is what we call family of linear and Gaussian models.
+So, mathematically, we define the linear and Gaussian models
+like this.
+So for a state vector xk, and an observation yk,
+we see that we both have a linear process model
+and a linear measurement model.
+As both of these models just scale the state vector
+by either a so-called transition matrix,
+ak, in the process model case, or by a measurement model
+matrix in the measurement model case.
+Note, also, that the process noise qk minus 1,
+and the measurement noise rk are additive Gaussian noise
+processes with some mean and covariance.
+Additionally, we assume that the prior state is also
+Gaussian distributed with some mean and covariance.
+We should note that it's common that we model these noise
+processes as zero mean.
+That means that the mean of these are assumed to be zero.
+And this is how will we view them in general in this course
+and, in particular, when we present
+the Kalman filter equations later on in this lecture.
+However, it's important to note that this is not
+a requirement for it to be a linear Gaussian model.
+Nor is it a requirement for the Kalman filter to work.
+So one of the more important properties of these models
+is that any conditional distribution
+on x, given a set of measurements,
+is a Gaussian distribution.
+So the distribution of xm, given observations from 1 to n,
+is Gaussian for all m and n.
+What this means is that for linear and Gaussian models,
+all our densities are Gaussian irrespectively
+if we look at the filtering, the smoothing, or the prediction
+problem.
+I would encourage you to convince yourself of this
+by first convincing yourself that if, for example, m
+is larger than n, then the joint density of p of x from 1 to m,
+and our observations y1 to n, is jointly Gaussian.
+And if we marginalize out everything here but xm,
+it is still a Gaussian distribution.
+So marginalization doesn't change this.
+Then condition on y1 to n, it is still a Gaussian distribution.
+And this doesn't change it, either.
+So it's conditional Gaussian.

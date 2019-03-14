@@ -1,0 +1,150 @@
+
+So how does this relate to the Kalman filter?
+Well, the Kalman filter actually gives us
+the analytical solution to the filtering equations
+for linear and Gaussian models.
+It does this recursively--
+that is at each time step k, it computes
+first the predicted density--
+the distribution of x k given all the measurements up
+to k minus 1--
+and it computes this as a Gaussian density--
+that is we calculate the mean of it,
+which called this x hat k given k minus 1, and the covariance.
+We call this P k given k minus 1.
+And then secondly, it calculates the posterior density--
+the distribution of x k given measurements up to time k.
+And again, this is also computed as a Gaussian density
+with a mean x hat k given k and P k given k.
+And this is done for all k's from 1, 2, 3, 4, and so on.
+And again, we call this here the prediction
+step, calculating the predicted density.
+And then we call this the update step,
+where we calculate posterior updated density.
+So here, we see one of the strengths
+of the linear and Gaussian models.
+As all densities are Gaussian, and a Gaussian distribution
+is defined by its mean and its covariance,
+we only need to compute these two moments in each step.
+So we need to compute the mean and covariance
+of the predicted density in the prediction step,
+and the mean and covariance of the posterior density
+in the update step.
+That's all we need to do.
+So now, we're going to look at how
+the Kalman filter calculates these means and covariances.
+We start by looking at the prediction step
+and how to calculate the mean and covariance
+of the predicted density.
+If you remember from a previous lecture
+where we looked at linear transformations
+of Gaussian random variables, you will probably
+recognize these expressions.
+So if you recall the linear and Gaussian process model
+like this, where x k is equal to A k minus 1 times
+x k minus 1 plus some process noise Q k minus 1.
+This is the linear and Gaussian process model.
+And if you recall, we also assume
+that the posterior from the previous time instance
+is a Gaussian density.
+So the posterior from the previous time
+instance like this, given all the measurements
+up to k minus 1.
+We assume that this is a Gaussian density of x k
+minus 1 with the mean x hat k minus 1 given k minus 1
+and the covariance P k minus 1 given k minus 1.
+So if we put these things together,
+we can derive the mean of the predicted density, like this.
+So by definition, the mean of the predicted density
+is the expected value of x k given measurements up
+to k minus 1.
+If we insert our process model into this expression--
+so we exchange x k for a process model--
+we can write this as A k minus 1.
+So remember that we assume that the expected
+value of our process noise Q k minus 1 is zero-mean.
+So Q k is a zero-mean Gaussian random variable
+with covariance Q k minus 1.
+So the expected value of Q k minus 1 is equal to 0.
+So expected value of this, if we condition
+on previous measurements, are A k
+minus 1 times our estimate of mean
+from the previous time instance, right?
+So this expression then becomes simply A k minus 1 times
+our posterior mean from the previous time instance.
+And that's exactly what we have up here, right?
+So assuming that our process noise is zero-mean,
+so this is the expression for the predicted mean.
+So what we see is that we get the predicted mean
+by simply translating the posterior mean
+from the previous time instance by multiplying
+by the transition matrix.
+The predicted covariance can be derived in a similar manner,
+and we then end up with this expression here.
+Again, the posterior covariance is translated by the transition
+matrix A k minus 1.
+And then we need to add the covariance of our process noise
+Q k minus 1.
+We should note some important things here.
+Firstly, for these equations to hold true,
+we need to assume that the process noise is zero-mean.
+So the process noise here is a zero-mean.
+And I would encourage you to think
+about how you would need to change these equations here
+if this was not the case.
+Secondly, as we'll see when we look at the update step,
+only the posterior mean is dependent on the observations
+from 1 to k minus 1.
+One consequence of this, for example,
+is that the uncertainty in the state, as described
+by the covariance matrix, Pk, given k minus 1 in this case,
+is not dependent on data and can thus be pre-computed
+and will eventually become constant over time.
+And now to the update step-- we want
+to correct the predicted estimate with the information
+from the current observation.
+We do this by these equations here--
+where the updated posterior mean is
+calculated by modifying the predicted mean from before,
+our prior, with a correction term.
+You can view this as our old information
+that we have gotten from our previous measurements.
+And this as our new information that we get
+from the current observation.
+Similarly, the updated posterior covariance
+is calculated by using the predicted covariance
+and shrinking it by this factor, which
+is dependent on how informative the new observation is.
+In order to calculate the posterior mean and covariance,
+we make use of what we call the Kalman gain, the innovation,
+and the innovation covariance.
+All of these have important interpretations,
+which we will get back to soon.
+But before we do that, we should note that,
+as we indicated when we discussed the prediction step,
+only the posterior mean is dependent on data
+through this innovation term here,
+where we see that the data observation yk enters here,
+which is not the case for when we calculate the posterior
+covariance.
+None of these expressions here are dependent on y.
+We can thus conclude that in a Kalman filter,
+only the estimate is a function of data
+and not our uncertainty in our estimates.
+This is something that, in general, only holds
+true for the Kalman filter.
+Additionally, one can also note as a motivation for why
+the Kalman filter is important is that it
+calculates the posterior mean.
+So it's both the minimum mean squared error
+and the maximum a posteriori estimator.
+Additionally, one can also note as a motivation for why
+the Kalman filter is important, and that
+is because a Kalman filter calculates
+the estimate as the posterior mean, like this.
+Now, as the posterior is Gaussian,
+and the mean of a Gaussian random variable
+coincides with a maximum of Gaussian density,
+the Kalman filter is actually the optimal estimator,
+both in minimum mean-squared error sense
+and in maximum a posteriori sense.

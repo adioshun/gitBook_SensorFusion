@@ -1,0 +1,1400 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:03,090
+So in the previous lecture, we presented a solution
+
+2
+00:00:03,090 --> 00:00:07,020
+to the filtering equations for linear and Gaussian models.
+
+3
+00:00:07,020 --> 00:00:09,690
+For these models, both the predicted
+
+4
+00:00:09,690 --> 00:00:12,270
+and the posterior density is Gaussian.
+
+5
+00:00:12,270 --> 00:00:14,250
+And the mean and covariance of these
+
+6
+00:00:14,250 --> 00:00:16,580
+are given by the Kalman filter equations.
+
+7
+00:00:16,580 --> 00:00:18,810
+Although we gave some hints in the previous lecture
+
+8
+00:00:18,810 --> 00:00:22,440
+for why the Kalman filter equations actually make sense,
+
+9
+00:00:22,440 --> 00:00:25,560
+in this lecture, we will more formally derive them,
+
+10
+00:00:25,560 --> 00:00:29,120
+and we will do so from a Bayesian perspective.
+
+11
+00:00:29,120 --> 00:00:30,000
+Before we start,
+
+12
+00:00:30,000 --> 00:00:32,630
+However, we need to define some prerequisites
+
+13
+00:00:32,630 --> 00:00:34,230
+and some notation.
+
+14
+00:00:34,230 --> 00:00:37,790
+So foremost, we assume that we have a linear and Gaussian
+
+15
+00:00:37,790 --> 00:00:38,330
+model.
+
+16
+00:00:38,330 --> 00:00:40,340
+So the state at the current type is
+
+17
+00:00:40,340 --> 00:00:42,790
+equal to the state at the previous time instance,
+
+18
+00:00:42,790 --> 00:00:46,580
+times this transition matrix, A k minus 1.
+
+19
+00:00:46,580 --> 00:00:49,490
+To account for added uncertainty in the predicted state,
+
+20
+00:00:49,490 --> 00:00:52,940
+we also have this additive noise process, q,
+
+21
+00:00:52,940 --> 00:00:57,170
+which is soon to be Gaussian with zero mean and covariance q
+
+22
+00:00:57,170 --> 00:00:59,010
+k minus 1.
+
+23
+00:00:59,010 --> 00:01:03,360
+The observation yk is similarly describe
+
+24
+00:01:03,360 --> 00:01:06,810
+as a linear function of the state, xk,
+
+25
+00:01:06,810 --> 00:01:11,310
+multiplied by this measurement model matrix, Hk.
+
+26
+00:01:11,310 --> 00:01:14,520
+And again, we have this additive noise process,
+
+27
+00:01:14,520 --> 00:01:18,960
+r, which we can assume to be Gaussian with zero mean
+
+28
+00:01:18,960 --> 00:01:21,970
+and covariance Rk In this case.
+
+29
+00:01:21,970 --> 00:01:25,530
+Additionally, we also need to assume that the prior state x
+
+30
+00:01:25,530 --> 00:01:31,530
+naught is also Gaussian, with some mean and some covariance.
+
+31
+00:01:31,530 --> 00:01:33,600
+We should also note that an equivalent
+
+32
+00:01:33,600 --> 00:01:36,270
+way of expressing these models here
+
+33
+00:01:36,270 --> 00:01:39,420
+is to express them on their density form
+
+34
+00:01:39,420 --> 00:01:44,340
+like this, where the process or motion model is defined
+
+35
+00:01:44,340 --> 00:01:47,220
+as a density over xk, where we know
+
+36
+00:01:47,220 --> 00:01:51,020
+the state at the previous time instance, xk minus 1.
+
+37
+00:01:51,020 --> 00:01:53,520
+And the measurement model or likelihood
+
+38
+00:01:53,520 --> 00:01:57,450
+is defined as a density over the observation yk
+
+39
+00:01:57,450 --> 00:02:00,224
+if we condition on the current state xk.
+
+40
+00:02:00,224 --> 00:02:02,640
+I would encourage you to make sure that you understand the
+
+41
+00:02:02,640 --> 00:02:07,050
+that these two express exactly the same thing, just
+
+42
+00:02:07,050 --> 00:02:09,130
+in two different ways.
+
+43
+00:02:09,130 --> 00:02:10,979
+So the objective of this lecture is
+
+44
+00:02:10,979 --> 00:02:13,170
+to use these models and the assumptions
+
+45
+00:02:13,170 --> 00:02:17,010
+that we presented here to derive analytical expressions
+
+46
+00:02:17,010 --> 00:02:19,050
+for the predicted density.
+
+47
+00:02:19,050 --> 00:02:23,220
+That is the density over xk given measurements up
+
+48
+00:02:23,220 --> 00:02:25,230
+to time k minus 1.
+
+49
+00:02:25,230 --> 00:02:27,750
+And for the posterior density, which
+
+50
+00:02:27,750 --> 00:02:31,320
+is then the density over xk, but now we also
+
+51
+00:02:31,320 --> 00:02:34,980
+condition on the measurement at the current time, k.
+
+52
+00:02:34,980 --> 00:02:38,820
+So there are many ways to derive the Kalman filter expressions.
+
+53
+00:02:38,820 --> 00:02:42,330
+One possible way is to derive the Kalman filter equations
+
+54
+00:02:42,330 --> 00:02:44,460
+from the filtering equations.
+
+55
+00:02:44,460 --> 00:02:47,280
+To do this, we simply plug in the Gaussian densities
+
+56
+00:02:47,280 --> 00:02:49,410
+that we presented in the previous slide
+
+57
+00:02:49,410 --> 00:02:53,440
+into these equations, and then try to solve them.
+
+58
+00:02:53,440 --> 00:02:56,610
+So for example, we need to calculate this integral here
+
+59
+00:02:56,610 --> 00:02:59,310
+and we need to solve this product here.
+
+60
+00:02:59,310 --> 00:03:01,920
+Although it's completely possible to do so,
+
+61
+00:03:01,920 --> 00:03:05,960
+unfortunately this involves various matrix manipulations,
+
+62
+00:03:05,960 --> 00:03:08,160
+and it's rather tedious.
+
+63
+00:03:08,160 --> 00:03:10,080
+So what we're going to present here
+
+64
+00:03:10,080 --> 00:03:13,290
+is a more standard derivation, where we instead
+
+65
+00:03:13,290 --> 00:03:15,180
+make use of well-known, or at least
+
+66
+00:03:15,180 --> 00:03:18,330
+well-known for statisticians, results regarding
+
+67
+00:03:18,330 --> 00:03:20,356
+Gaussian distributions.
+
+68
+00:03:20,356 --> 00:03:22,230
+Additionally, we hope that this will give you
+
+69
+00:03:22,230 --> 00:03:24,870
+some better understanding for what's happening in the Kalman
+
+70
+00:03:24,870 --> 00:03:27,420
+filter and help you understand a bit better
+
+71
+00:03:27,420 --> 00:03:30,480
+the non-linear filters that are based on the Kalman filter
+
+72
+00:03:30,480 --> 00:03:34,000
+that we will learn later on in this course.
+
+73
+00:03:34,000 --> 00:03:36,360
+Let's start with the prediction step.
+
+74
+00:03:36,360 --> 00:03:39,850
+So the objective here is to compute the predicted density.
+
+75
+00:03:39,850 --> 00:03:42,840
+And to do so, we use two assumptions.
+
+76
+00:03:42,840 --> 00:03:45,540
+First, we assume that the posterior density
+
+77
+00:03:45,540 --> 00:03:48,300
+from the previous time instance-- so the density
+
+78
+00:03:48,300 --> 00:03:52,620
+over xk minus 1, given measurements up to k minus 1,
+
+79
+00:03:52,620 --> 00:03:57,540
+is a Gaussian density with this mean and this covariance.
+
+80
+00:03:57,540 --> 00:04:00,690
+So remember that for our linear Gaussian models
+
+81
+00:04:00,690 --> 00:04:02,970
+all our filter densities are Gaussian.
+
+82
+00:04:02,970 --> 00:04:05,910
+And as a Kalman filter is a recursive filter,
+
+83
+00:04:05,910 --> 00:04:08,490
+this is a relevant assumption to make.
+
+84
+00:04:08,490 --> 00:04:12,750
+Secondly, we assume that we have a linear and Gaussian process
+
+85
+00:04:12,750 --> 00:04:14,820
+model like this that we presented
+
+86
+00:04:14,820 --> 00:04:16,529
+in the previous slide.
+
+87
+00:04:16,529 --> 00:04:18,360
+With this in mind, what we want to do
+
+88
+00:04:18,360 --> 00:04:22,470
+is use these assumptions to calculate the mean
+
+89
+00:04:22,470 --> 00:04:24,930
+and covariance of this density.
+
+90
+00:04:24,930 --> 00:04:27,750
+We will base our derivation on the well-known result
+
+91
+00:04:27,750 --> 00:04:32,410
+that if we have two independent Gaussian random variables--
+
+92
+00:04:32,410 --> 00:04:35,580
+let's call them z 1 and z 2 in this case.
+
+93
+00:04:35,580 --> 00:04:38,430
+A linear combination of these two variables
+
+94
+00:04:38,430 --> 00:04:41,660
+is then also Gaussian random variable, where
+
+95
+00:04:41,660 --> 00:04:44,070
+the mean is just a linear combination
+
+96
+00:04:44,070 --> 00:04:48,090
+of the mean of the these variables and the covariance
+
+97
+00:04:48,090 --> 00:04:50,880
+can be calculated like this, from the covariance
+
+98
+00:04:50,880 --> 00:04:55,110
+of the individual Gaussian random variables.
+
+99
+00:04:55,110 --> 00:04:57,810
+We can easily derive these expressions
+
+100
+00:04:57,810 --> 00:05:00,930
+by using fundamental rules for the expectation and covariance
+
+101
+00:05:00,930 --> 00:05:04,710
+operator that we have learned in the beginning of the course.
+
+102
+00:05:04,710 --> 00:05:09,930
+So as xk minus 1 and qk minus 1 are
+
+103
+00:05:09,930 --> 00:05:12,420
+independent Gaussian random variables,
+
+104
+00:05:12,420 --> 00:05:15,690
+we can use this result directly on our motion model
+
+105
+00:05:15,690 --> 00:05:17,820
+to get the predicted density.
+
+106
+00:05:17,820 --> 00:05:21,780
+So we want to calculate our predicted density, P of xk,
+
+107
+00:05:21,780 --> 00:05:24,570
+given measurements up to k minus 1,
+
+108
+00:05:24,570 --> 00:05:31,050
+which equals a Gaussian density of xk where the mean is given
+
+109
+00:05:31,050 --> 00:05:35,190
+by the expected value of xk, as described by this process
+
+110
+00:05:35,190 --> 00:05:38,340
+model, where we condition on observations up
+
+111
+00:05:38,340 --> 00:05:40,680
+to time k minus 1.
+
+112
+00:05:40,680 --> 00:05:45,890
+So we have ak minus 1 times the expected value
+
+113
+00:05:45,890 --> 00:05:50,450
+of xk minus 1, given measurements up to k minus 1,
+
+114
+00:05:50,450 --> 00:05:53,120
+which is exactly this mean here.
+
+115
+00:05:53,120 --> 00:05:56,080
+
+
+116
+00:05:56,080 --> 00:06:01,450
+And then the expected value of qk minus 1 is just zero.
+
+117
+00:06:01,450 --> 00:06:02,380
+So it's zero mean.
+
+118
+00:06:02,380 --> 00:06:04,330
+So we get nothing else.
+
+119
+00:06:04,330 --> 00:06:10,100
+For the covariance, we again use this expression here.
+
+120
+00:06:10,100 --> 00:06:15,970
+So the covariance of xk minus 1, which is this covariance here,
+
+121
+00:06:15,970 --> 00:06:17,860
+is then multiplied by the transition
+
+122
+00:06:17,860 --> 00:06:20,350
+matrix on both sides.
+
+123
+00:06:20,350 --> 00:06:27,730
+We have Ak minus 1 times Pk minus 1, given k
+
+124
+00:06:27,730 --> 00:06:37,540
+minus 1 Ak minus 1 transpose, according to this formula here.
+
+125
+00:06:37,540 --> 00:06:40,620
+And then we need to add the covariance for our process
+
+126
+00:06:40,620 --> 00:06:42,940
+noise, qk minus 1.
+
+127
+00:06:42,940 --> 00:06:46,230
+So that's qk minus 1.
+
+128
+00:06:46,230 --> 00:06:48,950
+
+
+129
+00:06:48,950 --> 00:06:51,540
+To map this to the notation that we have,
+
+130
+00:06:51,540 --> 00:06:57,400
+we call this mean, x hat k given k minus 1,
+
+131
+00:06:57,400 --> 00:07:02,880
+and we interpret this as the estimate of x at time k,
+
+132
+00:07:02,880 --> 00:07:07,840
+given observations up to k minus 1.
+
+133
+00:07:07,840 --> 00:07:10,910
+And similarly, for the covariance
+
+134
+00:07:10,910 --> 00:07:17,210
+we call this Pk given k minus 1, which
+
+135
+00:07:17,210 --> 00:07:22,550
+is the covariance of xk conditioned on measurements
+
+136
+00:07:22,550 --> 00:07:25,430
+up to k minus 1.
+
+137
+00:07:25,430 --> 00:07:29,210
+And we see that what we calculate here
+
+138
+00:07:29,210 --> 00:07:31,310
+is exactly what we calculate in the prediction
+
+139
+00:07:31,310 --> 00:07:33,320
+step of the Kalman filter.
+
+140
+00:07:33,320 --> 00:07:35,980
+So we have now derived the prediction step
+
+141
+00:07:35,980 --> 00:07:38,420
+in a Kalman filter.
+
+142
+00:07:38,420 --> 00:07:41,150
+Before we tackle the update step in the Kalman filter,
+
+143
+00:07:41,150 --> 00:07:43,100
+we need to understand an important lemma
+
+144
+00:07:43,100 --> 00:07:48,120
+for conditional distributions of Gaussian random variables.
+
+145
+00:07:48,120 --> 00:07:49,270
+And it goes like this.
+
+146
+00:07:49,270 --> 00:07:52,950
+So if x and y or two Gaussian random variables
+
+147
+00:07:52,950 --> 00:07:56,100
+with a joint probability density function like this--
+
+148
+00:07:56,100 --> 00:07:59,950
+so we concatenate x and y into single vector.
+
+149
+00:07:59,950 --> 00:08:02,640
+And that vector then is Gaussian distributed
+
+150
+00:08:02,640 --> 00:08:06,480
+with mean mu x and mu y, which is simply
+
+151
+00:08:06,480 --> 00:08:10,230
+the expected value of x.
+
+152
+00:08:10,230 --> 00:08:15,670
+And mu y is simply the expected value of y.
+
+153
+00:08:15,670 --> 00:08:20,230
+And that covariance matrix of this joint vector
+
+154
+00:08:20,230 --> 00:08:29,950
+here has this structure, where P of xx is the covariance of x.
+
+155
+00:08:29,950 --> 00:08:34,659
+And Pyy is then the covariance of y.
+
+156
+00:08:34,659 --> 00:08:39,700
+And Pxy is then the cross covariance of x and y.
+
+157
+00:08:39,700 --> 00:08:46,800
+We denote this as the covariance of x comma y.
+
+158
+00:08:46,800 --> 00:08:51,600
+And where Pyx is simply the cross covariance between y
+
+159
+00:08:51,600 --> 00:08:57,750
+and x, which is simply Pxy transpose,
+
+160
+00:08:57,750 --> 00:09:00,060
+as a covariance matrix needs to be symmetric.
+
+161
+00:09:00,060 --> 00:09:03,180
+So these need to be the transpose of each other.
+
+162
+00:09:03,180 --> 00:09:04,980
+And this cross covariance is then
+
+163
+00:09:04,980 --> 00:09:09,390
+related to how x and y are correlated
+
+164
+00:09:09,390 --> 00:09:11,700
+to each other or dependent on each other.
+
+165
+00:09:11,700 --> 00:09:15,150
+One should note that this structure here is general
+
+166
+00:09:15,150 --> 00:09:19,350
+and that we haven't made any other assumptions than that x
+
+167
+00:09:19,350 --> 00:09:21,540
+and y are jointly Gaussian.
+
+168
+00:09:21,540 --> 00:09:24,090
+So given that two variables are jointly Gaussian,
+
+169
+00:09:24,090 --> 00:09:28,950
+we can always structure its mean and covariance in this matter.
+
+170
+00:09:28,950 --> 00:09:30,690
+So based on this, the lemma states
+
+171
+00:09:30,690 --> 00:09:33,810
+that the conditional distribution of x given
+
+172
+00:09:33,810 --> 00:09:39,630
+y, for example, is then also Gaussian, where the mean is
+
+173
+00:09:39,630 --> 00:09:41,970
+given by the mean of x.
+
+174
+00:09:41,970 --> 00:09:45,090
+But we slightly shift it compared to the prior mean
+
+175
+00:09:45,090 --> 00:09:47,940
+of x, by this term here.
+
+176
+00:09:47,940 --> 00:09:49,560
+We further see that this term here
+
+177
+00:09:49,560 --> 00:09:52,800
+depends on the distance between the actual y
+
+178
+00:09:52,800 --> 00:09:55,160
+and what we expect y to be.
+
+179
+00:09:55,160 --> 00:09:58,110
+And that we wait this distance by a ratio
+
+180
+00:09:58,110 --> 00:10:01,470
+that it's dependent on how correlated x and y are,
+
+181
+00:10:01,470 --> 00:10:05,610
+divided by how much uncertainty we have in y.
+
+182
+00:10:05,610 --> 00:10:09,570
+As a sanity check, we can see that if Pxy is 0--
+
+183
+00:10:09,570 --> 00:10:12,300
+so x and y are uncorrelated.
+
+184
+00:10:12,300 --> 00:10:15,330
+We see that this term disappears and the mean
+
+185
+00:10:15,330 --> 00:10:17,670
+is simply the same as before.
+
+186
+00:10:17,670 --> 00:10:21,510
+So if we observed y and they are uncorrelated,
+
+187
+00:10:21,510 --> 00:10:26,070
+it doesn't change the mean of x, which is to be expected, right?
+
+188
+00:10:26,070 --> 00:10:28,690
+For the conditional covariance on the other hand,
+
+189
+00:10:28,690 --> 00:10:33,210
+again, we take the prior covariance of x, Pxx,
+
+190
+00:10:33,210 --> 00:10:36,420
+and then we reduce it by this factor here.
+
+191
+00:10:36,420 --> 00:10:38,380
+And here we can make two observations.
+
+192
+00:10:38,380 --> 00:10:40,710
+First, as with the conditional mean
+
+193
+00:10:40,710 --> 00:10:46,050
+if x and y are uncorrelated, so Pxy is zero.
+
+194
+00:10:46,050 --> 00:10:49,470
+This term again disappears and the covariance
+
+195
+00:10:49,470 --> 00:10:51,300
+of the conditional density is the same
+
+196
+00:10:51,300 --> 00:10:54,060
+as the covariance for x.
+
+197
+00:10:54,060 --> 00:10:58,620
+So observing y, and x and y are uncorrelated,
+
+198
+00:10:58,620 --> 00:11:01,110
+doesn't change the covariance of x.
+
+199
+00:11:01,110 --> 00:11:04,540
+It doesn't give us any information on x.
+
+200
+00:11:04,540 --> 00:11:08,420
+Second, if on the other hand x and y are correlated,
+
+201
+00:11:08,420 --> 00:11:10,890
+the covariance of x, if we conditional y,
+
+202
+00:11:10,890 --> 00:11:14,310
+will always be less than the covariance of x because we
+
+203
+00:11:14,310 --> 00:11:16,980
+reduce it by this factor here, and this factor here
+
+204
+00:11:16,980 --> 00:11:18,450
+is always positive.
+
+205
+00:11:18,450 --> 00:11:20,430
+And this also makes sense, right?
+
+206
+00:11:20,430 --> 00:11:23,880
+If they are correlated, after observing y,
+
+207
+00:11:23,880 --> 00:11:26,580
+we should be less uncertain about x than before we
+
+208
+00:11:26,580 --> 00:11:27,840
+made observation.
+
+209
+00:11:27,840 --> 00:11:31,770
+So in sum, the lemma states that if we have two jointly Gaussian
+
+210
+00:11:31,770 --> 00:11:34,710
+random variables, the conditional density is also
+
+211
+00:11:34,710 --> 00:11:41,070
+Gaussian with the mean and the covariance expressed like this.
+
+212
+00:11:41,070 --> 00:11:43,710
+Perhaps you can already now see some patterns here
+
+213
+00:11:43,710 --> 00:11:46,380
+for how we can use this lemma to prove the update
+
+214
+00:11:46,380 --> 00:11:47,880
+step in the Kalman filter.
+
+215
+00:11:47,880 --> 00:11:51,140
+But let's look at this in some more detail.
+
+216
+00:11:51,140 --> 00:11:53,710
+So when we do the update step in the Kalman filter,
+
+217
+00:11:53,710 --> 00:11:55,800
+we assume that we have already made the prediction
+
+218
+00:11:55,800 --> 00:11:58,420
+step that we showed earlier.
+
+219
+00:11:58,420 --> 00:12:00,520
+That is, we have computed the moments
+
+220
+00:12:00,520 --> 00:12:04,090
+of the predicted density of xk given observations up
+
+221
+00:12:04,090 --> 00:12:05,500
+to k minus 1.
+
+222
+00:12:05,500 --> 00:12:08,680
+And we denote these moments as this.
+
+223
+00:12:08,680 --> 00:12:11,650
+Additionally, we observe a measurement y
+
+224
+00:12:11,650 --> 00:12:15,430
+at time k, which is related to the state at time k
+
+225
+00:12:15,430 --> 00:12:19,130
+through this linear measurement model.
+
+226
+00:12:19,130 --> 00:12:21,600
+So here we have two Gaussian random variables.
+
+227
+00:12:21,600 --> 00:12:24,220
+And in order to see that they are jointly Gaussian,
+
+228
+00:12:24,220 --> 00:12:26,920
+it is convenient that we use the measurement model
+
+229
+00:12:26,920 --> 00:12:30,580
+and rewrite it to express the joint random variable x comma
+
+230
+00:12:30,580 --> 00:12:31,690
+y.
+
+231
+00:12:31,690 --> 00:12:38,110
+So we have this joint variable, xk yk,
+
+232
+00:12:38,110 --> 00:12:43,970
+which we want to express as something times xk
+
+233
+00:12:43,970 --> 00:12:49,100
+plus something times rk.
+
+234
+00:12:49,100 --> 00:12:52,242
+So we want to write it on this form here.
+
+235
+00:12:52,242 --> 00:12:53,700
+And in order for this to hold true,
+
+236
+00:12:53,700 --> 00:12:57,680
+we see that we need to have the identity matrix here
+
+237
+00:12:57,680 --> 00:12:59,860
+and we need to have a 0 here.
+
+238
+00:12:59,860 --> 00:13:02,300
+And this needs to be Hk.
+
+239
+00:13:02,300 --> 00:13:04,760
+And this needs to be the identity matrix.
+
+240
+00:13:04,760 --> 00:13:07,810
+So now we see that this equations holds true.
+
+241
+00:13:07,810 --> 00:13:13,220
+So xk is equal to xk plus 0 times rk.
+
+242
+00:13:13,220 --> 00:13:21,260
+And yk is equal to Hk xk plus rk, which is what we see here.
+
+243
+00:13:21,260 --> 00:13:24,350
+So now that we have written it on this form,
+
+244
+00:13:24,350 --> 00:13:25,940
+it actually follows directly that we
+
+245
+00:13:25,940 --> 00:13:30,020
+can write the joint distribution of xk yk
+
+246
+00:13:30,020 --> 00:13:34,190
+condition on all the measurements up to k minus 1
+
+247
+00:13:34,190 --> 00:13:37,120
+as this Gaussian density.
+
+248
+00:13:37,120 --> 00:13:39,400
+And it's perhaps useful to map this back
+
+249
+00:13:39,400 --> 00:13:43,990
+to the notation that was used in lemma on the previous slide.
+
+250
+00:13:43,990 --> 00:13:46,400
+So we have the expected value of x here.
+
+251
+00:13:46,400 --> 00:13:50,600
+So this was-- we call this mu x.
+
+252
+00:13:50,600 --> 00:13:53,600
+And this is then mu y.
+
+253
+00:13:53,600 --> 00:13:55,070
+This we called Pxx.
+
+254
+00:13:55,070 --> 00:13:57,860
+
+
+255
+00:13:57,860 --> 00:14:02,210
+And this whole expression here, we call that Pyy.
+
+256
+00:14:02,210 --> 00:14:06,640
+And this was then the cross covariance between x and y.
+
+257
+00:14:06,640 --> 00:14:11,140
+And this here was then the cross covariance between y
+
+258
+00:14:11,140 --> 00:14:14,110
+and x, which is actually equal to the cross covariance
+
+259
+00:14:14,110 --> 00:14:17,850
+between x and y transposed.
+
+260
+00:14:17,850 --> 00:14:21,690
+Now if we use the lemma on conditional Gaussian densities,
+
+261
+00:14:21,690 --> 00:14:24,120
+we can express the posterior density
+
+262
+00:14:24,120 --> 00:14:29,310
+as this Gaussian density where the posterior mean, x hat k
+
+263
+00:14:29,310 --> 00:14:32,070
+given k, is equal to--
+
+264
+00:14:32,070 --> 00:14:35,170
+so if you use the lemma on the previous slide,
+
+265
+00:14:35,170 --> 00:14:43,890
+we see that we can form this as mu x plus Pxy times Pyy
+
+266
+00:14:43,890 --> 00:14:48,450
+inverse times y minus mu y.
+
+267
+00:14:48,450 --> 00:14:50,620
+So simply using the lemma on the previous slide,
+
+268
+00:14:50,620 --> 00:14:54,330
+we see that we can formulate the posterior mean
+
+269
+00:14:54,330 --> 00:14:56,120
+as this expression here.
+
+270
+00:14:56,120 --> 00:14:58,980
+And if we now identify what these
+
+271
+00:14:58,980 --> 00:15:01,560
+are from what we see here, we see
+
+272
+00:15:01,560 --> 00:15:05,340
+that this is equal to x hat k given minus 1
+
+273
+00:15:05,340 --> 00:15:14,350
+plus Pxy, this expression here, pk given k minus 1
+
+274
+00:15:14,350 --> 00:15:17,710
+and Hk transpose.
+
+275
+00:15:17,710 --> 00:15:23,320
+And then Pyy is this expression here.
+
+276
+00:15:23,320 --> 00:15:25,820
+Remember from the previous lecture,
+
+277
+00:15:25,820 --> 00:15:32,170
+we actually call this Sk as the innovation covariance.
+
+278
+00:15:32,170 --> 00:15:36,300
+So to simplify things, we will call it Sk in this equation.
+
+279
+00:15:36,300 --> 00:15:43,330
+So we have Sk inverse times y is yk in this case
+
+280
+00:15:43,330 --> 00:15:48,310
+minus the expected value of yk given observations
+
+281
+00:15:48,310 --> 00:15:51,310
+up to k minus 1, which is given here.
+
+282
+00:15:51,310 --> 00:15:58,230
+Hk times x hat k given k minus 1.
+
+283
+00:15:58,230 --> 00:16:02,330
+So if we look at this, we can see that this here--
+
+284
+00:16:02,330 --> 00:16:06,560
+this difference here is what we call the innovation
+
+285
+00:16:06,560 --> 00:16:08,440
+in the previous lecture.
+
+286
+00:16:08,440 --> 00:16:11,210
+And this factor here in front of it
+
+287
+00:16:11,210 --> 00:16:13,550
+is what we call the Kalman gain.
+
+288
+00:16:13,550 --> 00:16:17,270
+So this is actually equal to call Kalman gain
+
+289
+00:16:17,270 --> 00:16:18,740
+times the innovation.
+
+290
+00:16:18,740 --> 00:16:22,550
+And this is exactly how the updated mean is calculated
+
+291
+00:16:22,550 --> 00:16:24,030
+in the Kalman filter.
+
+292
+00:16:24,030 --> 00:16:27,140
+So how about the posterior covariance?
+
+293
+00:16:27,140 --> 00:16:29,750
+So again, if we use the lemma, we
+
+294
+00:16:29,750 --> 00:16:33,340
+see that our posterior covariance
+
+295
+00:16:33,340 --> 00:16:43,850
+can be written as Pxx minus cross-covariance x and y
+
+296
+00:16:43,850 --> 00:16:49,860
+times Pyy inverse times Pyx.
+
+297
+00:16:49,860 --> 00:16:53,090
+
+
+298
+00:16:53,090 --> 00:16:59,840
+And Pyx, we see that this is just a transpose of Pxy.
+
+299
+00:16:59,840 --> 00:17:02,470
+So we exchange it like this.
+
+300
+00:17:02,470 --> 00:17:07,470
+So if we identify what things are here-- so Pxx
+
+301
+00:17:07,470 --> 00:17:09,720
+is just a predicted covariance.
+
+302
+00:17:09,720 --> 00:17:12,410
+
+
+303
+00:17:12,410 --> 00:17:16,680
+And then, Pxy is this expression here.
+
+304
+00:17:16,680 --> 00:17:21,829
+
+
+305
+00:17:21,829 --> 00:17:30,510
+And Pyy is just Sk, so Sk inverse.
+
+306
+00:17:30,510 --> 00:17:34,500
+And then Pxy transpose is just this expression here,
+
+307
+00:17:34,500 --> 00:17:35,430
+but transposed.
+
+308
+00:17:35,430 --> 00:17:41,460
+
+
+309
+00:17:41,460 --> 00:17:46,170
+So now, if we introduce a small little trick saying that Sk
+
+310
+00:17:46,170 --> 00:17:49,290
+times Sk inverse--
+
+311
+00:17:49,290 --> 00:17:54,180
+so this product here is simply the identity matrix.
+
+312
+00:17:54,180 --> 00:17:57,930
+So we can insert this into our equation
+
+313
+00:17:57,930 --> 00:18:02,190
+here without changing anything.
+
+314
+00:18:02,190 --> 00:18:04,070
+So if we rewrite this as--
+
+315
+00:18:04,070 --> 00:18:12,040
+
+
+316
+00:18:12,040 --> 00:18:14,230
+and then insert this identity matrix here
+
+317
+00:18:14,230 --> 00:18:19,110
+in the middle, which we can take the transpose of,
+
+318
+00:18:19,110 --> 00:18:20,600
+as it's a symmetric matrix.
+
+319
+00:18:20,600 --> 00:18:25,040
+
+
+320
+00:18:25,040 --> 00:18:26,990
+We get the following expression.
+
+321
+00:18:26,990 --> 00:18:32,750
+And if we look at this, we can see that this factor here
+
+322
+00:18:32,750 --> 00:18:35,690
+is actually the Kalman gain.
+
+323
+00:18:35,690 --> 00:18:41,910
+And this factor here is simply the Kalman gain transposed.
+
+324
+00:18:41,910 --> 00:18:46,460
+So with this, we have that the updated covariance matrix
+
+325
+00:18:46,460 --> 00:18:50,350
+is simply the predicted covariance
+
+326
+00:18:50,350 --> 00:18:54,220
+minus the Kalman gain times the innovation
+
+327
+00:18:54,220 --> 00:18:59,840
+covariance times the Kalman gain transpose, which
+
+328
+00:18:59,840 --> 00:19:04,710
+is also exactly how we presented it in the previous lecture.
+
+329
+00:19:04,710 --> 00:19:08,930
+So now we have also derived the update step
+
+330
+00:19:08,930 --> 00:19:10,740
+of the Kalman filter.
+
+331
+00:19:10,740 --> 00:19:12,410
+We have now derived a Kalman filter
+
+332
+00:19:12,410 --> 00:19:15,830
+using some well-known results regarding Gaussian densities.
+
+333
+00:19:15,830 --> 00:19:19,470
+And you might wonder, why is this important?
+
+334
+00:19:19,470 --> 00:19:21,680
+Well, from my perspective, I think
+
+335
+00:19:21,680 --> 00:19:25,020
+it's important from at least two aspects.
+
+336
+00:19:25,020 --> 00:19:27,680
+First, being able to derive the Kalman filter
+
+337
+00:19:27,680 --> 00:19:30,470
+offers some intuition into what the Kalman filter actually
+
+338
+00:19:30,470 --> 00:19:32,060
+does.
+
+339
+00:19:32,060 --> 00:19:36,010
+And secondly, by being able to derive the Kalman filter,
+
+340
+00:19:36,010 --> 00:19:39,100
+we can figure out how we need to adapt equations
+
+341
+00:19:39,100 --> 00:19:42,250
+if the underlying assumptions changes slightly.
+
+342
+00:19:42,250 --> 00:19:45,340
+This could, for example, be if we no longer
+
+343
+00:19:45,340 --> 00:19:48,220
+have zero mean process and measurement noise,
+
+344
+00:19:48,220 --> 00:19:51,830
+how do we then need to adapt these equations in order to fit
+
+345
+00:19:51,830 --> 00:19:53,830
+this slightly different model?
+
+346
+00:19:53,830 --> 00:19:56,350
+We end this lecture with a self-assessment question
+
+347
+00:19:56,350 --> 00:19:59,440
+where you can try out your intuition regarding correlation
+
+348
+00:19:59,440 --> 00:20:02,670
+and the distribution of random variables.
+
+349
+00:20:02,670 --> 00:20:14,634
+
+

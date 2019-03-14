@@ -1,0 +1,224 @@
+0
+00:00:00,000 --> 00:00:00,499
+
+
+1
+00:00:00,499 --> 00:00:03,210
+So now we get back to the interpretation and intuition
+
+2
+00:00:03,210 --> 00:00:05,470
+of the different components in the Kalman filter.
+
+3
+00:00:05,470 --> 00:00:10,440
+There is the Kalman gain, the innovation, and its covariance.
+
+4
+00:00:10,440 --> 00:00:14,550
+A key to be able to do this is to understand this density--
+
+5
+00:00:14,550 --> 00:00:19,230
+the density of the predicted measurement given observations
+
+6
+00:00:19,230 --> 00:00:22,830
+up to the previous time instance k minus 1, which we can show
+
+7
+00:00:22,830 --> 00:00:25,290
+is a Gaussian distribution like this--
+
+8
+00:00:25,290 --> 00:00:29,010
+where the mean is Hk, the measurement model matrix,
+
+9
+00:00:29,010 --> 00:00:35,610
+times the predicted mean of the state and Sk is its covariance.
+
+10
+00:00:35,610 --> 00:00:40,770
+It's easy to see that this product here is the mean using
+
+11
+00:00:40,770 --> 00:00:42,480
+the observation model.
+
+12
+00:00:42,480 --> 00:00:46,050
+So the observation model for our linear and Gaussian models
+
+13
+00:00:46,050 --> 00:00:54,930
+is just yk equals to Hk times xK plus some measurement noise r.
+
+14
+00:00:54,930 --> 00:00:57,210
+By taking the expected value of this conditioned
+
+15
+00:00:57,210 --> 00:00:59,320
+on the previous observations--
+
+16
+00:00:59,320 --> 00:01:04,800
+so the expected value of yk conditioned
+
+17
+00:01:04,800 --> 00:01:08,270
+on previous measurements--
+
+18
+00:01:08,270 --> 00:01:12,680
+if we exchanged yk using this expression here,
+
+19
+00:01:12,680 --> 00:01:13,640
+we simply get--
+
+20
+00:01:13,640 --> 00:01:20,300
+
+
+21
+00:01:20,300 --> 00:01:24,610
+which by definition is simply--
+
+22
+00:01:24,610 --> 00:01:27,610
+as rk here is 0 mean.
+
+23
+00:01:27,610 --> 00:01:30,310
+Now, we see that the conditional expected value is
+
+24
+00:01:30,310 --> 00:01:32,710
+by definition precisely this.
+
+25
+00:01:32,710 --> 00:01:34,280
+So how can we interpret this?
+
+26
+00:01:34,280 --> 00:01:37,930
+Well, we see that the expected value of our observation,
+
+27
+00:01:37,930 --> 00:01:42,130
+given our previous observations, are just this Hk times
+
+28
+00:01:42,130 --> 00:01:45,160
+r, predicted mean of the state.
+
+29
+00:01:45,160 --> 00:01:48,910
+So this is what we expect the observation to be given all
+
+30
+00:01:48,910 --> 00:01:51,360
+our previous observation.
+
+31
+00:01:51,360 --> 00:01:56,070
+We can also show that the covariance of yk here is Sk
+
+32
+00:01:56,070 --> 00:01:59,190
+So Sk describes our uncertainty in this.
+
+33
+00:01:59,190 --> 00:02:01,170
+Now, if we look at the innovation,
+
+34
+00:02:01,170 --> 00:02:06,120
+vk we see that it's equal to the current observation yk
+
+35
+00:02:06,120 --> 00:02:10,410
+where we remove what we expect the measurement should be based
+
+36
+00:02:10,410 --> 00:02:12,150
+on our previous knowledge.
+
+37
+00:02:12,150 --> 00:02:18,720
+As such, vk captures the new information in yk
+
+38
+00:02:18,720 --> 00:02:20,850
+which we were not able to predict
+
+39
+00:02:20,850 --> 00:02:23,440
+using our old information.
+
+40
+00:02:23,440 --> 00:02:28,880
+And, finally, when we calculate the updated mean like this,
+
+41
+00:02:28,880 --> 00:02:31,150
+the Kalman gain is the factor which
+
+42
+00:02:31,150 --> 00:02:33,070
+will determine how much we should
+
+43
+00:02:33,070 --> 00:02:36,880
+trust the innovation over our old information
+
+44
+00:02:36,880 --> 00:02:38,590
+in the predicted mean.
+
+45
+00:02:38,590 --> 00:02:41,770
+One can imagine, for example, that if our observations are
+
+46
+00:02:41,770 --> 00:02:45,580
+very noisy, we would like the Kalman gain to be very small--
+
+47
+00:02:45,580 --> 00:02:49,240
+close to 0-- such that we do not trust these measurements
+
+48
+00:02:49,240 --> 00:02:50,470
+so much.
+
+49
+00:02:50,470 --> 00:02:52,960
+So this factor here should be close to 0,
+
+50
+00:02:52,960 --> 00:02:59,050
+such our posterior mean is more based on our predicted mean.
+
+51
+00:02:59,050 --> 00:03:01,300
+We end with a self-assessment question
+
+52
+00:03:01,300 --> 00:03:03,610
+where I would like you to think about what
+
+53
+00:03:03,610 --> 00:03:05,980
+are reasonable values for the Kalman gain
+
+54
+00:03:05,980 --> 00:03:08,820
+in some specific scenarios.
+
+55
+00:03:08,820 --> 00:03:12,306
+
+
