@@ -29,6 +29,11 @@
 * [Deeply-Fused-Net2016](paper/deeply-fused-net2016.md)
 * [Asynchronous\_Data\_fusion](paper/asynchronousdata-fusion.md)
 
+
+## 센서 퓨전 /w 칼만필
+
+* [센서 퓨전 /w 칼만필터](https://legacy.gitbook.com/book/adioshun/kalmanfilter/details)
+
 ## edx
 
 * [EDX-Introductioon](edx/README.md)
@@ -57,13 +62,6 @@
   * 6-1- Nonlinear Filter
 * [EDX-Chapter7](edx/edx-chapter7.md)
 
-## Kalman and Bayesian Filters in Python
-
-* [README](KB-inPython/README.md)
-
-## balzer82's Kalman Filter in python
-
-* [README](balzer82/README.md)
 
 ## Pose Estimation
 
