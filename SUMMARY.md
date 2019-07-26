@@ -63,12 +63,7 @@
 * [EDX-Chapter7](edx/edx-chapter7.md)
 
 
-## Pose Estimation
 
-* [README](pose-estimation/README.md)
-* [3D Pose Estimation](pose-estimation/3d-pose-estimation.md)
-* [POSIT-Algorithm](pose-estimation/posit-algorithm.md)
-* [Convoys-pose-estimation-2017](pose-estimation/convoys-pose-estimation-2017.md)
 
 ## Devices
 
