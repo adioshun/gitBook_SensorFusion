@@ -10,10 +10,10 @@
 
 ## Post\(Article\)
 
-* [README.md](post/README.md)
-* [cs231n\_Dempster-Shafer](post/cs231ndempster-shafer.md)
-* [Sensor Fusion Tutorial](post/SensorFusionTutorial.md)
-* [Sensor-Modality-Fusion2017](post/sensor-modality-fusion2017.md)
+* [README.md](Article/README.md)
+* [cs231n\_Dempster-Shafer](Article/cs231ndempster-shafer.md)
+* [Sensor Fusion Tutorial](Article/SensorFusionTutorial.md)
+* [Sensor-Modality-Fusion2017](Article/sensor-modality-fusion2017.md)
 
 ## Paper
 
